@@ -1,0 +1,80 @@
+<!--
+
+/*  @license
+
+    Copyright 2014-2016 Université du Québec à Montréal (UQAM)
+
+    This file is part of Portail Étudiant.
+
+    Portail Étudiant is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Portail Étudiant is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Portail Étudiant. If not, see <http://www.gnu.org/licenses/>.
+
+
+    Ce fichier fait partie de l'application Portail Étudiant.
+
+    Portail Étudiant est un logiciel libre ; vous pouvez le redistribuer ou
+    le modifier suivant les termes de la GNU General Public License telle que
+    publiée par la Free Software Foundation ; soit la version 3 de la licence,
+    soit (à votre gré) toute version ultérieure.
+
+    Portail Étudiant est distribué dans l'espoir qu'il sera utile, mais
+    SANS AUCUNE GARANTIE ; sans même la garantie tacite de QUALITÉ MARCHANDE
+    ou d'ADÉQUATION à UN BUT PARTICULIER. Consultez la GNU General Public
+    License pour plus de détails.
+
+    Vous devez avoir reçu une copie de la GNU General Public License en même
+    temps que Portail Étudiant ; si ce n'est pas le cas,
+    consultez <http://www.gnu.org/licenses>.
+*/
+
+-->
+
+<!-- SOUS ENTÊTE -->
+<section class="sous-entete clearfix hidden-print">
+   <h1 class="text-uppercase hidden-print">Factures antérieures</h1>
+</section>
+
+
+<!-- Afficher les err -->
+<div class="bg-danger" ng-show="err">
+   <h3>Attention</h3>
+   <p>{{err}}</p>
+</div>
+
+<!-- Afficher la liste des factures antérieures -->
+<div ng-show="factHistos">
+
+   <div class="bg-info">
+      <h5>À noter</h5>
+      <p>Seules les factures émises depuis le trimestre d'été 2015 sont disponibles dans le portail étudiant.</p>
+   </div>
+
+   <hr>
+
+   <ul>
+      <li ng-repeat="factHisto in factHistos">
+         <a href="{{factHisto.url}}">
+            Facture du {{factHisto.date | dateComplete}}  ({{factHisto.trimestre | trimestre}})
+         </a>
+      </li>
+   </ul>
+
+   <hr>
+
+
+</div>
+
+<div class="bg-info" ng-show="factHistos.length == 0" >
+   <h5>À noter</h5>
+   <p>Aucune facture antérieure n'est disponible.</p>
+</div>

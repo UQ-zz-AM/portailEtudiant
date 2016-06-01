@@ -1,0 +1,344 @@
+<!--
+
+/*  @license
+
+    Copyright 2014-2016 Université du Québec à Montréal (UQAM)
+
+    This file is part of Portail Étudiant.
+
+    Portail Étudiant is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Portail Étudiant is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Portail Étudiant. If not, see <http://www.gnu.org/licenses/>.
+
+
+    Ce fichier fait partie de l'application Portail Étudiant.
+
+    Portail Étudiant est un logiciel libre ; vous pouvez le redistribuer ou
+    le modifier suivant les termes de la GNU General Public License telle que
+    publiée par la Free Software Foundation ; soit la version 3 de la licence,
+    soit (à votre gré) toute version ultérieure.
+
+    Portail Étudiant est distribué dans l'espoir qu'il sera utile, mais
+    SANS AUCUNE GARANTIE ; sans même la garantie tacite de QUALITÉ MARCHANDE
+    ou d'ADÉQUATION à UN BUT PARTICULIER. Consultez la GNU General Public
+    License pour plus de détails.
+
+    Vous devez avoir reçu une copie de la GNU General Public License en même
+    temps que Portail Étudiant ; si ce n'est pas le cas,
+    consultez <http://www.gnu.org/licenses>.
+*/
+
+-->
+
+<!-- MESSAGE ERREUR -->
+<div class="bg-danger hidden-print" ng-if="err">
+         <h5>Attention</h5>
+         <p>{{err}}</p>
+</div>
+
+<div ng-hide="resultatDetail || err">
+  <img class="telechargement" src="/assets/images/ajax-loader.gif" alt="Veuillez patienter pendant que cette section se télécharge">
+</div>
+
+<div ng-show="resultatDetail && !err">
+    <!-- **************************************************************************************************************************************** -->
+    <!-- TABLEAU -->
+    <div>
+
+        <!-- TITRE -->
+        <h4>Résultats pour le cours<br>{{resultatDetail.sigle}} - {{resultatDetail.titreActivite}}</h4>
+        <hr>
+
+
+        <!-- **************************************************************************************************************************************** -->
+        <!-- Groupe et nb crédits -->
+        <div class="clearfix" ng-show="resultatDetail.groupe">
+            <div class="col-xs-3">
+                <h5>Groupe {{resultatDetail.groupe}}</h5>
+            </div>
+            <div class="col-xs-3">
+                <h5 ng-show="resultatDetail.creditActivite>1">{{resultatDetail.creditActivite | number}} crédits</h5>
+                <h5 ng-show="resultatDetail.creditActivite<2">{{resultatDetail.creditActivite | number}} crédit</h5>
+            </div>
+        </div>
+        <hr>
+
+        <!-- **************************************************************************************************************************************** -->
+        <!-- ENSEIGNANT -->
+        <div class="clearfix" ng-show="resultatDetail.enseignants.length > 0">
+            <div class="col-xs-3">
+                <h5 ng-show="resultatDetail.enseignants.length > 1">Enseignants :</h5>
+                <h5 ng-show="resultatDetail.enseignants.length <= 1">Enseignant :</h5>
+            </div>
+            <div class="col-xs-9">
+                <ul style="margin-top:-5px;">
+                    <li ng-repeat="enseignant in resultatDetail.enseignants">
+                        {{enseignant.prenom.toLowerCase() + ' ' + enseignant.nom.toLowerCase() | capitalizeNomPrenom}}&nbsp;|&nbsp;
+                        <a target="_blank" ng-show="enseignant.alias && enseignant.estProfesseur=='O'" ng-href="http://professeurs.uqam.ca/professeur?c={{enseignant.alias}}">Coordonnées&nbsp;<span class="uqam-icone uqam-icone-sm fleche-horizontal_bleu"></span></a>
+                        <a target="_blank" ng-show="enseignant.alias && enseignant.estProfesseur!='O'" ng-href="https://www.app.uqam.ca/Application/Repertoire/CRecherche.aspx?P1=0&P2={{enseignant.alias | trimNumero}}&P3=0&P5=0">Coordonnées&nbsp;<span class="uqam-icone uqam-icone-sm fleche-horizontal_bleu"></span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- **************************************************************************************************************************************** -->
+        <!-- Message: votre prof... -->
+        <div class="text-center" ng-show="resultatDetail.systemeResultats==='N'">
+            <br ng-show="resultatDetail.enseignants.length > 0"></br>
+            <h4>Votre professeur n'utilise pas le logiciel "résultat" pour ce cours</h4>
+        </div>
+
+        <div class="text-center" ng-show="!resultatDetail.evaluations && resultatDetail.systemeResultats==='O'">
+            <br ng-show="resultatDetail.enseignants.length > 0"></br>
+            <h4>Aucun résultat pour ce cours</h4>
+        </div>
+
+
+        <!-- **************************************************************************************************************************************** -->
+        <!-- NOTE  Cours qui sont annulés -->
+        <div ng-show="resultatDetail.evaluations &&
+                      resultatDetail.note &&
+                      resultatDetail.systemeResultats==='O' &&
+                      (
+                        resultatDetail.note.toUpperCase() ==='AX' ||
+                        resultatDetail.note.toUpperCase() ==='BX' ||
+                        resultatDetail.note.toUpperCase() ==='CX' ||
+                        resultatDetail.note.toUpperCase() ==='DX' ||
+                        resultatDetail.note.toUpperCase() ==='FX' ||
+                        resultatDetail.note.toUpperCase() ==='GX' ||
+                        resultatDetail.note.toUpperCase() ==='MX' ||
+                        resultatDetail.note.toUpperCase() ==='PX' ||
+                        resultatDetail.note.toUpperCase() ==='RX' ||
+                        resultatDetail.note.toUpperCase() ==='UX'
+                      )">
+          <hr>
+          <div class="clearfix bg-warning" >
+                <p style="padding:6px 0 0 0;">Ce cours a été annulé. Il n'est pas affiché dans votre relevé de notes.</p>
+          </div>
+        </div>
+
+        <!-- **************************************************************************************************************************************** -->
+        <!-- NOTE  Cours qui sont abandonnés -->
+        <div ng-show="resultatDetail.evaluations &&
+                      resultatDetail.note &&
+                      resultatDetail.systemeResultats==='O' &&
+                      (
+                        resultatDetail.note.toUpperCase() ==='XX' ||
+                        resultatDetail.note.toUpperCase() ==='LX' ||
+                        resultatDetail.note.toUpperCase() ==='YX'
+                      )">
+          <hr>
+          <div class="clearfix bg-warning" >
+                <p style="padding:6px 0 0 0;">Ce cours a été abandonné.</p>
+          </div>
+        </div>
+
+        <!-- On boucle sur chaque évaluations, si resultatDetail.graphes existe on ajoute la colonne des graphes -->
+        <div ng-show="resultatDetail.evaluations && resultatDetail.systemeResultats==='O'">
+            <div class="table-responsive">
+                <table class="table table-bordered table-condensed">
+                    <thead>
+                        <tr>
+                            <th style="width:22%;" class="caseVideBleu"></th>
+                            <th style="width:39%;" colspan="{{resultatDetail.graphes?4:3}}" class="text-uppercase">Résultats non pondérés</th>
+                            <th style="width:39%;" colspan="{{resultatDetail.graphes?4:3}}" class="text-uppercase">Résultats pondérés</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th style="width:22%;" class="text-uppercase">
+                               Évaluation
+                            </th>
+                            <th style="width:13%;" class="text-uppercase">
+                                <span class="visible-xs visible-sm visible-md">Rés.</span>
+                                <span class="visible-lg">Résultat</span>
+                            </th>
+                            <th style="width:12%;" class="text-uppercase">
+                                <span class="visible-xs visible-sm visible-md">Moy.</span>
+                                <span class="visible-lg">Moyenne</span>
+                            </th>
+                            <th style="width:{{resultatDetail.graphes?'7%':'14%'}}; border-right:{{resultatDetail.graphes?'':'#004e68 3px solid'}};" class="text-uppercase">
+                                Écart type
+                            </th>
+                            <th ng-if="resultatDetail.graphes !== undefined" style="width:7%; border-right:#004e68 3px solid;" class="text-uppercase">Graph.</th>
+                            <th style="width:13%;" class="text-uppercase">
+                                <span class="visible-xs visible-sm visible-md">Rés.</span>
+                                <span class="visible-lg">Résultat</span>
+                            </th>
+                            <th style="width:12%;" class="text-uppercase">
+                                <span class="visible-xs visible-sm visible-md">Moy.</span>
+                                <span class="visible-lg">Moyenne</span>
+                            </th>
+                            <th style="width:{{resultatDetail.graphes?'7%':'14%'}};" class="text-uppercase">
+                                Écart type
+                            </th>
+                            <th ng-if="resultatDetail.graphes !== undefined" style="width:7%;" class="text-uppercase hidden-print">Graph.</th>
+                        </tr>
+
+                        <tr ng-repeat="evaluation in resultatDetail.evaluations">
+                            <td>{{evaluation.titre | capitalize}}</td>
+                            <td ng-if="evaluation.modeNotation==='C'">
+                                  {{evaluation.resultatNumerique | formatteChiffre}}/{{evaluation.resultatMaximum | formatteChiffre}}
+                            </td>
+                            <td ng-if="evaluation.modeNotation!=='C'">{{evaluation.resultatAlphabetique}}
+                              <sub ng-if="evaluation.resultatAlphabetiqueConverti">[{{evaluation.resultatAlphabetiqueConverti}}]</sub>
+                            </td>
+                            <td ng-if="evaluation.modeNotation==='C'">{{evaluation.moyenneNumerique | formatteChiffre}}</td>
+                            <td ng-if="evaluation.modeNotation!=='C'">{{evaluation.moyenneAlphabetique}}
+                              <sub ng-if="evaluation.moyenneAlphabetiqueConvertie">[{{evaluation.moyenneAlphabetiqueConvertie}}]</sub>
+                            </td>
+                            <td style="width:{{resultatDetail.graphes?'7%':'14%'}}; border-right:{{resultatDetail.graphes?'':'#004e68 3px solid'}};">{{evaluation.ecartType | formatteChiffre }}</td>
+                            <td ng-if="resultatDetail.graphes !== undefined" style="width:7%; border-right:#004e68 3px solid;" class="text-center">
+                                <a href="#" class="uqam-icone uqam-icone-md icone-graphique"></a>
+                            </td>
+                            <td>{{evaluation.resultatPondere | formatteChiffre}}<span ng-if="evaluation.ponderation!=null">/{{evaluation.ponderation | formatteChiffre}}</span></td>
+                            <td>{{evaluation.moyennePondere | formatteChiffre}}</td>
+                            <td style="width:{{resultatDetail.graphes?'7%':'14%'}};">{{evaluation.ecartTypePondere | formatteChiffre}}</td>
+                            <td ng-if="resultatDetail.graphes !== undefined" style="width:7%; border-right:#004e68 3px solid;" class="text-center hidden-print">
+                                <a href="#" class="uqam-icone uqam-icone-md icone-graphique"></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="{{resultatDetail.graphes?5:4}}"><strong class="pull-right">Total </strong></td>
+                            <td class="info">{{resultatDetail.total | formatteChiffre}}<span ng-if="resultatDetail.ponderation!=null">/{{resultatDetail.ponderation}}</span></td>
+                            <td class="info">{{resultatDetail.moyenne | formatteChiffre}}</td>
+                            <td style="width:{{resultatDetail.graphes?'7%':'14%'}};" class="info">{{resultatDetail.ecartType | formatteChiffre}}</td>
+                            <td ng-if="resultatDetail.graphes !== undefined" style="width:7%;" class="text-center info hidden-print">
+                                <a href="#" class="uqam-icone uqam-icone-md icone-graphique"></a>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+
+        <!-- **************************************************************************************************************************************** -->
+        <!-- NOTE   Cours qui ne sont pas abandonnés -->
+        <div class="bg-group-2 clearfix col-xs-12" ng-show="resultatDetail.evaluations &&
+                                                            resultatDetail.note &&
+                                                            resultatDetail.systemeResultats==='O' &&
+                                                            (
+                                                              resultatDetail.note.toUpperCase() !=='AX' &&
+                                                              resultatDetail.note.toUpperCase() !=='BX' &&
+                                                              resultatDetail.note.toUpperCase() !=='CX' &&
+                                                              resultatDetail.note.toUpperCase() !=='DX' &&
+                                                              resultatDetail.note.toUpperCase() !=='FX' &&
+                                                              resultatDetail.note.toUpperCase() !=='GX' &&
+                                                              resultatDetail.note.toUpperCase() !=='MX' &&
+                                                              resultatDetail.note.toUpperCase() !=='PX' &&
+                                                              resultatDetail.note.toUpperCase() !=='RX' &&
+                                                              resultatDetail.note.toUpperCase() !=='UX'
+                                                            )">
+            <div class="bg-uqam col-xs-3">
+                <h5 class="text-center">Note</h5>
+
+                <h4 class="text-center" ng-if="resultatDetail.note.toUpperCase() === 'IE'  ||
+                                               resultatDetail.note.toUpperCase()  === 'ZE'  ||
+                                               resultatDetail.note.toUpperCase()  === 'XE'">E
+                  <sub ng-if="resultatDetail.valeurNote!=null && resultatDetail.valeurNote!=0">[{{resultatDetail.valeurNote.toFixed(1) | formatteChiffre}}]</sub>
+               </h4>
+
+                <h4 class="text-center" ng-if="resultatDetail.note.toUpperCase() !== 'IE'  &&
+                                               resultatDetail.note.toUpperCase()  !== 'ZE'  &&
+                                               resultatDetail.note.toUpperCase()  !== 'XE'">
+                     {{ (resultatDetail.note.toUpperCase() === 'XX' ||
+                         resultatDetail.note.toUpperCase() === 'LX' ||
+                         resultatDetail.note.toUpperCase() === 'YX')
+                         ? 'X' : resultatDetail.note }}
+                   <sub ng-if="resultatDetail.valeurNote!=null && resultatDetail.valeurNote!=0">[{{resultatDetail.valeurNote.toFixed(1) | formatteChiffre}}]</sub>
+               </h4>
+
+            </div>
+            <div class="bg-uqam col-xs-9"
+                ng-show="resultatDetail.note!==noteAuDossier &&
+                         (
+                            ! (
+                                 (resultatDetail.note.toUpperCase() === 'IE'   ||
+                                  resultatDetail.note.toUpperCase()  === 'ZE'    ||
+                                  resultatDetail.note.toUpperCase()  === 'XE')
+                                 &&
+                                  noteAuDossier==='E'
+                                )
+                         )">
+                <p>
+                    Il y a un délai entre l'affichage de la note finale dans les résultats d'un cours et son affichage dans le relevé de notes. Pour figurer au relevé de notes, la note finale doit être approuvée par le département puis portée au dossier par le Registrariat.
+                </p>
+            </div>
+            <div class="bg-uqam col-xs-9"
+                 ng-show="resultatDetail.note===noteAuDossier ||
+                          (
+                              (resultatDetail.note.toUpperCase() === 'IE'   ||
+                               resultatDetail.note.toUpperCase()  === 'ZE'  ||
+                               resultatDetail.note.toUpperCase()  === 'XE')
+                              &&
+                               noteAuDossier==='E'
+                          )">
+                <p>
+                    Cette note a été ajoutée au relevé de notes.
+                </p>
+            </div>
+        </div>
+
+
+
+        <!-- **************************************************************************************************************************************** -->
+        <!-- COMMENTAIRES -->
+
+        <!-- Boucle bidon pour déterminer s'il y a un commentaire pour l'équipe. -->
+        <span ng-repeat="evalIn in resultatDetail.evaluations" ng-if="evalIn.messageEquipe">
+            <span ng-init="$parent.$parent.tvEquipe=true"></span>
+        </span >
+
+        <div class="clearfix" ng-show="resultatDetail.evaluations && (resultatDetail.messagePersonnel || resultatDetail.messageGroupe || tvEquipe) && resultatDetail.systemeResultats==='O'">
+            <div class="hidden-print text-right" style="padding:0 0 15px 0;">
+                <button type="button" class="btn btn-info text-uppercase" ng-click="afficheCommentaire=!afficheCommentaire">
+                    <span ng-if="!afficheCommentaire">
+                        Commentaires de l'enseignant
+                        &nbsp;
+                        <img style="margin:4px 2px 0 0;" src="/assets/images/general/icone/uqam/icone_plus_blanc.svg" alt="">
+                        <!--span class="uqam-icone uqam-icone-sm plus-petit_blanc"></span-->
+                    </span>
+
+                    <span ng-if="afficheCommentaire">
+                        Commentaires de l'enseignant
+                        &nbsp;
+                        <img style="margin:1px 0 0 0;" src="/assets/images/general/icone/uqam/icone_moins_blanc.svg" alt="">
+                        <!--span class="uqam-icone uqam-icone-sm moins-petit_blanc"></span-->
+                    </span>
+                </button>
+            </div>
+
+            <div ng-show="afficheCommentaire">
+                <div class="bg-uqam col-xs-12" ng-show="resultatDetail.evaluations && resultatDetail.messagePersonnel && resultatDetail.systemeResultats==='O'">
+                    <h5>Commentaire À l'étudiant</h5>
+                    {{resultatDetail.messagePersonnel}}
+                </div>
+                <div class="bg-uqam col-xs-12" ng-show="resultatDetail.evaluations && resultatDetail.messageGroupe && resultatDetail.systemeResultats==='O'">
+                    <h5>Commentaire au groupe</h5>
+                    {{resultatDetail.messageGroupe}}
+                </div>
+            </div>
+
+            <!-- ****************************************** -->
+            <!-- Commentaires par évaluation pour l'équipe. -->
+            <div ng-show="afficheCommentaire" ng-repeat="evalIn in resultatDetail.evaluations" ng-if="evalIn.messageEquipe">
+             <div class="bg-uqam col-xs-12">
+                 <h5>Commentaire à l'équipe de travail - {{evalIn.titre}}</h5>
+                 {{evalIn.messageEquipe}}
+             </div>
+            </div>
+        </div>
+    </div>
+</div>

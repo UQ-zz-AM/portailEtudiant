@@ -1,0 +1,345 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+
+<!--
+/*  @license
+
+    Copyright 2014-2016 Université du Québec à Montréal (UQAM)
+
+    This file is part of Portail Étudiant.
+
+    Portail Étudiant is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Portail Étudiant is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Portail Étudiant. If not, see <http://www.gnu.org/licenses/>.
+
+
+    Ce fichier fait partie de l'application Portail Étudiant.
+
+    Portail Étudiant est un logiciel libre ; vous pouvez le redistribuer ou
+    le modifier suivant les termes de la GNU General Public License telle que
+    publiée par la Free Software Foundation ; soit la version 3 de la licence,
+    soit (à votre gré) toute version ultérieure.
+
+    Portail Étudiant est distribué dans l'espoir qu'il sera utile, mais
+    SANS AUCUNE GARANTIE ; sans même la garantie tacite de QUALITÉ MARCHANDE
+    ou d'ADÉQUATION à UN BUT PARTICULIER. Consultez la GNU General Public
+    License pour plus de détails.
+
+    Vous devez avoir reçu une copie de la GNU General Public License en même
+    temps que Portail Étudiant ; si ce n'est pas le cas,
+    consultez <http://www.gnu.org/licenses>.
+*/
+-->
+
+<head>
+
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <base href="/">
+   <title>Portail étudiant | UQAM</title>
+   <meta name="description" content="Horaire personnel et locaux, Notes et r&acute;sultats, Factures et imp&ocirc;ts">
+   <meta name="viewport" id="viewPort" content="width=device-width,initial-scale=1.0,user-scalable=no">
+
+   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+   <!-- build:css(client) app/vendor.css -->
+   <!-- bower:css -->
+   <link rel="stylesheet" href="bower_components/fullcalendar/dist/fullcalendar.css" />
+   <!-- endbower -->
+   <!-- endbuild -->
+   <!-- build:css({.tmp,client}) app/app.css -->
+   <link rel="stylesheet" href="app/app.css">
+   <!-- injector:css -->
+   <link rel="stylesheet" href="assets/css/bootstrap/bootstrap-3.3.0.min.css">
+   <link rel="stylesheet" href="assets/css/fonts.css">
+   <link rel="stylesheet" href="assets/css/gabarit-a-sort.css">
+   <link rel="stylesheet" href="assets/css/gabarit-queries.css">
+   <link rel="stylesheet" href="assets/css/iconic-bootstrap.css">
+   <link rel="stylesheet" href="assets/css/impression.css">
+   <!-- endinjector -->
+   <!-- endbuild -->
+
+</head>
+
+<body ng-app="pelApp" ng-style="dlog.overflow">
+   <!--[if lt IE 7]>
+   <p class="browsehappy">Vous utilisez un <strong>vieux</strong> fureteur. S.v.p. <a href="http://browsehappy.com/?locale=fr">installez un fureteur moderne</a> afin d'améliorer votre expérience.</p>
+   <![endif]-->
+   <a id="haut"></a>
+   <div class="uqam_conteneur">
+
+
+      <!-- ************************************************************************************************************ -->
+      <!-- ENTÊTE -->
+      <header class="uqam_entete hidden-print">
+         <div class="uqam_entete_interieur">
+
+            <!-- LOGO, LIENS RAPIDES ET SÉPARATION -->
+            <div class="uqam_entete_logo col-xs-4 col-md-4 col-lg-3">
+               <div class="uqam_entete_section-interieur v-millieu">
+                  <a href="http://www.uqam.ca/"><img class="uqam_lien-logo svg" src="/assets/images/general/logo/logo_uqam_couleur-blanc.svg" alt="UQAM, Université du Québec à Montréal"></a>
+               </div>
+
+               <div class="uqam_entete_section-interieur v-millieu visible-md visible-lg">
+                  <a class="uqam_lien-rapides visible-md visible-lg" href="#"><span class="uqam_arriere-plan"></span><img class="svg icon-plus" src="/assets/images/general/icone/uqam/icone_plus_blanc.svg" alt="Ouvrir les liens rapides de l'UQAM"><img class="svg icon-moins" src="/assets/images/general/icone/uqam/icone_moins_blanc.svg" alt="Fermer les liens rapides de l'UQAM"></a>
+
+                  <div class="uqam_conteneur_lien-rapides">
+                     <ul>
+                        <li><a target="_blank" href="http://www.uqam.ca/"><span>Page d'accueil de l'UQAM</span></a></li>
+                        <li><a target="_blank" href="http://www.etudier.uqam.ca/"><span>Étudier à l'UQAM</span></a></li>
+                        <li><a target="_blank" href="http://www.repertoire.uqam.ca"><span>Bottin du personnel</span></a></li>
+                        <li><a target="_blank" href="http://www.uqam.ca/campus"><span>Carte du campus</span></a></li>
+                        <li><a target="_blank" href="http://www.bibliotheques.uqam.ca/"><span>Bibliothèques</span></a></li>
+                        <li><a target="_blank" href="http://www.uqam.ca/joindre"><span>Pour nous joindre</span></a></li>
+                     </ul>
+                  </div>
+               </div>
+
+               <div class="uqam_entete_section-interieur v-bas">
+                  <hr class="">
+               </div>
+            </div>
+
+            <!-- TITRE -->
+            <div class="uqam_entete_titre col-xs-8 col-md-8 col-lg-9">
+               <div class="uqam_entete_section-interieur v-millieu">
+                  <!--a href="#" ng-cloak ng-class="{desktopMobileActive: isDesktopMobileActive}" class="iconic iconic-md iconic-laptop" ng-click="changerViewPort();isDesktopMobileActive=!isDesktopMobileActive"></a-->
+                  <a href="#" ng-cloak ng-class="{desktopMobileActive: isDesktopMobileActive}" ng-click="isDesktopMobileActive=!isDesktopMobileActive" class="rs-link iconic iconic-md iconic-laptop" data-link-desktop="" data-link-responsive=""></a>
+
+                  <h2>Portail étudiant</h2>
+               </div>
+            </div>
+         </div>
+
+         <div class="uqam_entete_mobile visible-xs visible-sm">
+            <div class="uqam_entete_menu col-xs-4">
+               <div class="uqam_entete_section-interieur v-millieu">
+               </div>
+            </div>
+
+            <div class="uqam_entete_action col-xs-8">
+               <div class="uqam_entete_section-interieur v-millieu">
+                  <a ng-show="isLoggedIn()" ng-click="logout();" class="iconic iconic-md iconic-account-logout" href=""><span>Déconnexion</span></a>
+
+                  <div ng-show="touch">
+                     <a href="#" ng-click="isDesktopMobileActive=!isDesktopMobileActive" class="rs-link iconic iconic-md iconic-laptop" data-link-desktop="" data-link-responsive=""></a>
+                  </div>
+
+                  <a href="#" class="icone-accessibilite hidden"><img src="/assets/images/general/icone/uqam/icone_accessibilite.svg" alt="Activer l'accessibilité"></a>
+               </div>
+            </div>
+         </div>
+      </header>
+      <!-- ************************************************************************************************************ -->
+
+      <!-- ************************************************************************************************************ -->
+      <!-- CONTENU -->
+
+      <div class="contenu">
+         <div ng-controller="NavbarCtrl as navbar" class="contenu-gauche col-xs-12 col-md-4 col-lg-3 hidden-print">
+            <div ng-include="'components/navbar/navbar.html'"></div>
+         </div>
+         <div ng-view="" class="contenu-droite col-xs-12 col-md-8 col-lg-9">
+            <img class="telechargement" ng-show="ajaxEnCours" src="/assets/images/ajax-loader.gif" alt="Veuillez patienter pendant que la page se télécharge">
+         </div>
+      </div>
+      
+      <!-- ************************************************************************************************************ -->
+
+      <!-- ************************************************************************************************************ -->
+      <!-- PIED DE PAGE -->
+      <footer class="uqam_pied-page hidden-print">
+         <div class="uqam_pied-page_interieur">
+
+            <!-- GAUCHE - NOM DE L'UNIVERSITÉ -->
+            <div class="uqam_pied-page_universite col-xs-12 col-sm-12 col-md-4 col-lg-3">
+               <div class="uqam_pied-page_section-interieur v-millieu">
+                  <a class="pull-left" href="http://www.uqam.ca/">UQAM - Université du Québec à Montréal</a>
+               </div>
+               <div class="uqam_pied-page_section-interieur v-haut">
+                  <hr class="pull-right visible-md visible-lg">
+               </div>
+            </div>
+
+            <!-- DROITE - TITRE DU SITE & COURRIEL -->
+            <div class="uqam_pied-page_information col-xs-12 col-sm-12 col-md-8 col-lg-9">
+               <div class="uqam_pied-page_section-interieur v-millieu">
+                  <ul>
+                     <li><span class="pull-left"></span><a class="uqam_pied-page_site" href="index.html">Portail étudiant</a></li>
+
+                     <li class="separation"><img class="svg" src="/assets/images/general/icone/uqam/icone_fleche-horizontale_blanc.svg" alt="Flèche de séparation"></li>
+
+                        <li><a class="uqam_pied-page_courriel" href="http://www.etudier.uqam.ca/nous-joindre" target="_blank">Nous joindre</a></li>
+                     </ul>
+               </div>
+            </div>
+
+         </div>
+      </footer>
+         <!-- FIN : PIED DE PAGE -->
+      </div>
+      <!-- ************************************************************************************************************ -->
+
+      <!-- **************************************************************************************************************************************** -->
+      <!-- Dialogue modal pour l'application -->
+      <div id="messageOverlay" ng-cloak ng-style="dlog.messageStyle" ng-if="dlog.content">
+         <div>
+            <div ng-repeat="content in dlog.content">
+               <div class="ng-scope" ng-class="content.style">
+                  <h5>{{content.titre}}</h5>
+                  <span ng-repeat="message in content.messages">
+                     <div style="display:block; border-top:solid 1px white; padding-top:3px; margin-top:5px;"
+                           ng-if="$index === 1"></div>
+                     <div style="margin-top:12px;" ng-if="$index === 1">
+                        <strong>Remarque<span ng-if="content.messages.length > 2">s</span></strong>
+                     </div>
+                     <div ng-style="$index > 1 && {'margin-top':'8px'}" style="margin-left:0px;">{{message}}</div>
+                  </span>
+               </div>
+            </div>
+
+            <button ng-if="!dlog.retour" style="float:right; font-size:85%; font-family:'Conv_Dosis-Bold',arial,sans-serif;"
+                    class="btn btn-primary btn-sm text-uppercase text-align" ng-click="dlog.hideMessages()">Continuer</button>
+            <button ng-if="dlog.retour" style="float:right; font-size:85%; font-family:'Conv_Dosis-Bold',arial,sans-serif;"
+               class="btn btn-primary btn-sm text-uppercase text-align" ng-click="dlog.retour();">Confirmer</button>
+            <button ng-if="dlog.retour" style="float:left; font-size:85%; font-family:'Conv_Dosis-Bold',arial,sans-serif;"
+               class="btn btn-primary btn-sm text-uppercase text-align" ng-click="dlog.hideMessages();">Annuler</button>
+
+         </div>
+      </div>
+
+   <!--[if lt IE 9]>
+   <script src="bower_components/es5-shim/es5-shim.js"></script>
+   <script src="bower_components/json3/lib/json3.min.js"></script>
+   <![endif]-->
+
+   <!-- build:js(client) app/vendor.js -->
+   <!-- bower:js -->
+   <script src="bower_components/modernizr/modernizr.js"></script>
+   <script src="bower_components/jquery/jquery.js"></script>
+   <script src="bower_components/angular/angular.js"></script>
+   <script src="bower_components/angular-resource/angular-resource.js"></script>
+   <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+   <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+   <script src="bower_components/angular-route/angular-route.js"></script>
+   <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+   <script src="bower_components/lodash/dist/lodash.compat.js"></script>
+   <script src="bower_components/angular-svg-png/angular-svg-png.js"></script>
+   <script src="bower_components/jquery-ui/ui/jquery-ui.js"></script>
+   <script src="bower_components/moment/moment.js"></script>
+   <script src="bower_components/fullcalendar/dist/fullcalendar.js"></script>
+   <script src="bower_components/angular-ui-calendar/src/calendar.js"></script>
+   <script src="bower_components/angular-moment/angular-moment.js"></script>
+   <script src="bower_components/FileSaver/FileSaver.js"></script>
+   <!-- endbower -->
+   <!-- endbuild -->
+
+   <!-- Internationalisation ces fichiers ne sont pas injectable par wiredep pour le moment. -->
+   <script type="text/javascript" src="bower_components/angular-i18n/angular-locale_fr-ca.js"></script>
+   <script type="text/javascript" src="bower_components/moment/locale/fr-ca.js"></script>
+
+
+   <!-- Location pour injecter les données de tests. -->
+   <!--__client__-->
+
+   <!-- build:js({.tmp,client}) app/app.js -->
+   <script src="app/app.js"></script>
+   <!-- injector:js -->
+   <script src="app/appConstant.js"></script>
+   <script src="app/appModels/dossier-model.js"></script>
+   <script src="app/appModels/utilisateur-model.js"></script>
+   <script src="app/appUtil/appUtil.service.js"></script>
+   <script src="app/calendrier/calendrier.controller.js"></script>
+   <script src="app/calendrier/calendrier.js"></script>
+   <script src="app/calendrier/calendrier.service.js"></script>
+   <script src="app/configClient.js"></script>
+   <script src="app/consentement/consent.controller.js"></script>
+   <script src="app/consentement/consent.js"></script>
+   <script src="app/directives/afficherCours.js"></script>
+   <script src="app/directives/afficherResultats.js"></script>
+   <script src="app/directives/cnStyler.js"></script>
+   <script src="app/directives/ngdisabled.js"></script>
+   <script src="app/directives/popover.js"></script>
+   <script src="app/directives/resultatActivite.service.js"></script>
+   <script src="app/directives/return4tab.js"></script>
+   <script src="app/directives/unfocus.js"></script>
+   <script src="app/evaluation/evaluation.controller.js"></script>
+   <script src="app/evaluation/evaluation.js"></script>
+   <script src="app/evaluation/evaluation.service.js"></script>
+   <script src="app/evaluation/faireeval.controller.js"></script>
+   <script src="app/evaluation/testEval.js"></script>
+   <script src="app/facturesEtImpots/facturesHistoriques/factHisto.controller.js"></script>
+   <script src="app/facturesEtImpots/facturesHistoriques/factHisto.js"></script>
+   <script src="app/facturesEtImpots/paiement/paiement.js"></script>
+   <script src="app/facturesEtImpots/recu/recu.controller.js"></script>
+   <script src="app/facturesEtImpots/recu/recu.js"></script>
+   <script src="app/facturesEtImpots/rif/rif.controller.js"></script>
+   <script src="app/facturesEtImpots/rif/rif.js"></script>
+   <script src="app/facturesEtImpots/rif/rif.service.js"></script>
+   <script src="app/filters/capitalize.js"></script>
+   <script src="app/filters/dateEtTrimestre.js"></script>
+   <script src="app/filters/dollar.js"></script>
+   <script src="app/filters/notation.js"></script>
+   <script src="app/filters/trim.js"></script>
+   <script src="app/filters/unique.js"></script>
+   <script src="app/horaire/horaire.controller.js"></script>
+   <script src="app/horaire/horaire.js"></script>
+   <script src="app/horaire/horaire.service.js"></script>
+   <script src="app/horaire/horaireUtil.js"></script>
+   <script src="app/inscription/arbreDecisionIns.js"></script>
+   <script src="app/inscription/autori/autori.controller.js"></script>
+   <script src="app/inscription/autori/autori.js"></script>
+   <script src="app/inscription/autori/autori.service.js"></script>
+   <script src="app/inscription/faireIns/edit.controller.js"></script>
+   <script src="app/inscription/faireIns/insc.service.js"></script>
+   <script src="app/inscription/faireIns/inscription.controller.js"></script>
+   <script src="app/inscription/faireIns/inscription.js"></script>
+   <script src="app/inscription/faireIns/validation.service.js"></script>
+   <script src="app/inscription/preparation/preparation.js"></script>
+   <script src="app/inscription/reglesIns.js"></script>
+   <script src="app/main/main.controller.js"></script>
+   <script src="app/main/main.js"></script>
+   <script src="app/main/main.service.js"></script>
+   <script src="app/opus/opus.controller.js"></script>
+   <script src="app/opus/opus.js"></script>
+   <script src="app/opus/opus.service.js"></script>
+   <script src="app/ren/releve/releve.controller.js"></script>
+   <script src="app/ren/releve/releve.js"></script>
+   <script src="app/ren/releve/releve.service.js"></script>
+   <script src="app/ren/resultats/resultats.controller.js"></script>
+   <script src="app/ren/resultats/resultats.js"></script>
+   <script src="app/ren/resultats/resumeResultat.service.js"></script>
+   <script src="assets/js/CSSPlugin.min.js"></script>
+   <script src="assets/js/EasePack.min.js"></script>
+   <script src="assets/js/TweenLite.min.js"></script>
+   <script src="assets/js/bootstrap.min.js"></script>
+   <script src="assets/js/customStyle.js"></script>
+   <script src="assets/js/iconic.min.js"></script>
+   <script src="assets/js/menu.js"></script>
+   <script src="assets/js/modernizrBlobExt.js"></script>
+   <script src="assets/js/responsive-switch.min.js"></script>
+   <script src="components/auth/auth.service.js"></script>
+   <script src="components/navbar/navbar.controller.js"></script>
+   <!-- endinjector -->
+   <!-- endbuild -->
+
+   <script>
+      if (! Modernizr.blobconstructor) {
+         window.location.href = "/fureteur";
+      }
+   </script>
+
+
+</body>
+</html>

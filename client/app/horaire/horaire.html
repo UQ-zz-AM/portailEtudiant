@@ -1,0 +1,144 @@
+<!--
+
+/*  @license
+
+    Copyright 2014-2016 Université du Québec à Montréal (UQAM)
+
+    This file is part of Portail Étudiant.
+
+    Portail Étudiant is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Portail Étudiant is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Portail Étudiant. If not, see <http://www.gnu.org/licenses/>.
+
+
+    Ce fichier fait partie de l'application Portail Étudiant.
+
+    Portail Étudiant est un logiciel libre ; vous pouvez le redistribuer ou
+    le modifier suivant les termes de la GNU General Public License telle que
+    publiée par la Free Software Foundation ; soit la version 3 de la licence,
+    soit (à votre gré) toute version ultérieure.
+
+    Portail Étudiant est distribué dans l'espoir qu'il sera utile, mais
+    SANS AUCUNE GARANTIE ; sans même la garantie tacite de QUALITÉ MARCHANDE
+    ou d'ADÉQUATION à UN BUT PARTICULIER. Consultez la GNU General Public
+    License pour plus de détails.
+
+    Vous devez avoir reçu une copie de la GNU General Public License en même
+    temps que Portail Étudiant ; si ce n'est pas le cas,
+    consultez <http://www.gnu.org/licenses>.
+*/
+
+-->
+
+<img ng-hide="horaireCourant || err || avertissements" class="telechargement" src="/assets/images/ajax-loader.gif" alt="Veuillez patienter pendant que la page se télécharge">
+
+<!-- ENTÊTE IMPRESSION -->
+<div class="entete-impression visible-print-block">
+  <div class="table-responsive">
+     <table class="table">
+        <tbody>
+           <tr>
+              <td style="width:63.8554%; padding:0 15px 15px 0;">
+                 <img class="pull-left" src="/assets/images/general/logo/logo_uqam-general-imprimer_noir.svg" alt="UQAM">
+              </td>
+
+              <td style="width:36.1445%; padding:0 0 15px 15px;">
+                 <h4 class="text-uppercase">{{utilisateur().prenom}} {{utilisateur().nom}}</h4> {{utilisateur().adresse_l1}}
+                 <br/>{{utilisateur().adresse_l2}}<br/>{{utilisateur.etudiant.adresse_l3}}
+              </td>
+           </tr>
+        </tbody>
+
+        <tfoot>
+           <tr>
+              <td>
+                 <strong>Date d’impression : </strong>{{dateImpression | dateComplete}}
+              </td>
+
+              <td>
+                 <strong>Code permanent : </strong><span class="text-uppercase">{{utilisateur().code_perm}}</span>
+              </td>
+           </tr>
+        </tfoot>
+     </table>
+  </div>
+</div>
+
+<section class="sous-entete clearfix visible-print-block">
+  <h1 class="text-uppercase">
+      Horaire <span ng-show="trimestreCourant"> – {{trimestreCourant | trimestre}}</span>
+  </h1>
+</section>
+
+<section class="sous-entete clearfix hidden-print">
+   <h1 class="text-uppercase hidden-print">
+      Horaire <span ng-show="trimestreCourant"> – {{trimestreCourant | trimestre}}</span>
+   </h1>
+
+   <a href="" onClick="window.print();return false" class="pull-right clearfix hidden-print text-uppercase visible-md visible-lg">
+    Imprimer
+    <span class="uqam-icone uqam-icone-sm impression_bleu-etudiant pull-right"></span>
+  </a>
+</section>
+
+<div class="horaire">
+   <div ng-hide="err || avertissements || (horaireCourant.programme.length <= 0)">
+
+      <p ng-show="horaireCourant.programme.length >0" class="clearfix hidden-print">
+         <a ng-show="ouvrirTout" ng-click="actionnerBoutonTout()" class="clearfix pull-right text-uppercase">Ouvrir tout
+            <span class="uqam-icone uqam-icone-sm icone_tabulation_ouvrir-tous pull-right"></span>
+         </a>
+         <a ng-hide="ouvrirTout" ng-click="actionnerBoutonTout()" class="clearfix pull-right text-uppercase">Fermer tout
+            <span class="uqam-icone uqam-icone-sm icone_tabulation_fermer-tous pull-right"></span>
+         </a>
+      </p>
+
+      <div ng-repeat="prg in horaireCourant.programme">
+         <hr>
+         <h3 style="text-transform:none;">{{prg.titre_prog | capitalize}} ({{prg.code_prog}})</h3>
+         <accordion close-others="false">
+
+            <accordion-group is-open="etatAccordeon[$parent.$index].cours[$index]" ng-repeat="cours in prg.cours" close-others="false">
+
+               <accordion-heading>
+                  <span ng-class="{'ouvert': etatAccordeon[$parent.$parent.$index].cours[$index]}" class="clearfix">
+                     <span class="pull-left">{{cours.sigle}}</span><span class="pull-left">{{cours.titre}}</span>
+                  </span>
+               </accordion-heading>
+
+               <div afficher-cours param-cours="cours"></div>
+
+            </accordion-group>
+
+         </accordion>
+      </div>
+   </div>
+
+   <div class="bg-info" ng-show="horaireCourant.programme.length <= 0 && !err">
+      <h5>À noter</h5>
+      <p>Aucun cours inscrit au trimestre d'{{trimestreCourant | trimestre}}.</p>
+   </div>
+
+
+</div>
+
+<!-- Afficher les avertissements -->
+<div class="bg-warning" ng-show="avertissements">
+   <h5>Attention</h5>
+   <p ng-repeat="message in avertissements">{{message}}</p>
+</div>
+
+<!-- Afficher les err -->
+<div class="bg-danger" ng-show="err">
+   <h5>Attention</h5>
+   <p>Attention une erreur est survenue, veuillez essayer plus tard.</p>
+</div>

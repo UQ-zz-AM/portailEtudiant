@@ -1,0 +1,140 @@
+/* RÉSULTATS */
+/* ---------------------------------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------------------------------- */
+
+.ren{}
+   .ren .resultats{}
+      .ren .resultats div{}
+         .ren .resultats div p{}
+            .ren .resultats div p a,
+            .ren .resultats div p a:link{}
+            .ren .resultats div p a:before{}
+            .ren .resultats div p a:after{}
+               .ren .resultats div p a span{}
+
+      .ren .resultats div{}
+         .ren .resultats div h3{}
+         .ren .resultats div hr{}
+            .ren .resultats div accordion{}
+               .ren .resultats div accordion div.panel-group{}
+                  .ren .resultats div accordion div.panel-group .panel,
+                  .ren .resultats div accordion div.panel-group .panel-default,
+                  .ren .resultats div accordion div.panel-group .ng-isolate-scope{}
+                     
+                     .ren .resultats div accordion div.panel-group .panel .panel-heading{}
+                        .ren .resultats div accordion div.panel-group .panel .panel-heading h4.panel-title{}
+                           .ren .resultats div accordion div.panel-group .panel .panel-heading h4.panel-title a,
+                           .ren .resultats div accordion div.panel-group .panel .panel-heading h4.panel-title a:link{}
+                           .ren .resultats div accordion div.panel-group .panel .panel-heading h4.panel-title a:before{}
+                           .ren .resultats div accordion div.panel-group .panel .panel-heading h4.panel-title a:after{}
+                              .ren .resultats div accordion div.panel-group .panel .panel-heading h4.panel-title a span{}
+
+                     .ren .resultats div accordion div.panel-group .panel .panel-collapse, 
+                     .ren .resultats div accordion div.panel-group .panel .collapse{}
+                        .ren .resultats div accordion div.panel-group .panel .panel-collapse .panel-body{color:#004e68;}
+                           .ren .resultats div accordion div.panel-group .panel .panel-collapse .panel-body accordion-heading{}
+                           .ren .resultats div accordion div.panel-group .panel .panel-collapse .panel-body div.ng-scope,
+                           .ren .resultats div accordion div.panel-group .panel .panel-collapse .panel-body div.ng-isolate-scope{}
+                              .ren .resultats div accordion div.panel-group .panel .panel-collapse .panel-body div.ng-isolate-scope div{}
+                                 
+                                 .ren .resultats .panel-body div.moreInfo{text-align:left; margin:35px;}
+                                 .ren .resultats .panel-body span{margin:0;}
+                                 .ren .resultats .panel-body p{}
+                                 .ren .resultats .panel-body h4{padding:0;}
+                                 .ren .resultats .panel-body h5{margin:0;}
+                                 .ren .resultats .panel-body hr{margin:15px 0 15px 0;}
+
+                                 .ren .resultats .panel-body .bg-uqam{background:#e5edf0; padding:20px 30px 20px 30px; margin:0 0 15px 0;}
+
+                                 .ren .resultats .panel-body .bg-group-2{display:table; margin:0 0 15px 0;}
+                                    .ren .resultats .panel-body .bg-group-2 .bg-uqam{display:table-cell; float:none; height:100%;}
+                                    .ren .resultats .panel-body .bg-group-2 .bg-uqam:nth-child(1){background:#014e68; margin:0; border:0; vertical-align:middle;}
+                                    .ren .resultats .panel-body .bg-group-2 .bg-uqam:nth-child(2){margin:0; border:0;}
+                                       .ren .resultats .panel-body .bg-group-2 .bg-uqam h4{color:#fff; font-size:200%;}
+                                       .ren .resultats .panel-body .bg-group-2 .bg-uqam h5{color:#fff; font-family:'Conv_Dosis-Bold',arial,sans-serif; margin:0 0 10px 0;}
+                                       .ren .resultats .panel-body .bg-uqam h5{margin:0 0 5px 0;}
+                                       .ren .resultats .panel-body .bg-group-2 .bg-uqam p{margin:0; color:#000;}
+                                 
+                                 /* TABLEAU */
+                                 .ren .resultats div.table-responsive{margin:0 0 60px 0;}
+                                    .ren .resultats div table{margin:0; border:#80a6b3 1px solid; border-top:#004e68 3px solid;}
+                                    .ren .resultats div table.table{}
+                                       .ren .resultats div table thead{}
+                                          .ren .resultats div table thead tr{}
+                                             .ren .resultats div table thead tr th{height:40px; padding:5px; color:#004e68; font-family:'Conv_Dosis-Bold',arial,sans-serif; line-height:110%; text-transform:uppercase; border-color:#b3cad0; border-bottom:#004e68 3px solid; vertical-align:middle;}
+                                             .ren .resultats div table thead tr th.info,
+                                             .ren .resultats div table thead tr>th:last-child{}
+                                                .ren .resultats div table thead tr th .btn{margin:0;}
+                                             .ren .resultats div table thead tr td{padding:5px; border-bottom:#004e68 3px solid; vertical-align:middle;}
+                                             .ren .resultats div table thead tr td.info,
+                                             .ren .resultats div table thead tr>td:last-child{}
+
+                                       .ren .resultats div table tbody{border:0;}
+                                          .ren .resultats div table tbody tr{}
+                                             .ren .resultats div table tbody tr th{padding:5px; border-color:#b3cad0; vertical-align:top;}
+                                             .ren .resultats div table tbody tr th.info,
+                                             .ren .resultats div table tbody tr th:last-child{}
+                                             .ren .resultats div table tbody tr td{padding:5px; border-color:#b3cad0; vertical-align:top;}
+                                             .ren .resultats div table tbody tr td.info,
+                                             .ren .resultats div table tbody tr>td:last-child{}
+
+                                       .ren .resultats div table tfoot{}
+                                          .ren .resultats div table tfoot tr{}
+                                             .ren .resultats div table tfoot tr th{padding:5px; border-color:#b3cad0;}
+                                             .ren .resultats div table tfoot tr td{padding:5px; border-color:#b3cad0;}
+
+                                             /* GENERAL */
+                                             .ren .resultats div table tbody tr td.plus-info .moreInfo .bg-uqam{background:#e5edf0; padding:20px 30px 20px 30px; margin:0 0 15px 0;}
+
+                                             .ren .resultats div table tbody tr td.plus-info .moreInfo .bg-group-2{display:table; margin:0 0 15px 0;}
+                                                .ren .resultats div table tbody tr td.plus-info .moreInfo .bg-group-2 .bg-uqam{display:table-cell; float:none; height:100%;}
+                                                .ren .resultats div table tbody tr td.plus-info .moreInfo .bg-group-2 .bg-uqam:nth-child(1){background:#014e68; margin:0; border:0; vertical-align:middle;}
+                                                .ren .resultats div table tbody tr td.plus-info .moreInfo .bg-group-2 .bg-uqam:nth-child(2){margin:0; border:0;}
+                                                   .ren .resultats div table tbody tr td.plus-info .moreInfo .bg-group-2 .bg-uqam h4{color:#fff; font-size:200%;}
+                                                   .ren .resultats div table tbody tr td.plus-info .moreInfo .bg-group-2 .bg-uqam h5{color:#fff; font-family:'Conv_Dosis-Bold',arial,sans-serif; margin:0 0 10px 0;}
+                                                   .ren .resultats div table tbody tr td.plus-info .moreInfo .bg-uqam h5{margin:0 0 5px 0;}
+                                                   .ren .resultats div table tbody tr td.plus-info .moreInfo .bg-group-2 .bg-uqam p{margin:0; color:#000;}
+
+                                             /* SOUS TABLEAU */
+                                             .ren .resultats div table tbody tr td.plus-info{/*padding-bottom:25px;*/ text-align:left;}
+                                                .ren .resultats div table tbody tr td.plus-info .moreInfo{margin:35px;}
+                                                   .ren .resultats div table tbody tr td.plus-info .moreInfo h4{padding:0;}
+                                                   .ren .resultats div table tbody tr td.plus-info .moreInfo h5{margin:0;}
+                                                   .ren .resultats div table tbody tr td.plus-info .moreInfo ul{margin:0;}
+                                                   .ren .resultats div table tbody tr td.plus-info .moreInfo hr{margin:15px 0 15px 0;}
+                                                   
+                                                   .ren .resultats div table tbody tr td.plus-info .moreInfo .btn-info{display:none;}
+
+                                                      .ren .resultats div table tbody tr td.plus-info .moreInfo .bg-info h5{margin:10px 0 10px 0;}
+
+                                                   .ren .resultats div table tbody tr td.plus-info .moreInfo .bg-group-2 .bg-uqam:first-child sub{bottom:0; font-size:50%; color:#fff;}
+
+                                                   .ren .resultats div table tbody tr td.plus-info .moreInfo div.table-responsive{margin:15px 0 45px 0;}
+                                                      .ren .resultats div table tbody tr td.plus-info .moreInfo div.table-responsive table{margin:0; border:0;}
+                                                      .ren .resultats div table tbody tr td.plus-info .moreInfo div.table-responsive table.table{border:#004e68 3px solid;}
+                                                         .ren .resultats div table tbody tr td.plus-info .moreInfo div.table-responsive table thead{}
+                                                            .ren .resultats div table tbody tr td.plus-info .moreInfo div.table-responsive table thead tr{}
+                                                               .ren .resultats div table tbody tr td.plus-info .moreInfo div.table-responsive table thead tr th{height:40px; color:#004e68; font-family:'Conv_Dosis-Bold',arial,sans-serif; line-height:110%; text-transform:uppercase; border-color:#b3cad0; border:#004e68 3px solid; vertical-align:middle;}
+                                                               .ren .resultats div table tbody tr td.plus-info .moreInfo div.table-responsive table thead tr th:last-child{text-align:left;}
+                                                               .ren .resultats div table tbody tr td.plus-info .moreInfo div.table-responsive table thead tr th.info{}
+                                                               .ren .resultats div table tbody tr td.plus-info .moreInfo div.table-responsive table thead tr th.caseVideBleu{background: url('/assets/images/general/fond/fond_contenu-gauche.jpg') repeat top left;}
+                                                                  .ren .resultats div table tbody tr td.plus-info .moreInfo div.table-responsive table thead tr th .btn{}
+                                                               .ren .resultats div table tbody tr td.plus-info .moreInfo div.table-responsive table thead tr td{}
+                                                               .ren .resultats div table tbody tr td.plus-info .moreInfo div.table-responsive table thead tr td.info{}
+
+                                                         .ren .resultats div table tbody tr td.plus-info .moreInfo div.table-responsive table tbody{border:0;}
+                                                            .ren .resultats div table tbody tr td.plus-info .moreInfo div.table-responsive table tbody tr{}
+                                                               .ren .resultats div table tbody tr td.plus-info .moreInfo div.table-responsive table tbody tr th{height:40px; color:#004e68; font-family:'Conv_Dosis-Bold',arial,sans-serif; line-height:110%; text-transform:uppercase; border-color:#b3cad0; border-bottom:#004e68 3px solid; vertical-align:middle;}
+                                                               .ren .resultats div table tbody tr td.plus-info .moreInfo div.table-responsive table tbody tr th.info{}
+                                                               .ren .resultats div table tbody tr td.plus-info .moreInfo div.table-responsive table tbody tr th:first-child{border-right:#004e68 3px solid;}
+                                                               .ren .resultats div table tbody tr td.plus-info .moreInfo div.table-responsive table tbody tr td{border-color:#b3cad0;}
+                                                               .ren .resultats div table tbody tr td.plus-info .moreInfo div.table-responsive table tbody tr td.info{}
+                                                               .ren .resultats div table tbody tr td.plus-info .moreInfo div.table-responsive table tbody tr td:first-child{border-right:#004e68 3px solid;}
+                                                         
+                                                         .ren .resultats div table tbody tr td.plus-info .moreInfo div.table-responsive table tfoot{}
+                                                            .ren .resultats div table tbody tr td.plus-info .moreInfo div.table-responsive table tfoot tr{border:#004e68 3px solid;}
+                                                               .ren .resultats div table tbody tr td.plus-info .moreInfo div.table-responsive table tfoot tr th{border-color:#b3cad0;}
+                                                               .ren .resultats div table tbody tr td.plus-info .moreInfo div.table-responsive table tfoot tr td{border-color:#b3cad0; vertical-align:middle;}
+                                                               .ren .resultats div table tbody tr td.plus-info .moreInfo div.table-responsive table tfoot tr td.info{color:#004e68; font-weight:bold;}
+
+      .ren .resultats div.info{}

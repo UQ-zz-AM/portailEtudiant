@@ -1,0 +1,95 @@
+@charset "UTF-8";
+/* ce qui pourrait devrait etre generalise */
+
+/* --------------------------------------------------------------------------------------------------------------- */
+/* TABLEAU */
+.factures-et-impots .table-bordered{margin:0 0 30px 0; color:#004e68; border:#7fa6b3 1px solid; border-bottom:0; border-top:#004e68 3px solid;}
+
+/* TABLEAU GENERAL */
+.factures-et-impots .table-bordered tr th{border:#7fa6b3 1px solid;}
+.factures-et-impots .table-bordered tr td{border:#7fa6b3 1px solid;}
+.factures-et-impots .table>tbody+tbody{border:none;}
+.factures-et-impots .table>tbody:last-child{border-top:#004e68 3px solid; font-size:112.5%; font-weight:bold;}
+.factures-et-impots .table>tbody:last-child .table-bordered tbody tr td{font-size:87.5%; font-weight:normal; border:#7fa6b3 1px solid;}
+.factures-et-impots .table>tbody:last-child .table-bordered tbody:last-child tr td{border-top:#004e68 3px solid; font-size:87.5%; font-weight:bold;}
+
+/* TABLEAU ENTÊTE */
+.factures-et-impots .table-bordered .tableau-ligne-important td{border-top:#004e68 3px solid; border-bottom:#004e68 3px solid;}
+.factures-et-impots .table-bordered thead tr th{font-family:'Conv_Dosis-Bold',arial,sans-serif; letter-spacing:0.05em; border-bottom:#004e68 3px solid;}
+.factures-et-impots .table-bordered thead tr td{border-bottom:#004e68 3px solid;}
+
+/* TABLEAU PIED */
+.factures-et-impots .table-bordered tfoot tr:last-child td{border-top:0;}
+.factures-et-impots .table-bordered tfoot tr:first-child td{font-size:112.5%; font-weight:bold; border-top:#004e68 3px solid; border-bottom:0;}
+.factures-et-impots .table-bordered tfoot tr:last-child td{border-bottom:#7fa6b3 1px solid;}
+.factures-et-impots .table-bordered tfoot tr td .table-bordered thead tr td{font-size:87.5%; font-weight:normal; border-bottom:#004e68 3px solid;}
+
+/* TABLEAU SOUS TABLEAU */
+.factures-et-impots .table-bordered  tr td .table-bordered{border-top:#004e68 2px solid;}
+.factures-et-impots .table-bordered tfoot tr td .table-bordered head tr td,
+.factures-et-impots .table-bordered tfoot tr td .table-bordered tbody tr td,
+.factures-et-impots .table-bordered tfoot tr td .table-bordered tfoot tr td{font-size:87.5%; font-weight:normal; border:#7fa6b3 1px solid;}
+
+/* TITRE SOUS TABLEAU */
+.factures-et-impots .table-bordered tr td h4{width:77.9220%; margin:50px auto 0 auto;}
+
+/* TABLEAU SOUS TABLEAU ENTETE */
+.factures-et-impots .table-bordered tr td .table-bordered thead tr th{border-bottom:#004e68 2px solid;}
+.factures-et-impots .table-bordered tr td .table-bordered thead tr td{border-bottom:#004e68 2px solid;}
+
+/* TABLEAU PIED SOUS TABLEAU PIED */
+.factures-et-impots .table-bordered tr td .table-bordered tfoot tr td{font-size:100%; font-weight:bold; border-top:#004e68 2px solid;}
+.factures-et-impots .table-bordered tfoot tr td .table-bordered tfoot tr td{font-size:100%; font-weight:bold; border-top:#004e68 2px solid;}
+
+/* TABLEAU SOUS TABLEAU GENERAL */
+.factures-et-impots .table-bordered tr td .table-bordered,
+.factures-et-impots .table-bordered tr td .table{width:77.9220%; margin:10px auto 50px auto;}
+
+/* TABLEAU SOUS TABLEAU PIED */
+.factures-et-impots .table-bordered tfoot tr td .table-bordered,
+.factures-et-impots .table-bordered tfoot tr td .table{width:67.5%; margin:10px auto 25px auto;}
+
+.table-bordered>thead>tr>th, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>td{border-top:#7fa7b3 solid 1px; padding:5px;}
+
+/* TABLEAU TOTAL */
+.factures-et-impots .tableau-total{border-top:0; border:0;}
+.factures-et-impots .tableau-total tbody:last-child{border-top:0; border:0;}
+
+/* --------------------------------------------------------------------------------------------------------------- */
+/* SECTION : SOLDES ET OPÉRATION */
+.factures-et-impots .soldes-et-operation{margin:0 0 60px 0; padding:30px; border:solid 1px #337186;}
+.factures-et-impots .soldes-et-operation a,
+.factures-et-impots .soldes-et-operation a:link{position:relative; display:inline-block; padding:0 20px 0 0; font-family:'Conv_Dosis-Bold',arial,sans-serif; font-size:112.5%; letter-spacing:0.05em; text-decoration:none;}
+.factures-et-impots .soldes-et-operation a:hover{text-decoration:underline;}
+.factures-et-impots .soldes-et-operation a span{background-color:#02ace7; position:absolute; top:3px; right:0; width:16px; height:16px; padding:0; border-radius:50%; cursor:pointer; overflow:hidden;}
+.factures-et-impots .soldes-et-operation a:hover span{background-color:#0079a0;}
+.factures-et-impots .soldes-et-operation a span span,
+.factures-et-impots .soldes-et-operation a:hover span span{background-color:transparent; position:relative; top:0; right:0;}
+
+.factures-et-impots .information-tableau{display:table; width:100%;}
+.factures-et-impots .information-tableau div{display:table-cell;}
+
+.factures-et-impots .soldes-et-operation p{padding:2px 0 0 0;}
+.factures-et-impots .soldes-et-operation p.text-danger{padding:0 0 10px 25px;}
+.factures-et-impots .soldes-et-operation p.bg-danger{padding:20px 25px 20px 75px;}
+.factures-et-impots .soldes-et-operation .text-info{margin:0; padding:0;}
+
+.factures-et-impots .soldes-et-operation .bg-primary{display:inline-block; padding-right:40px;}
+.factures-et-impots .soldes-et-operation .bg-primary .badge{background-color:#02ace7; position:absolute; top:7px; right:15px; width:16px; height:16px; padding:0; border-radius:50%; cursor:pointer; overflow:hidden;}
+.factures-et-impots .soldes-et-operation .bg-primary .badge:hover{background:#0079a0;}
+.factures-et-impots .soldes-et-operation .bg-primary .badge span{background-color:transparent; position:relative; top:0; right:0;}
+
+/* --------------------------------------------------------------------------------------------------------------- */
+/* SECTION : FACTURE */
+.factures-et-impots .facture{margin:0 0 60px 0; padding:30px; border:solid 1px #337186;}
+
+/* --------------------------------------------------------------------------------------------------------------- */
+/* SECTION : COORDONNÉES */
+.factures-et-impots .coordonnees div{position:relative; padding:0 30px 30px 0;}
+.factures-et-impots .coordonnees p{margin:0; padding:0; color:#004e68;}
+.factures-et-impots .coordonnees p span{background:none; display:block; margin:0; padding:0 0 10px 0; color:#004e68;}
+.factures-et-impots .coordonnees hr{background:#a6c1ca; position:absolute; top:0; right:20px; width:1px; height:190px; margin:0; padding:0; border:none; border-top:none;}
+
+/* BOOTSRAP */
+.factures-et-impots .text-danger{padding:0 0 10px 25px;}
+    .factures-et-impots .text-danger:before{background:#a71600 url('/assets/images/general/icone/uqam/icone_exclamation_blanc.svg') no-repeat center center;; content:""; position:absolute; top:2px; left:0; display:block; width:16px; height:16px; border-radius:50%;}

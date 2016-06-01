@@ -1,0 +1,644 @@
+<!--
+
+/*  @license
+
+    Copyright 2014-2016 Université du Québec à Montréal (UQAM)
+
+    This file is part of Portail Étudiant.
+
+    Portail Étudiant is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Portail Étudiant is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Portail Étudiant. If not, see <http://www.gnu.org/licenses/>.
+
+
+    Ce fichier fait partie de l'application Portail Étudiant.
+
+    Portail Étudiant est un logiciel libre ; vous pouvez le redistribuer ou
+    le modifier suivant les termes de la GNU General Public License telle que
+    publiée par la Free Software Foundation ; soit la version 3 de la licence,
+    soit (à votre gré) toute version ultérieure.
+
+    Portail Étudiant est distribué dans l'espoir qu'il sera utile, mais
+    SANS AUCUNE GARANTIE ; sans même la garantie tacite de QUALITÉ MARCHANDE
+    ou d'ADÉQUATION à UN BUT PARTICULIER. Consultez la GNU General Public
+    License pour plus de détails.
+
+    Vous devez avoir reçu une copie de la GNU General Public License en même
+    temps que Portail Étudiant ; si ce n'est pas le cas,
+    consultez <http://www.gnu.org/licenses>.
+*/
+
+-->
+
+
+<div ng-show="cours" class="cours">
+   <!-- ************************************************************************************************************* -->
+   <!-- VERSION MOBILE -->
+   <div class="table-responsive visible-xs hidden-print">
+      <table class="table table-condensed">
+         <tbody>
+
+            <!-- groupe crédits -->
+            <tr>
+               <td>
+                  <h5 style="word-spacing:0.25em">groupe {{cours.groupe}}</h5>
+               </td>
+            </tr>
+            <tr>
+               <td>
+                  <h5 ng-show="cours.nb_cred != '' && cours.nb_cred !== '1.0' && cours.nb_cred !== '0.0'">{{cours.nb_cred | number}} Crédits</h5>
+                  <h5 ng-show="cours.nb_cred != '' && ( cours.nb_cred === '1.0' || cours.nb_cred === '0.0')">{{cours.nb_cred | number}} Crédit</h5>
+               </td>
+            </tr>
+
+            <!-- enseignants -->
+            <tr ng-show="cours.enseignant.length > 0">
+               <td style="vertical-align:top;">
+                  <h5 ng-show="cours.enseignant.length > 1" >Enseignants</h5>
+                  <h5 ng-show="cours.enseignant.length <= 1" >Enseignant</h5>
+                  <br>
+                  <ul style="margin-top:-5px;">
+                     <li ng-repeat="enseignant in cours.enseignant">
+                        {{enseignant.nom}}
+                        <span ng-show="enseignant.url_repertoire.length > 0">&nbsp;|&nbsp;<a target="_blank" ng-href="{{enseignant.url_repertoire}}">Coordonnées&nbsp;<span class="uqam-icone uqam-icone-sm fleche-horizontal_bleu"></span></a>
+                        </span>
+                     </li>
+                  </ul>
+               </td>
+            </tr>
+
+            <!-- horaires -->
+            <tr ng-show="cours.horaire.length > 0 || cours.rencontre.length > 0">
+               <td colspan="2">
+
+                  <!-- horaire -->
+                  <div ng-show="cours.horaire.length > 0">
+                     <div class="table-responsive" ng-repeat="typeCours in cours.horaire | unique:'mode_util'">
+                        <table class="table table-condensed table-bordered" ng-repeat="horaire in cours.horaire | filter: { mode_util: typeCours.mode_util }">
+                           <thead>
+                              <tr>
+                                 <th colspan="3">
+                                    <span>{{typeCours.mode_util}}</span>
+                                 </th>
+                              </tr>
+                           </thead>
+
+                           <tbody>
+                              <tr>
+                                 <td colspan="3" class="separation"></td>
+                              </tr>
+
+                              <tr>
+                                 <th>
+                                    <span>Jour</span>
+                                 </th>
+
+                                 <th>
+                                    <span>Date</span>
+                                 </th>
+
+                                 <th>
+                                    <span>Heure</span>
+                                 </th>
+                              </tr>
+
+                              <tr>
+                                 <td>
+                                    <p>{{horaire.jour}}</p>
+                                 </td>
+
+                                 <td>
+                                    <p ng-show="cours.dt_deb.length > 0  && cours.dt_fin.length > 0">
+                                       Du {{cours.dt_deb | dateComplete}}
+                                       <br>au {{cours.dt_fin | dateComplete}}
+                                    </p>
+                                    <p ng-show="!cours.dt_deb || !cours.dt_fin">
+                                       Non disponible
+                                    </p>
+                                 </td>
+
+                                 <td>
+                                    <p>De {{horaire.hr_deb | heureSansZero}} à {{horaire.hr_fin | heureSansZero}}</p>
+                                 </td>
+                              </tr>
+
+                              <tr>
+                                 <th colspan="3">
+                                    <span>Lieu</span>
+                                 </th>
+                              </tr>
+
+                              <tr>
+                                 <td colspan="3">
+
+                                    <p ng-show="horaire.local.length > 0">{{horaire.local}}<span ng-show="!cours.hors_campus"> | Campus de Montréal</span>
+                                       <br />
+                                       <span ng-if="horaire.url_pavillon.length > 0">
+                                          <a ng-href="{{horaire.url_pavillon}}" target="_blank" class="hidden-print"><span class="uqam-icone uqam-icone-sm pull-left icone_pointeur-carte"></span>Carte</a>
+                                       </span>
+                                    </p>
+
+                                    <p ng-show="cours.hors_campus.length > 0">
+                                       <span style="background-color:#FFFFFF;" ng-show="cours.hors_campus[0].ville.length > 0 || cours.hors_campus[0].no_rue.length > 0">{{cours.hors_campus[0].ville}}
+                                          <br />
+                                          <a ng-href="http://maps.google.com/maps?q={{cours.hors_campus[0].no_rue}},{{cours.hors_campus[0].ville}}" target="_blank" class="hidden-print"><span class="uqam-icone uqam-icone-sm pull-left icone_pointeur-carte"></span>Carte</a>
+                                          <span ng-show="cours.hors_campus[0].local"><br />Local {{cours.hors_campus[0].local}}</span>
+                                       </span>
+                                    </p>
+
+                                    <p ng-show="!horaire.local  && !cours.hors_campus">
+                                       Non disponible
+                                    </p>
+
+                                 </td>
+                              </tr>
+
+
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+
+                  <!-- dates de rencontre -->
+                  <div ng-show="cours.rencontre.length > 0" class="table-responsive">
+                     <div class="table-responsive" ng-repeat="rencontre in cours.rencontre">
+                        <table class="table table-condensed table-bordered">
+                           <thead>
+                              <tr>
+                                 <th colspan="3">
+                                    <span ng-show="cours.rencontre.length > 1">Rencontres</span>
+                                    <span ng-show="cours.rencontre.length <= 1">Rencontre</span>
+                                 </th>
+                              </tr>
+                           </thead>
+
+                           <tbody>
+                              <tr>
+                                 <td colspan="3" class="separation"></td>
+                              </tr>
+
+                              <tr>
+                                 <th>
+                                    <span>Jour</span>
+                                 </th>
+
+                                 <th>
+                                    <span>Date</span>
+                                 </th>
+
+                                 <th>
+                                    <span>Heure</span>
+                                 </th>
+                              </tr>
+                              <tr>
+                                 <td>
+                                    <p>{{rencontre.jour}}</p>
+                                 </td>
+
+                                 <td>
+                                    <p>{{rencontre.date | dateComplete}}</p>
+                                 </td>
+
+                                 <td>
+                                    <p ng-show="rencontre.hr_deb.length > 0  && rencontre.hr_fin.length > 0">
+                                       De {{rencontre.hr_deb | heureSansZero}}
+                                       à  {{rencontre.hr_fin | heureSansZero}}
+                                    </p>
+                                 </td>
+                              </tr>
+
+                              <tr>
+                                 <th colspan="3">
+                                    <span>Lieu</span>
+                                 </th>
+                              </tr>
+
+                              <tr>
+                                 <td colspan="3">
+
+                                    <p ng-show="rencontre.local.length > 0">{{rencontre.local}}<span ng-show="!cours.hors_campus"> | Campus de Montréal</span>
+                                       <br />
+                                       <span ng-if="rencontre.url_pavillon.length > 0">
+                                          <a ng-href="{{rencontre.url_pavillon}}" target="_blank" class="hidden-print"><span class="uqam-icone uqam-icone-sm pull-left icone_pointeur-carte"></span>Carte</a>
+                                       </span>
+                                    </p>
+
+                                    <p ng-show="cours.hors_campus.length > 0">
+                                       <span style="background-color:#FFFFFF;" ng-show="cours.hors_campus[0].ville.length > 0 || cours.hors_campus[0].no_rue.length > 0">{{cours.hors_campus[0].ville}}
+                                          <br />
+                                          <a ng-href="http://maps.google.com/maps?q={{cours.hors_campus[0].no_rue}},{{cours.hors_campus[0].ville}}" target="_blank" class="hidden-print"><span class="uqam-icone uqam-icone-sm pull-left icone_pointeur-carte"></span>Carte</a>
+                                          <span ng-show="cours.hors_campus[0].local"><br />Local {{cours.hors_campus[0].local}}</span>
+                                       </span>
+                                    </p>
+
+                                    <p ng-show="!rencontre.local  && !cours.hors_campus">
+                                       Non disponible
+                                    </p>
+
+                                 </td>
+                              </tr>
+
+
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </td>
+            </tr>
+
+            <!-- examen -->
+            <tr ng-show="cours.examen">
+               <td colspan="2">
+                  <div  class="table-responsive">
+                     <table class="table table-condensed table-bordered" ng-repeat="examen in cours.examen">
+                        <thead>
+                           <tr>
+                              <th colspan="3">
+                                 <span>Examens</span>
+                              </th>
+                           </tr>
+                        </thead>
+
+                        <tbody>
+                           <tr>
+                              <td colspan="3" class="separation"></td>
+                           </tr>
+
+                           <tr>
+                              <th colspan="3">
+                                 <span>Type</span>
+                              </th>
+                           </tr>
+                           <tr>
+                              <td colspan="3">{{examen.type}}</td>
+                           </tr>
+                           <tr>
+                              <th>
+                                 <span>Jour</span>
+                              </th>
+
+                              <th>
+                                 <span>Date</span>
+                              </th>
+
+                              <th>
+                                 <span>Heure</span>
+                              </th>
+                           </tr>
+                           <tr>
+                              <td>{{examen.jour}}</td>
+
+                              <td>{{examen.date | dateComplete}}</td>
+
+                              <td>
+                                 <p ng-show="examen.hr_deb.length > 0  && examen.hr_fin.length > 0">
+                                    De {{examen.hr_deb | heureSansZero}}
+                                    à  {{examen.hr_fin | heureSansZero}}
+                                 </p>
+                                 <p ng-show="!examen.hr_deb || !examen.hr_fin">
+                                    Non disponible
+                                 </p>
+                              </td>
+                           </tr>
+                           <tr>
+                              <th colspan="3">
+                                 <span>Local</span>
+                              </th>
+                           </tr>
+                           <tr>
+                              <td colspan="3">
+                                 <p ng-show="examen.local.length > 0">{{examen.local}}<p>
+                                 <p ng-show="!examen.local">Non disponible<p>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </td>
+            </tr>
+
+
+            <!-- Remarque -->
+            <tr ng-show="cours.rem1 || cours.rem2">
+               <td colspan="2">
+                  <h5 ng-hide="cours.rem1 && cours.rem2">Remarque</h5>
+                  <h5 ng-show="cours.rem1 && cours.rem2">Remarques</h5>
+               </td>
+            </tr>
+
+            <tr  ng-show="cours.rem1 || cours.rem2">
+               <td colspan="2">
+                  <ul>
+                     <li ng-show="cours.rem1.length > 0">
+                        <span>{{cours.rem1}}</span>
+                     </li>
+                     <li ng-show="cours.rem2.length > 0">
+                        <span>{{cours.rem2}}</span>
+                     </li>
+                  </ul>
+               </td>
+            </tr>
+         </tbody>
+      </table>
+   </div>
+
+   <!-- ************************************************************************************************************* -->
+   <!-- VERSION BUREAU -->
+   <div class="table-responsive visible-sm visible-md visible-lg imprimable">
+      <table class="table">
+         <tbody>
+
+            <!-- groupe crédits -->
+            <tr>
+               <td style="width:17.5%;">
+                  <h5 style="word-spacing:0.25em">groupe {{cours.groupe}}</h5>
+               </td>
+               <td style="width:50%;">
+                  <h5 ng-show="cours.nb_cred != '' && cours.nb_cred !== '1.0' && cours.nb_cred !== '0.0'">{{cours.nb_cred | number}} Crédits</h5>
+                  <h5 ng-show="cours.nb_cred != '' && ( cours.nb_cred === '1.0' || cours.nb_cred === '0.0')">{{cours.nb_cred | number}} Crédit</h5>
+               </td>
+               <td style="width:32.5%;">
+                  <!--a href="#" class="moodle"><img src="assets/images/general/icone/uqam/icone_moodle.jpg" alt="Moodle"> Ce cours sur moodle</a-->
+               </td>
+            </tr>
+
+            <!-- enseignants -->
+            <tr ng-show="cours.enseignant.length > 0">
+               <td>
+                  <h5 ng-show="cours.enseignant.length > 1" >Enseignants</h5>
+                  <h5 ng-show="cours.enseignant.length <= 1" >Enseignant</h5>
+               </td>
+               <td colspan="2">
+                  <ul>
+                     <li ng-repeat="enseignant in cours.enseignant">
+                        {{enseignant.nom}}
+                        <span ng-show="enseignant.url_repertoire.length > 0">&nbsp;|&nbsp;<a target="_blank" ng-href="{{enseignant.url_repertoire}}">Coordonnées&nbsp;<span class="uqam-icone uqam-icone-sm fleche-horizontal_bleu"></span></a>
+                        </span>
+                     </li>
+                  </ul>
+               </td>
+            </tr>
+
+            <!-- horaires -->
+            <tr ng-show="cours.horaire.length > 0 || cours.rencontre.length > 0">
+               <td colspan="3">
+
+                  <!-- horaire -->
+                  <div ng-show="cours.horaire.length > 0">
+                     <div class="table-responsive" ng-repeat="typeCours in cours.horaire | unique:'mode_util'">
+                        <table class="table  table-bordered">
+
+                           <thead>
+                              <tr>
+                                 <th colspan="4">
+                                    <span>{{typeCours.mode_util}}</span>
+                                 </th>
+                              </tr>
+                           </thead>
+
+                           <tbody>
+                              <tr>
+                                 <td colspan="4" class="separation"></td>
+                              </tr>
+
+                              <tr>
+                                 <th style="width:17.5%;">
+                                    <span>Jour</span>
+                                 </th>
+                                 <th style="width:25%;">
+                                    <span>Date</span>
+                                 </th>
+                                 <th style="width:20%;">
+                                    <span>Heure</span>
+                                 </th>
+                                 <th style="width:37.5%;">
+                                    <span>Lieu</span>
+                                 </th>
+                              </tr>
+
+                              <tr ng-repeat="horaire in cours.horaire | filter: { mode_util: typeCours.mode_util }">
+
+                                 <td>
+                                    <p>{{horaire.jour}}</p>
+                                 </td>
+
+                                 <!-- dates -->
+                                 <td>
+                                    <p ng-show="cours.dt_deb.length > 0  && cours.dt_fin.length > 0">
+                                       Du {{cours.dt_deb | dateComplete}}
+                                       <br>au {{cours.dt_fin | dateComplete}}
+                                    </p>
+                                    <p ng-show="!cours.dt_deb || !cours.dt_fin">
+                                       Non disponible
+                                    </p>
+                                 </td>
+
+                                 <!-- heures -->
+                                 <td>
+                                    <p>De {{horaire.hr_deb | heureSansZero}} à {{horaire.hr_fin | heureSansZero}}</p>
+                                 </td>
+
+                                 <!-- lieu -->
+                                 <td>
+
+                                    <p ng-show="horaire.local.length > 0">{{horaire.local}}<span ng-show="!cours.hors_campus"> |  Campus de Montréal</span>
+                                       <br />
+                                       <span ng-if="horaire.url_pavillon.length > 0">
+                                          <a ng-href="{{horaire.url_pavillon}}" target="_blank" class="hidden-print"><span class="uqam-icone uqam-icone-sm pull-left icone_pointeur-carte"></span>Carte</a>
+                                       </span>
+                                    </p>
+
+                                    <p ng-show="cours.hors_campus.length > 0">
+                                       <span style="background-color:#FFFFFF;" ng-show="cours.hors_campus[0].ville.length > 0 || cours.hors_campus[0].no_rue.length > 0">{{cours.hors_campus[0].ville}}
+                                          <br />
+                                          <a ng-href="http://maps.google.com/maps?q={{cours.hors_campus[0].no_rue}},{{cours.hors_campus[0].ville}}" target="_blank" class="hidden-print">
+                                             <span class="uqam-icone uqam-icone-sm pull-left icone_pointeur-carte"></span>
+                                             Carte
+                                          </a>
+                                          <span ng-show="cours.hors_campus[0].local"><br />Local {{cours.hors_campus[0].local}}</span>
+                                       </span>
+                                    </p>
+
+                                    <p ng-show="!horaire.local  && !cours.hors_campus">
+                                       Non disponible
+                                    </p>
+
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+
+                  <!-- dates de rencontre-->
+                  <div ng-show="cours.rencontre.length > 0" class="table-responsive">
+                     <div class="table-responsive">
+                        <table class="table table-bordered">
+                           <thead>
+                              <tr>
+                                 <th colspan="4">
+                                    <span ng-show="cours.rencontre.length > 1">Rencontres</span>
+                                    <span ng-show="cours.rencontre.length <= 1">Rencontre</span>
+                                 </th>
+                              </tr>
+                           </thead>
+
+                           <tbody>
+                              <tr>
+                                 <td colspan="4" class="separation"></td>
+                              </tr>
+
+                              <tr>
+                                 <th style="width:17.5%;">
+                                    <span>Jour</span>
+                                 </th>
+                                 <th style="width:25%;">
+                                    <span>Date</span>
+                                 </th>
+                                 <th style="width:20%;">
+                                    <span>Heure</span>
+                                 </th>
+                                 <th style="width:37.5%;">
+                                    <span>Lieu</span>
+                                 </th>
+                              </tr>
+
+                              <tr ng-repeat="rencontre in cours.rencontre">
+                                 <td>
+                                    <p>{{rencontre.jour}}</p>
+                                 </td>
+                                 <td>
+                                    <p>{{rencontre.date | dateComplete}}</p>
+                                 </td>
+                                 <td>
+                                    <p ng-show="rencontre.hr_deb.length > 0  && rencontre.hr_fin.length > 0">
+                                       De {{rencontre.hr_deb | heureSansZero}}
+                                       à  {{rencontre.hr_fin | heureSansZero}}
+                                    </p>
+                                 </td>
+                                 <!-- lieu -->
+                                 <td>
+                                    <p ng-show="rencontre.local.length > 0">{{rencontre.local}}<span ng-show="!cours.hors_campus"> |  Campus de Montréal</span>
+                                       <br />
+                                       <span ng-if="rencontre.url_pavillon.length > 0">
+                                          <a ng-href="{{rencontre.url_pavillon}}" target="_blank" class="hidden-print"><span class="uqam-icone uqam-icone-sm pull-left icone_pointeur-carte"></span>Carte</a>
+                                       </span>
+                                    </p>
+
+                                    <p ng-show="cours.hors_campus.length > 0">
+                                       <span style="background-color:#FFFFFF;" ng-show="cours.hors_campus[0].ville.length > 0 || cours.hors_campus[0].no_rue.length > 0">{{cours.hors_campus[0].ville}}
+                                          <br />
+                                          <a ng-href="http://maps.google.com/maps?q={{cours.hors_campus[0].no_rue}},{{cours.hors_campus[0].ville}}" target="_blank" class="hidden-print">
+                                             <span class="uqam-icone uqam-icone-sm pull-left icone_pointeur-carte"></span>
+                                             Carte
+                                          </a>
+                                          <span ng-show="cours.hors_campus[0].local"><br />Local {{cours.hors_campus[0].local}}</span>
+                                       </span>
+                                    </p>
+
+                                    <p ng-show="!rencontre.local  && !cours.hors_campus">
+                                       Non disponible
+                                    </p>
+                                 </td>
+                              </tr>
+
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </td>
+            </tr>
+
+            <!-- examen -->
+            <tr ng-show="cours.examen">
+               <td colspan="3">
+                  <div  class="table-responsive">
+                     <table class="table  table-bordered">
+                        <thead>
+                           <tr>
+                              <th colspan="5">
+                                 <span>Examens</span>
+                              </th>
+                           </tr>
+                        </thead>
+
+                        <tbody>
+                           <tr>
+                              <td colspan="5" class="separation"></td>
+                           </tr>
+
+                           <tr>
+                              <th style="width:17.5%;">
+                                 <span>Type</span>
+                              </th>
+                              <th style="width:15%;">
+                                 <span>Jour</span>
+                              </th>
+                              <th style="width:15%;">
+                                 <span>Date</span>
+                              </th>
+                              <th style="width:15%;">
+                                 <span>Heure</span>
+                              </th>
+                              <th style="width:37.5%;">
+                                 <span>Local</span>
+                              </th>
+                           </tr>
+
+                           <tr ng-repeat="examen in cours.examen">
+                              <td>{{examen.type}}</td>
+                              <td>{{examen.jour}}</td>
+                              <td>{{examen.date | dateComplete}}</td>
+                              <td>
+                                 <p ng-show="examen.hr_deb.length > 0  && examen.hr_fin.length > 0">
+                                    De {{examen.hr_deb | heureSansZero}}
+                                    à  {{examen.hr_fin | heureSansZero}}
+                                 </p>
+                                 <p ng-show="!examen.hr_deb || !examen.hr_fin">
+                                    Non disponible
+                                 </p>
+                              </td>
+                              <td>
+                                 <p ng-show="examen.local.length > 0">{{examen.local}}<p>
+                                 <p ng-show="!examen.local">Non disponible<p>
+                              </td>
+                           </tr>
+
+                        </tbody>
+                     </table>
+                  </div>
+               </td>
+            </tr>
+
+            <!-- Remarque-->
+            <tr ng-show="cours.rem1 || cours.rem2">
+               <td>
+                  <h5 ng-hide="cours.rem1 && cours.rem2">Remarque</h5>
+                  <h5 ng-show="cours.rem1 && cours.rem2">Remarques</h5>
+               </td>
+               <td colspan="2">
+                  <ul>
+                     <li ng-show="cours.rem1.length > 0">
+                        {{cours.rem1}}
+                     </li>
+                     <li ng-show="cours.rem2.length > 0">
+                        {{cours.rem2}}
+                     </li>
+                  </ul>
+               </td>
+            </tr>
+
+         </tbody>
+      </table>
+   </div>
+
+</div>

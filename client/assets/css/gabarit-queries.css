@@ -1,0 +1,880 @@
+/* AUDIOVISUEL GABARIT-QUERIES.CSS ------------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------------------------------------------- */
+/* PERSONNALISÉ & IPHONE RETINA */
+/* APPAREIL DE PETITE TAILLE & TÉLÉPHONE - MODE PORTRAIT */
+@media only screen and (min-width:120px), only screen and (min-width:320px), only screen and (min-width:460px){
+  /* GÉNÉRAL */
+  html{min-width:320px;}
+    body{min-width:320px;}
+
+  /* GABARIT */
+  .uqam_conteneur{background:#fff; min-height:100%;}
+
+    .uqam_entete{position:relative;}
+      .uqam_entete_interieur{width:100%; height:47px; padding:0; border-bottom:2px solid #fff;}
+        .uqam_entete_logo{padding:0;}
+          .uqam_entete_logo .uqam_lien-logo{float:left; margin:0 0 0 15px;}
+          .uqam_entete_logo img{width:60px;}
+        .uqam_lien-rapides{visibility:hidden;}
+        .uqam_entete_titre{padding:0 0 0 15px;}
+          .uqam_entete_titre h2{font-weight:normal;}
+        .uqam_entete hr{height:37px;}
+
+    .uqam_pied-page{position:absolute; bottom:0; height:58px; margin:-50px 0 0 0; padding:10px;}
+      .uqam_pied-page_interieur{width:100%; height:auto;}
+        .uqam_pied-page_universite{padding:0;}
+        .uqam_pied-page_information{padding:0;}
+          .uqam_pied-page_information ul li:first-child{padding:0 7px 0 0;}
+
+    table thead tr th h4{margin:0; padding:0;}
+    .factures-et-impots .table > tbody:last-child{font-weight:normal;}
+
+  /* MAQUETTE */
+  .contenu{display:table; width:100%; height:auto; margin:0 auto 0 auto; padding:0 0 100px 0;}
+    .contenu-gauche{display:block; position:static; height:0; min-height:0;}
+      .navbar-header{position:absolute; top:47px; left:0; display:table; width:33.3333%; z-index:9999;}
+        .navbar-toggle{display:block;}
+      .navbar-collapse{position:absolute; top:84px; right:0; width:100%; margin:0; padding:0; z-index:9999;}
+      .navbar-collapse.collapse{display:none !important;}
+      .collapse.in{display:block !important;}
+      .collapse{display:none; visibility:hidden;}
+
+      .sous-entete{margin:0 0 35px 0;}
+
+      /* NAVIGATION */
+      .contenu-gauche .navbar-default ul{padding:0;}
+        .contenu-gauche .navbar-default ul li a,
+        .contenu-gauche .navbar-default ul li a:link{padding-left:30px;}
+        .contenu-gauche .navbar-default ul li ul{padding:0;}
+          .contenu-gauche .navbar-default ul li ul li a,
+          .contenu-gauche .navbar-default ul li ul li a:link{padding-left:30px;}
+            .contenu-gauche .navbar-default ul li ul li a .badge{margin-left:-24px;}
+          .contenu-gauche .navbar-default ul li ul li ul{padding:0;}
+            .contenu-gauche .navbar-default ul li ul li ul li a,
+            .contenu-gauche .navbar-default ul li ul li ul li a:link{padding-left:30px;}
+              .contenu-gauche .navbar-default ul li ul li ul li a .badge{margin-left:-24px;}
+
+    .contenu-droite{display:block; padding:20px 10px 0 10px;}
+      h1:before{display:none;}
+      .information-tableau{display:block;}
+        .information-tableau div{display:block; margin:0 0 25px 0; text-align:left;}
+
+
+    /* BOOTSRAP */
+    .bg-danger,
+    .bg-warning,
+    .bg-info,
+    .bg-success{min-height:50px; margin:0 0 15px 0; padding:10px;}
+      .bg-danger:before,
+      .bg-warning:before,
+      .bg-info:before,
+      .bg-success:before{display:none;}
+    .table-responsive{border:#fff !important;}
+    .table-responsive>.table>thead>tr>th,
+    .table-responsive>.table>tbody>tr>th,
+    .table-responsive>.table>tfoot>tr>th,
+    .table-responsive>.table>thead>tr>td,
+    .table-responsive>.table>tbody>tr>td,
+    .table-responsive>.table>tfoot>tr>td{white-space:normal;}
+    .popover{min-width:150px; max-width:150px;}
+
+    /* FACTURE */
+    .factures-et-impots .table-responsive>.table-bordered{border:#7fa6b3 1px solid; border-top:#004e68 3px solid;}
+    .factures-et-impots .soldes-et-operation{margin:0 0 30px 0; padding:0; border:0;}
+    .factures-et-impots .soldes-et-operation a,
+    .factures-et-impots .soldes-et-operation a:link{font-size:100%;}
+    .factures-et-impots .soldes-et-operation .text-info{font-size:100%; line-height:27px;}
+    .factures-et-impots .soldes-et-operation .text-info .bg-primary{line-height:normal; padding:4px 30px 4px 5px;}
+      .factures-et-impots .soldes-et-operation .bg-primary .badge{top:4px; right:10px;}
+
+    /* CALENDRIER */
+    .fc-day-grid{font-size:85%;}
+    .fc-time-grid-container{font-size:85%;}
+    .fc-day-grid .fc-content-skeleton table tbody tr td .examen .fc-title{font-size:100%;}
+    .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .fc-event-container a .fc-content .fc-title{font-size:100%;}
+
+    .fc-view-container table thead tr td div table thead tr td,
+      .fc-view-container table thead tr td div table thead tr .fc-widget-header{font-size:62.5%;}
+
+    .entete-calendrier{padding:0;}
+    .entete-calendrier table tbody tr th div div.select-form-control select.form-control{width:120%;}
+
+      .entete-calendrier table tbody tr th>div:nth-child(1){width:155px;}
+        .entete-calendrier table tbody tr th>div:nth-child(1)>div>div:last-child{width:135px;}
+        .entete-calendrier table tbody tr th>div:nth-child(1) label{float:none;}
+      .entete-calendrier table tbody tr th>div:nth-child(2){width:155px;}
+      .entete-calendrier table tbody tr th>div:nth-child(3){padding:0 10px 0 10px;}
+        .entete-calendrier table tbody tr th hr{height:60px;}
+
+    .calendrierLiensSupplementaires{padding:0;}
+
+    .entete-calendrier table tbody tr td div a:hover{color:#00ade7; text-decoration:none;}
+      .entete-calendrier table tbody tr td div a:hover:before{background:#00ade7;}
+
+    .cours-container h2{padding:0 0 10px 0;}
+    .cours-container h4{padding:10px 0 10px 0;}
+
+    .cours table tbody tr td table,
+    .cours table tbody tr td .table,
+    .cours table tbody tr td .table-condensed{border:1px solid #014e68;}
+      .cours table tbody tr td .table-condensed tr{}
+        .cours table tbody tr td .table-condensed tr>th:first-child{border-left:1px solid #014e68 !important;}
+        .cours table tbody tr td .table-condensed tr>th:last-child{border-right:1px solid #014e68 !important;}
+        .cours table tbody tr td .table-condensed tr>td:first-child{border-left:1px solid #014e68 !important;}
+        .cours table tbody tr td .table-condensed tr>td:last-child{border-right:1px solid #014e68 !important;}
+
+    .horaire .cours table tbody tr td table,
+    .horaire .cours table tbody tr td .table,
+    .horaire .cours table tbody tr td .table-condensed{border:1px solid #fff; border-top:1px solid #fff;}
+      .horaire .cours table tbody tr td .table-condensed tr{}
+        .horaire .cours table tbody tr td .table-condensed thead tr th{border:1px solid #fff !important;}
+        .horaire .cours table tbody tr td .table-condensed tbody tr th{border:1px solid #c2d5dc !important;}
+        .horaire .cours table tbody tr td .table-condensed tbody tr td{border:1px solid #c2d5dc !important;}
+        .horaire .cours table tbody tr td .table-condensed tbody tr td.separation{height:1px; border:1px solid #c2d5dc !important; border-top:1px solid #fff !important;}
+
+    .entete-calendrier table tbody tr th .btn.btn-info{margin:37px 0 0 0;}
+
+    .cours-container .btn.btn-info{float:left;}
+
+    /* RÉSULTAT */
+    td.plus-info{padding-top:20px !important;}
+    .ren .resultats .table-responsive table{font-size:100%;}
+    .ren .resultats div.moreInfo{margin:5px !important;}
+
+    /* RELEVÉ */
+    .ren .releves-de-notes .table-responsive table{font-size:100%;}
+
+    .ren .releves-de-notes .bg-group-3{display:block; padding:0 0 45px 0;}
+      .ren .releves-de-notes .bg-group-3 .bg-uqam{display:block; height:auto; margin:0; vertical-align:top;}
+      .ren .releves-de-notes .bg-group-3 .bg-uqam:nth-child(1){width:100%; border-right:0; border-bottom:15px solid #fff;}
+      .ren .releves-de-notes .bg-group-3 .bg-uqam:nth-child(2){width:50%; float:left; border-right:8px solid #fff;}
+      .ren .releves-de-notes .bg-group-3 .bg-uqam:nth-child(3){width:50%; float:left; border-left:7px solid #fff;}
+
+      .ren .releves-de-notes .bg-group-3 .legende{float:none;}
+
+      .ren .releves-de-notes .bg-group-3 .bg-uqam:nth-child(2) h2,
+      .ren .releves-de-notes .bg-group-3 .bg-uqam:nth-child(3) h2{font-size:250%;}
+        .ren .releves-de-notes .bg-uqam h2 span{top:7px; right:50%; margin:0 -45px 0 0;}
+
+      .ren .releves-de-notes div.moreInfo{margin:5px !important;}
+
+      .ren .releves-de-notes>div>.bg-group-2{display:block;}
+        .ren .releves-de-notes>div>.bg-group-2 .bg-uqam{display:block; margin:0 0 15px 0;}
+        .ren .releves-de-notes>div>.bg-group-2 .bg-uqam:nth-child(1){width:100%;}
+        .ren .releves-de-notes>div>.bg-group-2 .bg-uqam:nth-child(2){width:100%; padding-left:22px; clear:both;}
+          .ren .releves-de-notes>div>.bg-group-2 .bg-uqam img{display:block; width:100%; padding:0 15px 0 0;}
+          .ren .releves-de-notes>div>.bg-group-2 .bg-uqam:nth-child(1) h5{margin-top:15px;}
+          .ren .releves-de-notes>div>.bg-group-2 .bg-uqam:nth-child(2) h5{margin-top:0;}
+
+    /* PÉRIODE D'INSCRIPTION */
+    .inscription .periode div table{font-size:85%;}
+
+    .inscription .periode div table tbody tr td>div{margin:0 0 10px 0;}
+      .inscription .periode div table tbody tr td div div{}
+      .inscription .periode div table tbody tr td div div:nth-child(1){height:50px; padding:5px 15px 5px 5px;}
+      .inscription .periode div table tbody tr td div div:nth-child(2){height:50px;}
+          .inscription .periode div table tbody tr td div div:nth-child(2):before{
+             top:-22px; border-width:50px 0 50px 17px;
+          }
+          .inscription .periode div table tbody tr td div div:nth-child(2):after{
+              top:-22px; border-width:50px 0 50px 17px;
+          }
+      .inscription .periode div table tbody tr td div div:nth-child(3){height:50px; padding:5px 5px 5px 15px;}
+          /*.inscription .periode div table tbody tr td div div strong{font-size:100%;}*/
+
+    .inscription .periode .bg-uqam div table tbody tr td span{font-size:115%;}
+
+    .inscription .periode div.table-responsive table,
+    .inscription .periode div.table-responsive table.table,
+    .inscription .periode div.table-responsive table.table-bordered,
+    .inscription .periode div.table-responsive table.table-condensed{border:#78b9cb 1px solid;}
+      .inscription .periode div.table-responsive table tbody tr td{border:0; border-bottom:#78b9cb 1px solid;}
+        .inscription .periode div.table-responsive table tbody tr td table{border-top:0; border:0;}
+          .inscription .periode div.table-responsive table tbody tr td table tr{}
+            .inscription .periode div.table-responsive table tbody tr td table tr td{border:0;}
+
+    /* FAIRE MON D'INSCRIPTION */
+    .inscription .faire-inscription .bloc-trimestre{display:block; width:100%; padding:0; margin:0 0 15px 0; clear:both;}
+      .inscription .faire-inscription .bloc-trimestre .bg-uqam{display:block; width:100%; margin:0;}
+
+    .inscription .faire-inscription .bg-group-3{padding:0;}
+      .inscription .faire-inscription .bg-group-3 .bg-uqam{display:block; width:100%; margin:0 0 15px 0; clear:both;}
+      .inscription .faire-inscription .bg-group-3 .bg-uqam:nth-child(1){border-right:0;}
+      .inscription .faire-inscription .bg-group-3 .bg-uqam:nth-child(2){border-right:0;}
+      .inscription .faire-inscription .bg-group-3 .bg-uqam:nth-child(3){border-left:0;}
+
+    .inscription .faire-inscription .bg-group-4{display:block; width:100%;}
+      .inscription .faire-inscription .bg-group-4 .bg-uqam{display:block; width:100%;}
+      .inscription .faire-inscription .bg-group-4 .bg-uqam:nth-child(1){width:100%; padding:22px; padding-bottom:0;}
+      .inscription .faire-inscription .bg-group-4 .bg-uqam:nth-child(2){width:100%; padding:22px; padding-bottom:0;}
+      .inscription .faire-inscription .bg-group-4 .bg-uqam:nth-child(3){width:100%; padding:22px;}
+      .inscription .faire-inscription .bg-group-4 .bg-uqam:nth-child(4){width:100%; padding:22px; border:0; border-top: 4px solid #fff;}
+        .inscription .faire-inscription .bg-group-4 .bg-uqam hr{float:none; width:100%; height:2px; margin:0 0 20px 0;}
+
+    .inscription .faire-inscription .bg-group-2{display:block; width:100%;}
+      .inscription .faire-inscription .bg-group-2 .bg-uqam{display:block; width:100%;}
+      .inscription .faire-inscription .bg-group-2 .bg-uqam:nth-child(1){width:100%; border-bottom:0; border-right:#78b9cb 1px solid;}
+      .inscription .faire-inscription .bg-group-2 .bg-uqam:nth-child(2){width:100%;}
+
+      .inscription .faire-inscription .bg-group-2 .bg-uqam.autorisee{border:#78b9cb 1px solid; border-top:0; padding-top:0;}
+      .inscription .faire-inscription .bg-group-2.modification .bg-uqam:nth-child(1){border-bottom:0;}
+      .inscription .faire-inscription .bg-group-2.modification .bg-uqam:nth-child(2){border:#78b9cb 1px solid; border-top:0;}
+
+      /* Martin marge entre les cours dans mobile */
+      .inscription .faire-inscription .bg-group-2 {margin: 0 0 15px 0;}
+
+      .inscription .faire-inscription .bg-group-3.modification .bg-uqam{width:100%; border:0;}
+      .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(2),
+      .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(3),
+      .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(4){padding:22px;}
+        .inscription .faire-inscription .bg-group-3.modification .bg-uqam > hr{background:#0b5b74; float:none !important; width:100%; height:1px; margin:0 0 35px 0; padding:0; /*border-left:22px solid #fff; border-right:22px solid #fff;*/}
+      .inscription .faire-inscription .bg-group-3.modification{border-top:#78b9cb 1px solid;}
+
+      .inscription .faire-inscription .bg-group-3.modification .bg-uqam button{font-size:100%; margin:0 0 0 55px;}
+      .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(1) button{font-size:85%;}
+
+      /* Martin */
+      .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(2) div {margin-left:35px;}
+
+      .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(3) h5,
+      .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(4) h5{padding-left:35px;text-align:left;}
+      .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(3) h5:before,
+      .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(4) h5:before{left:0;}
+      .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(3) .bg-success,
+      .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(3) .bg-danger{margin-left:0;}
+      .inscription .faire-inscription .bg-group-3.modification .bg-uqam button{margin:0 0 0 0; padding-top: 4px;padding-bottom: 4px;}
+
+       /* Martin Simoneau. Espacement entre les rangées lorsque l'éditeur est ouvert */
+      .inscription .faire-inscription .bg-group-3.modification .bg-uqam button{margin-left:35px;}
+      .inscription .faire-inscription .bg-group-3.modification {margin-left:0px;margin-bottom:45px;}
+
+      .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(1) h4{position:relative; padding:50px 0 10px 0;}
+      .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(1) h4 button{position:absolute; top:0; left:0; margin:0;}
+
+      /* Marge cours remplacé... */
+      .inscription .faire-inscription .coursAnnule {margin: 0 0 15px 0;}
+
+
+      .inscription .confirmation {font-size:85%;}
+
+
+   /* ÉVALUATION DE l'ENSEIGNEMENT. Martin Simoneau */
+   /* Pour téléphone paysage et + >                 */
+
+   /* Rangé impair avec fond. */
+   .faireeval .table-responsive .odd {background-color:#E6EEF0;}
+
+   /* Bordure du tableau. */
+   .faireeval .table-responsive td {border:none;}
+
+   /* Espacement du hr */
+   .faireeval hr{margin:17px 0 50px 0;}
+
+
+   /* Bordure verticale entre l'évaluation et le choix de réponse.
+   .faireeval .table-responsive td:nth-child(2) {border-right:#C6DCDD 1px solid;}*/
+
+   /* Première et dernière bordure horizontale du tableau.
+   .faireeval table.table-condensed tbody>tr:first-child  {border-top:#C6DCDD 1px solid;}
+   .faireeval table.table-condensed tbody>tr:last-child  {border-bottom:#C6DCDD 1px solid;}   */
+   .faireeval table.table-condensed tbody>tr:last-child td {padding-bottom:10px;}
+
+   /* Le numéro de la question en bold.*/
+   .faireeval .table-responsive  table tbody>tr td:first-child  {padding-right:2px;font-weight: bold;}
+
+   /* Largeur du contrôle */
+   .faireeval table tr td {padding-bottom:0;padding-top:10px;}
+   .faireeval table tr td ul {width:130px;padding:0;margin-bottom:0}
+
+   /* Overwrite Bootstrap */
+   /* Je sais pas pourquoi les bullets sont là. */
+   .faireeval .pagination-sm li {padding-left:0;}
+   /* Corrige un problème avec IE. */
+   .faireeval .pagination-sm li:before {width:0;}
+
+   /* Couleur de fond */
+   .faireeval .pagination-sm li a {background-color:#0681AE;}
+   .faireeval .pagination-sm li a {color:white;}
+
+   /* mouse hover */
+   .faireeval .pagination-sm li a:hover {
+     background-color: #002E3E;
+     border-color: #002E3E;
+   }
+
+   /* selected */
+   .faireeval .pagination-sm li a:focus {
+      background-color: #002E3E;
+   }
+
+   /* Radius */
+   .faireeval .pagination-sm li:first-child  a {border-top-left-radius:11px}
+   .faireeval .pagination-sm li:first-child  a {border-bottom-left-radius:11px}
+   .faireeval .pagination-sm li:nth-child(5) a {border-top-right-radius:11px}
+   .faireeval .pagination-sm li:nth-child(5) a {border-bottom-right-radius:11px}
+
+   /*
+   padding: 5px 10px;
+   font-size: 12px;
+   line-height: 1.5;
+   */
+   /* Redimentionner  */
+   .faireeval .pagination-sm > li > a  {
+     padding: 4px 8px;
+     font-weight: bold;
+   }
+
+   /* Hover */
+   .faireeval .pagination-sm li a:hover {
+      background-color: #002E3E !important;
+      border-color: #002E3E;
+   }
+
+}
+
+/* APPAREIL DE PETITE TAILLE & TABLETTE - MODE PAYSAGE */
+@media only screen and (min-width:461px), only screen and (min-width:480px), only screen and (min-width:768px){
+  /* GÉNÉRAL */
+  html{min-width:320px;}
+    body{min-width:320px;}
+
+  /* GABARIT */
+  .uqam_conteneur{background:#fff; min-height:100%;}
+
+    .uqam_entete{position:relative;}
+      .uqam_entete_interieur{width:100%; height:47px; padding:0; border-bottom:2px solid #fff;}
+        .uqam_entete_logo{padding:0;}
+          .uqam_entete_logo .uqam_lien-logo{float:left; margin:0 0 0 15px;}
+          .uqam_entete_logo img{width:60px;}
+        .uqam_lien-rapides{visibility:hidden;}
+        .uqam_entete_titre{padding:0 0 0 15px;}
+          .uqam_entete_titre h2{font-weight:normal;}
+        .uqam_entete hr{height:37px;}
+
+    .uqam_pied-page{position:absolute; bottom:0; height:58px; margin:-50px 0 0 0; padding:10px;}
+      .uqam_pied-page_interieur{width:100%; height:auto;}
+        .uqam_pied-page_universite{padding:0;}
+        .uqam_pied-page_information{padding:0;}
+          .uqam_pied-page_information ul li:first-child{padding:0 7px 0 0;}
+
+    table thead tr th h4{margin:0; padding:0;}
+    .factures-et-impots .table > tbody:last-child{font-weight:normal;}
+
+  /* MAQUETTE */
+  .contenu{display:table; width:100%; height:auto; margin:0 auto 0 auto; padding:0 0 100px 0;}
+    .contenu-gauche{display:block; position:static; height:0; min-height:0;}
+      .navbar-header{position:absolute; top:47px; left:0; display:table; width:33.3333%; z-index:9999;}
+        .navbar-toggle{display:block;}
+      .navbar-collapse{position:absolute; top:84px; right:0; width:100%; margin:0; padding:0; z-index:9999;}
+      .navbar-collapse.collapse{display:none !important;}
+      .collapse.in{display:block !important;}
+      .collapse{display:none; visibility:hidden;}
+
+      .sous-entete{margin:0 0 70px 0;}
+
+      /* NAVIGATION */
+      .contenu-gauche .navbar-default ul{padding:0;}
+        .contenu-gauche .navbar-default ul li a,
+        .contenu-gauche .navbar-default ul li a:link{padding-left:30px;}
+        .contenu-gauche .navbar-default ul li ul{padding:0;}
+          .contenu-gauche .navbar-default ul li ul li a,
+          .contenu-gauche .navbar-default ul li ul li a:link{padding-left:30px;}
+            .contenu-gauche .navbar-default ul li ul li a .badge{margin-left:-24px;}
+          .contenu-gauche .navbar-default ul li ul li ul{padding:0;}
+            .contenu-gauche .navbar-default ul li ul li ul li a,
+            .contenu-gauche .navbar-default ul li ul li ul li a:link{padding-left:30px;}
+              .contenu-gauche .navbar-default ul li ul li ul li a .badge{margin-left:-24px;}
+
+    .contenu-droite{display:block; padding:20px 10px 0 10px;}
+      h1:before{display:none;}
+      .information-tableau{display:block;}
+        .information-tableau div{display:block; margin:0 0 25px 0; text-align:left;}
+
+
+    /* BOOTSRAP */
+    .bg-danger,
+    .bg-warning,
+    .bg-info,
+    .bg-success{min-height:50px; margin:0 0 15px 0; padding:10px;}
+      .bg-danger:before,
+      .bg-warning:before,
+      .bg-info:before,
+      .bg-success:before{display:none;}
+    .table-responsive{border:#fff !important;}
+    .table-responsive>.table>thead>tr>th,
+    .table-responsive>.table>tbody>tr>th,
+    .table-responsive>.table>tfoot>tr>th,
+    .table-responsive>.table>thead>tr>td,
+    .table-responsive>.table>tbody>tr>td,
+    .table-responsive>.table>tfoot>tr>td{white-space:normal;}
+    .popover{min-width:150px; max-width:200px;}
+
+
+    /* FACTURE */
+    .factures-et-impots .soldes-et-operation{margin:0 0 30px 0; padding:0; border:0;}
+    .factures-et-impots .soldes-et-operation a,
+    .factures-et-impots .soldes-et-operation a:link{font-size:100%;}
+    .factures-et-impots .soldes-et-operation .text-info{font-size:100%; line-height:27px;}
+    .factures-et-impots .soldes-et-operation .text-info .bg-primary{line-height:normal; padding:4px 30px 4px 5px;}
+      .factures-et-impots .soldes-et-operation .bg-primary .badge{top:4px; right:10px;}
+
+    /* CALENDRIER */
+    .fc-day-grid{font-size:85%;}
+    .fc-time-grid-container{font-size:85%;}
+    .fc-day-grid .fc-content-skeleton table tbody tr td .examen .fc-title{font-size:100%;}
+    .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .fc-event-container a .fc-content .fc-title{font-size:100%;}
+
+    .fc-view-container table thead tr td div table thead tr td,
+      .fc-view-container table thead tr td div table thead tr .fc-widget-header{font-size:62.5%;}
+
+    .entete-calendrier{padding:0;}
+    .entete-calendrier table tbody tr th div div.select-form-control select.form-control{width:120%;}
+
+      .entete-calendrier table tbody tr th>div:nth-child(1){width:155px;}
+        .entete-calendrier table tbody tr th>div:nth-child(1)>div>div:last-child{width:135px;}
+        .entete-calendrier table tbody tr th>div:nth-child(1) label{float:none;}
+      .entete-calendrier table tbody tr th>div:nth-child(2){width:155px;}
+      .entete-calendrier table tbody tr th>div:nth-child(3){padding:0 10px 0 10px;}
+        .entete-calendrier table tbody tr th hr{height:60px;}
+
+    .calendrierLiensSupplementaires{padding:0;}
+
+    .entete-calendrier table tbody tr td div a:hover{color:#00ade7; text-decoration:none;}
+      .entete-calendrier table tbody tr td div a:hover:before{background:#00ade7;}
+
+    .cours-container h2{padding:0 0 10px 0;}
+    .cours-container h4{padding:10px 0 10px 0;}
+
+    .cours table tbody tr td table,
+    .cours table tbody tr td .table,
+    .cours table tbody tr td .table-condensed{border:1px solid #014e68;}
+      .cours table tbody tr td .table-condensed tr{}
+        .cours table tbody tr td .table-condensed tr>th:first-child{border-left:1px solid #014e68 !important;}
+        .cours table tbody tr td .table-condensed tr>th:last-child{border-right:1px solid #014e68 !important;}
+        .cours table tbody tr td .table-condensed tr>td:first-child{border-left:1px solid #014e68 !important;}
+        .cours table tbody tr td .table-condensed tr>td:last-child{border-right:1px solid #014e68 !important;}
+
+    .horaire .cours table tbody tr td table,
+    .horaire .cours table tbody tr td .table,
+    .horaire .cours table tbody tr td .table-condensed{border:1px solid #fff; border-top:1px solid #fff;}
+      .horaire .cours table tbody tr td .table-condensed tr{}
+        .horaire .cours table tbody tr td .table-condensed thead tr th{border:1px solid #fff !important;}
+        .horaire .cours table tbody tr td .table-condensed tbody tr th{border:1px solid #c2d5dc !important;}
+        .horaire .cours table tbody tr td .table-condensed tbody tr td{border:1px solid #c2d5dc !important;}
+        .horaire .cours table tbody tr td .table-condensed tbody tr td.separation{height:1px; border:1px solid #c2d5dc !important; border-top:1px solid #fff !important;}
+
+    .entete-calendrier table tbody tr th .btn.btn-info{margin:37px 0 0 0;}
+
+    .cours-container .btn.btn-info{float:left;}
+
+    /* RÉSULTAT */
+    td.plus-info{padding-top:20px !important;}
+    .ren .resultats .table-responsive table{font-size:85%;}
+    .ren .resultats div.moreInfo{margin:5px !important;}
+
+    /* RELEVÉ */
+    .ren .releves-de-notes .table-responsive table{font-size:85%;}
+
+    .ren .releves-de-notes .bg-group-3 .bg-uqam:nth-child(2) h2,
+    .ren .releves-de-notes .bg-group-3 .bg-uqam:nth-child(3) h2{font-size:350%;}
+
+    .ren .releves-de-notes .bg-uqam h2 span{top:8px; right:50%; margin:0 -65px 0 0;}
+
+    .ren .releves-de-notes div.moreInfo{margin:5px !important;}
+
+    .ren .releves-de-notes>div>.bg-group-2{display:block;}
+    .ren .releves-de-notes>div>.bg-group-2 .bg-uqam{display:block; margin:0 0 15px 0;}
+    .ren .releves-de-notes>div>.bg-group-2 .bg-uqam:nth-child(1){width:100%;}
+    .ren .releves-de-notes>div>.bg-group-2 .bg-uqam:nth-child(2){width:100%; padding-left:22px; clear:both;}
+      .ren .releves-de-notes>div>.bg-group-2 .bg-uqam img{display:block; width:100%; padding:0 25px 0 0;}
+      .ren .releves-de-notes>div>.bg-group-2 .bg-uqam:nth-child(1) h5{margin-top:15px;}
+      .ren .releves-de-notes>div>.bg-group-2 .bg-uqam:nth-child(2) h5{margin-top:0;}
+
+    /* PÉRIODE D'INSCRIPTION */
+
+    /* FAIRE MON D'INSCRIPTION */
+    .inscription .faire-inscription .bloc-trimestre{position:relative; float:left; display:block; width:50%; margin:0 0 15px 0; clear: inherit; font-size: 100%;}
+      .inscription .faire-inscription .bloc-trimestre .bg-uqam{display:table-cell; width:inherit; height:100%; margin:0; padding:0; border:0; vertical-align:top;}
+
+      .inscription .confirmation {font-size:100%;}
+
+
+}
+
+/* --------------------------------------------------------------------------------------------------------------- */
+/* APPAREIL DE MOYENNE TAILLE & ÉCRAN DE BUREAU : MODE PAYSAGE */
+@media only screen and (min-width:992px){
+  /* GABARIT */
+  .uqam_conteneur{background:#fff url('/assets/images/general/fond/fond_contenu_tablette.jpg') repeat-y top center; background-size:100% 8px; /*height:100%;*/ min-height:100%;
+  }
+
+    .uqam_entete{position:relative; padding:0;}
+      .uqam_entete_interieur{width:100%; height:70px; border:0;}
+        .uqam_entete_logo{padding:0 0 0 30px;}
+          .uqam_entete_logo .uqam_lien-logo{float:none; margin:0;}
+          .uqam_entete_logo img{width:120px;}
+        .uqam_lien-rapides{visibility:visible;}
+        .uqam_entete_titre{visibility:visible; padding:0 0 0 30px;}
+          .uqam_entete_titre h2{font-weight:bold;}
+        .uqam_entete hr{visibility:visible; height:56px;}
+
+    .uqam_pied-page{position:absolute; bottom:0; height:34px; margin:-34px 0 0 0; padding:0;}
+      .uqam_pied-page_interieur{width:100%; height:100%;}
+        .uqam_pied-page_universite{padding:0 0 0 30px;}
+        .uqam_pied-page_information{padding:0 0 0 30px;}
+          .uqam_pied-page_information ul li:first-child{padding:0 7px 0 7px;}
+
+    .factures-et-impots .table > tbody:last-child{font-weight:bold;}
+
+  /* MAQUETTE */
+  .contenu{display:table; width:100%; min-height:100%; margin:0 auto 0 auto; padding:0 0 34px 0;}
+    .contenu-gauche{position:relative; height:auto; display:table-cell;}
+      .navbar-header{position:relative; top:0; right:0; z-index:1;}
+        .navbar-toggle{display:none;}
+      .navbar-collapse{position:relative; top:0; right:0; z-index:1;}
+      .navbar-collapse.collapse{display:block !important;}
+
+      .sous-entete{margin:0 0 70px 0;}
+
+      /* NAVIGATION */
+      .contenu-gauche .profil{padding:35px 30px 47px 30px;}
+
+      .contenu-gauche .navbar-default ul{padding:0;}
+        .contenu-gauche .navbar-default ul li a,
+        .contenu-gauche .navbar-default ul li a:link{padding-left:30px;}
+        .contenu-gauche .navbar-default ul li ul{padding:0;}
+          .contenu-gauche .navbar-default ul li ul li a,
+          .contenu-gauche .navbar-default ul li ul li a:link{padding-left:30px;}
+            .contenu-gauche .navbar-default ul li ul li a .badge{margin-left:-24px;}
+          .contenu-gauche .navbar-default ul li ul li ul{padding:0;}
+            .contenu-gauche .navbar-default ul li ul li ul li a,
+            .contenu-gauche .navbar-default ul li ul li ul li a:link{padding-left:30px;}
+              .contenu-gauche .navbar-default ul li ul li ul li a .badge{margin-left:-24px;}
+
+    .contenu-droite{display:table-cell; padding:30px 30px 30px 30px;}
+      h1:before{display:none;}
+      .information-tableau{display:table;}
+        .information-tableau div{display:table-cell; margin:0; text-align:initial;}
+
+
+  /* BOOTSRAP */
+  .bg-danger,
+  .bg-warning,
+  .bg-info,
+  .bg-success{min-height:70px; margin:0 0 30px 0; padding:20px 25px 20px 75px;}
+    .bg-danger:before,
+    .bg-warning:before,
+    .bg-info:before,
+    .bg-success:before{display:block;}
+  .text-info{}
+  .popover{min-width:150px; max-width:300px;}
+
+  /* FACTURE */
+  .factures-et-impots .soldes-et-operation{margin:0 0 60px 0; padding:30px; border:solid 1px #337186;}
+  .factures-et-impots .soldes-et-operation a,
+  .factures-et-impots .soldes-et-operation a:link{font-size:112.5%;}
+  .factures-et-impots .soldes-et-operation .text-info{font-size:112.5%; line-height:normal;}
+    .factures-et-impots .soldes-et-operation .text-info .bg-primary{line-height:normal; padding:4px 40px 4px 10px;}
+      .factures-et-impots .soldes-et-operation .text-info .bg-primary .badge{top:5px; right:15px;}
+
+  /* CALENDRIER */
+  .fc-day-grid{font-size:100%;}
+  .fc-time-grid-container{font-size:100%;}
+  .fc-day-grid .fc-content-skeleton table tbody tr td .examen .fc-title{font-size:100%;}
+  .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .fc-event-container a .fc-content .fc-title{font-size:100%;}
+
+  .entete-calendrier{padding:0 0 0 39px;}
+  .entete-calendrier table tbody tr th div div.select-form-control select.form-control{width:120%;}
+
+
+  .entete-calendrier table tbody tr td:last-child{padding:10px 0 10px 0;}
+    .entete-calendrier table tbody tr td div:last-child{top:0; height:44px;}
+      .entete-calendrier table tbody tr td div:last-child a{margin:0;}
+      .entete-calendrier table tbody tr td div:last-child a:last-child{margin:2px 0 0 0;}
+    .entete-calendrier table tbody tr th>div:nth-child(1){width:275px;}
+      .entete-calendrier table tbody tr th>div:nth-child(1)>div>div:last-child{float:left; width:140px;}
+      .entete-calendrier table tbody tr th>div:nth-child(1) label{float:left;}
+    .entete-calendrier table tbody tr th>div:nth-child(2){width:275px;}
+    .entete-calendrier table tbody tr th>div:nth-child(3){padding:0 15px 0 15px;}
+    .entete-calendrier table tbody tr th hr{height:35px;}
+/*
+    .entete-calendrier table tbody tr td div h5{width:400px; padding:4px 0 0 0; border-bottom:0;}
+    .entete-calendrier table tbody tr td div:last-child a:nth-child(1){margin:0;}
+    .entete-calendrier table tbody tr td div:last-child a:nth-child(2){margin:2px 0 0 0;}
+    .entete-calendrier table tbody tr td div:last-child{padding:6px 0 0 0;}*/
+
+  .calendrierLiensSupplementaires{padding:0 0 0 39px;}
+
+  .cours-container h2{padding:0 0 15px 0;}
+  .cours-container h4{padding:10px 0 0 0;}
+
+  .cours table tbody tr td table,
+  .cours table tbody tr td .table,
+  .cours table tbody tr td .table-condensed{border:1px solid #fff; border-top:1px solid #014e68;}
+
+  .entete-calendrier table tbody tr th .btn.btn-info{margin:6px 0 0 0;}
+
+  .cours-container .btn.btn-info{float:none;}
+
+  /* RÉSULTAT */
+  td.plus-info{padding-top:20px !important;}
+  .ren .resultats .table-responsive table{font-size:100%;}
+  .ren .resultats div.moreInfo{margin:5px !important;}
+
+  /* RELEVÉ */
+  .ren .releves-de-notes .table-responsive table{font-size:100%;}
+
+  .ren .releves-de-notes .bg-group-3 .bg-uqam:nth-child(2) h2,
+  .ren .releves-de-notes .bg-group-3 .bg-uqam:nth-child(3) h2{font-size:500%;}
+
+  .ren .releves-de-notes .bg-group-3 .legende{float:left;}
+
+  .ren .releves-de-notes .bg-uqam h2 span{top:12px; right:50%; margin:0 -85px 0 0;}
+
+  .ren .releves-de-notes div.moreInfo{margin:5px !important;}
+
+  .ren .releves-de-notes>div>.bg-group-2{display:block;}
+    .ren .releves-de-notes>div>.bg-group-2 .bg-uqam{display:block; margin:0 0 15px 0;}
+    .ren .releves-de-notes>div>.bg-group-2 .bg-uqam:nth-child(1){width:100%;}
+    .ren .releves-de-notes>div>.bg-group-2 .bg-uqam:nth-child(2){width:100%; padding-left:22px; clear:both;}
+      .ren .releves-de-notes>div>.bg-group-2 .bg-uqam:nth-child(2) h5{margin-top:0;}
+
+  /* PÉRIODE D'INSCRIPTION */
+  .inscription .periode div table{font-size:100%;}
+
+  .inscription .periode div table tbody tr td div div{}
+  .inscription .periode div table tbody tr td div div:nth-child(1){height:64px; padding:5px 15px 5px 5px;}
+  .inscription .periode div table tbody tr td div div:nth-child(2){height:64px;}
+      .inscription .periode div table tbody tr td div div:nth-child(2):before{
+          top:-6px; border-width:38px 0 38px 17px;
+      }
+      .inscription .periode div table tbody tr td div div:nth-child(2):after{
+          top:-6px; border-width:38px 0 38px 17px;
+      }
+  .inscription .periode div table tbody tr td div div:nth-child(3){height:64px; padding:5px 5px 5px 15px;}
+      .inscription .periode div table tbody tr td div div strong{font-size:100%;}
+
+  .inscription .periode div.table-responsive table,
+  .inscription .periode div.table-responsive table.table,
+  .inscription .periode div.table-responsive table.table-bordered,
+  .inscription .periode div.table-responsive table.table-condensed{border:0; border-bottom:1px solid #ddd; border-top:#004e68 3px solid;}
+    .inscription .periode div.table-responsive table tbody tr td{border:1px solid #ddd; border-top:0; border-bottom:0;}
+      .inscription .periode div.table-responsive table tbody tr td table{border-top:0; border:0;}
+        .inscription .periode div.table-responsive table tbody tr td table tr{}
+            .inscription .periode div.table-responsive table tbody tr td table tr td{border:0;}
+
+  /* FAIRE MON D'INSCRIPTION */
+
+  .inscription .faire-inscription .bloc-trimestre{position:relative; float:left; display:block; width:50%; padding:0 0 15px 0;}
+    .inscription .faire-inscription .bloc-trimestre .bg-uqam{display:table-cell; width:inherit; height:100%; margin:0; padding:0; border:0; vertical-align:top;}
+
+  .inscription .faire-inscription .bg-group-3{padding:0 0 15px 0;}
+    .inscription .faire-inscription .bg-group-3 .bg-uqam{display:table-cell; width:33.3333%; margin:0; clear:none;}
+    .inscription .faire-inscription .bg-group-3 .bg-uqam:nth-child(1){border-right:15px solid #fff;}
+    .inscription .faire-inscription .bg-group-3 .bg-uqam:nth-child(2){border-right:8px solid #fff;}
+    .inscription .faire-inscription .bg-group-3 .bg-uqam:nth-child(3){border-left:7px solid #fff;}
+      .inscription .faire-inscription .bg-group-3 .bg-uqam h3{font-size:100%;}
+        .inscription .faire-inscription .bg-group-3 .bg-uqam h3 a .uqam-icone-md{margin:-8px 0 0 0;}
+
+  .inscription .faire-inscription .bg-group-4{display:table; width:100%;}
+      .inscription .faire-inscription .bg-group-4 .bg-uqam{display:table-cell; width:100%;}
+      .inscription .faire-inscription .bg-group-4 .bg-uqam:nth-child(1){width:25%; padding:22px;}
+      .inscription .faire-inscription .bg-group-4 .bg-uqam:nth-child(2){width:25%; padding:22px; padding-left:0;}
+      .inscription .faire-inscription .bg-group-4 .bg-uqam:nth-child(3){width:25%; padding:22px; padding-left:0;}
+      .inscription .faire-inscription .bg-group-4 .bg-uqam:nth-child(4){width:25%; padding:22px; border:0; border-left: 4px solid #fff;}
+        /* Martin. Problème avec plusieurs périodes. height:130px -> 145px */
+        .inscription .faire-inscription .bg-group-4 .bg-uqam hr{float:left; width:1px; height:145px; margin:0 20px 0 0;}
+
+    .inscription .faire-inscription .bg-group-2{display:table; width:100%;}
+      .inscription .faire-inscription .bg-group-2 .bg-uqam{display:table-cell; width:100%;}
+      .inscription .faire-inscription .bg-group-2 .bg-uqam:nth-child(1){width:65%; border:#78b9cb 1px solid; border-right:0;}
+      .inscription .faire-inscription .bg-group-2 .bg-uqam:nth-child(2){width:35%; padding-top:22px; border:0;}
+      .inscription .faire-inscription .bg-group-2.modification .bg-uqam:nth-child(1){border:#78b9cb 1px solid; border-right:0;}
+      .inscription .faire-inscription .bg-group-2.modification .bg-uqam:nth-child(2){padding-top:22px; border:#78b9cb 1px solid; border-left:0;}
+
+      .inscription .faire-inscription .bg-group-2 .bg-uqam.autorisee{border:#78b9cb 1px solid; border-left:0;}
+
+      /* Marge entre le cours dans Desktop */
+      .inscription .faire-inscription .bg-group-2 {margin: 0 0 45px 0;}
+
+  .inscription .faire-inscription .tabs div ul.nav-tabs li a,
+
+      /* Martin titre dans l'onglet en bold.*/
+    .inscription .faire-inscription .tabs div ul.nav-tabs li a:link{font-size:90%;font-weight:bold;}
+    .inscription .faire-inscription .bg-group-3.modification .bg-uqam button{}
+
+    .inscription .faire-inscription .bg-group-3.modification .bg-uqam{width:33.3333%; /*border-right:15px solid #fff;*/}
+    .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(2){border:0;}
+
+    /* Martin */
+    .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(2) div {margin-left:32%;}
+
+
+      .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(3),
+      .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(4){padding-left:0; border:0; text-align: center;}
+      .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(4){padding-right:0;}
+      .inscription .faire-inscription .bg-group-3.modification .bg-uqam > hr{background:none; float:left !important; width:1px; height:215px; margin:0; padding:0 20px 0 0; border:0; border-left:#0b5b74 1px solid;}
+    .inscription .faire-inscription .bg-group-3.modification{border-top:0;}
+
+    .inscription .faire-inscription .bg-group-3.modification .bg-uqam button{font-size:85%; margin:0;}
+
+    .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(2) h5 {text-align:left;}
+    .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(3) h5,
+      .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(4) h5{padding-left:55px;text-align:left;}
+      .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(3) h5:before,
+      .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(4) h5:before{left:20px;}
+      .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(3) .bg-success,
+      .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(3) .bg-danger{margin-left:20px;}
+      .inscription .faire-inscription .bg-group-3.modification .bg-uqam button{margin:0 0 0 0;}
+      .inscription .faire-inscription .bg-group-3.modification{margin-left:1px;}
+
+      .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(1) h4{position:relative; padding:0 0 25px 0;}
+
+      /* Martin. Ajuster la marge du haut pour que le bouton soit comme dans les maquettes. */
+      .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(1) h4 button{position:relative; top:0; left:0; margin:0;margin-top:-10px;}
+
+      /* Marge cours remplacé... */
+      .inscription .faire-inscription .coursAnnule {margin: 0 0 45px 0;}
+
+
+      /* Évaluation de l'enseignement*/
+      .faireeval .table-responsive th {font-size:100%}
+
+}
+
+/* --------------------------------------------------------------------------------------------------------------- */
+/* APPAREIL DE LARGE TAILLE & ÉCRAN LARGE : MODE PAYSAGE */
+@media only screen and (min-width:1200px){
+  /* GABARIT */
+  .uqam_conteneur{background:url('/assets/images/general/fond/fond_contenu.jpg') repeat-y top center; /*height:100%;*/ min-height:100%;}
+
+    .uqam_entete{position:fixed; padding:0;}
+      .uqam_entete_interieur{width:1200px; height:70px; border:0;}
+        .uqam_entete_logo{padding:0 0 0 30px;}
+          .uqam_entete_logo .uqam_lien-logo{float:none; margin:0;}
+          .uqam_entete_logo img{width:120px;}
+        .uqam_lien-rapides{visibility:visible;}
+        .uqam_entete_titre{visibility:visible; padding:0 0 0 30px;}
+          .uqam_entete_titre h2{font-weight:bold;}
+        .uqam_entete hr{visibility:visible; height:56px;}
+
+    .uqam_pied-page{height:34px; padding:0;}
+      .uqam_pied-page_interieur{width:1200px;}
+        .uqam_pied-page_universite{padding:0 0 0 30px;}
+        .uqam_pied-page_information{padding:0 0 0 30px;}
+           .uqam_pied-page_information ul li:first-child{padding:0 7px 0 7px;}
+
+  /* MAQUETTE */
+  .contenu{display:table; width:1200px; min-height:100%; margin:0 auto 0 auto; padding:74px 0 34px 0;}
+    .contenu-gauche{position:relative; display:table-cell;}
+      .navbar-header{position:relative; top:0; right:0; z-index:1;}
+        .navbar-toggle{display:none;}
+      .navbar-collapse{position:relative; top:0; right:0; z-index:1;}
+      .navbar-collapse.collapse{display:block !important;}
+
+      /* NAVIGATION */
+      .contenu-gauche .profil{padding:70px 30px 55px 30px}
+
+      .contenu-gauche .navbar-default ul{padding:0;}
+        .contenu-gauche .navbar-default ul li a,
+        .contenu-gauche .navbar-default ul li a:link{padding-left:30px;}
+        .contenu-gauche .navbar-default ul li ul{padding-left:0;}
+          .contenu-gauche .navbar-default ul li ul li a,
+          .contenu-gauche .navbar-default ul li ul li a:link{padding-left:50px;}
+            .contenu-gauche .navbar-default ul li ul li a .badge{margin-left:-44px;}
+          .contenu-gauche .navbar-default ul li ul li ul{padding:0;}
+            .contenu-gauche .navbar-default ul li ul li ul li a,
+            .contenu-gauche .navbar-default ul li ul li ul li a:link{padding-left:20px;}
+              .contenu-gauche .navbar-default ul li ul li ul li a .badge{margin-left:-64px;}
+
+
+    .contenu-droite{display:table-cell; padding:70px 0 70px 70px;}
+      h1:before{display:block;}
+      .information-tableau{display:table;}
+          .information-tableau div{display:table-cell; margin:0; text-align:initial;}
+
+
+      /* CALENDRIER */
+      .fc-day-grid .fc-content-skeleton table tbody tr td .examen .fc-title{font-size:125%;}
+      .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .fc-event-container a .fc-content .fc-title{font-size:125%;}
+
+      .fc-view-container table thead tr td div table thead tr td,
+      .fc-view-container table thead tr td div table thead tr .fc-widget-header{font-size:100%;}
+
+      /*.entete-calendrier table tbody tr td div{height:22px;}
+      .entete-calendrier table tbody tr td div:last-child{top:0;}
+        .entete-calendrier table tbody tr td div:last-child a:nth-child(1){margin:0;}
+        .entete-calendrier table tbody tr td div:last-child a:nth-child(2){margin:2px 0 0 0;}
+        .entete-calendrier table tbody tr td div h5{width:400px; padding:4px 0 0 0;}
+
+      .entete-calendrier table tbody tr td:last-child{padding:10px 0 10px 0;}
+        .entete-calendrier table tbody tr td div:last-child{top:0; height:44px;}*/
+
+      .entete-calendrier table tbody tr td div a:hover{color:#0079a0; text-decoration:underline;}
+        .entete-calendrier table tbody tr td div a:hover:before{background:#0079a0;}
+
+      /* RÉSULTAT */
+      td.plus-info{padding-top:5px !important;}
+      .ren .resultats .table-responsive table{font-size:100%;}
+      .ren .resultats div.moreInfo{margin:35px !important;}
+
+      /* RELEVÉ */
+      .ren .releves-de-notes .bg-group-3{display:table; padding:0 0 45px 0;}
+        .ren .releves-de-notes .bg-group-3 .bg-uqam{display:table-cell; height:100%; margin:0; vertical-align:top;}
+        .ren .releves-de-notes .bg-group-3 .bg-uqam:nth-child(1){width:50%; border-right:15px solid #fff; border-bottom:0;}
+        .ren .releves-de-notes .bg-group-3 .bg-uqam:nth-child(2){width:22.5%; float:none; border-right:8px solid #fff;}
+        .ren .releves-de-notes .bg-group-3 .bg-uqam:nth-child(3){width:27.5%; float:none; border-left:7px solid #fff;}
+          .ren .releves-de-notes .bg-uqam h2 span{top:12px; right:0; margin:0;}
+
+      .ren .releves-de-notes div.moreInfo{margin:35px 35px 0 35px!important;}
+
+      .ren .releves-de-notes>div>.bg-group-2{display:table;}
+         .ren .releves-de-notes>div>.bg-group-2 .bg-uqam{display:table-cell; margin:0;}
+         .ren .releves-de-notes>div>.bg-group-2 .bg-uqam:nth-child(1){width:72.5%;}
+         .ren .releves-de-notes>div>.bg-group-2 .bg-uqam:nth-child(2){width:27.5%; padding-left:0;}
+            .ren .releves-de-notes>div>.bg-group-2 .bg-uqam img{width:auto;}
+            .ren .releves-de-notes>div>.bg-group-2 .bg-uqam h5{margin-top:32px;}
+            .ren .releves-de-notes>div>.bg-group-2 .bg-uqam:nth-child(2) h5{margin-top:15px;}
+
+      /* PÉRIODE D'INSCRIPTION */
+      .inscription .periode div table tbody tr td div div:nth-child(1){height:54px; padding:10px 15px 10px 7px;}
+      .inscription .periode div table tbody tr td div div:nth-child(2){height:54px;}
+          .inscription .periode div table tbody tr td div div:nth-child(2):before{
+              top:-5px; border-width:32px 0 32px 17px;
+          }
+          .inscription .periode div table tbody tr td div div:nth-child(2):after{
+              top:-5px; border-width:32px 0 32px 17px;
+          }
+      .inscription .periode div table tbody tr td div div:nth-child(3){height:54px; padding:10px 7px 10px 15px;}
+          .inscription .periode div table tbody tr td div div strong{font-size:120%;}
+
+      .inscription .periode .bg-uqam div table tbody tr td span{font-size:100%;}
+
+      /* FAIRE MON D'INSCRIPTION */
+      .inscription .faire-inscription .bloc-trimestre{position:relative; float:left; display:block; width:33.33%; padding:0 0 15px 0; font-size: 100%;}
+        .inscription .faire-inscription .bloc-trimestre .bg-uqam{display:table-cell; width:inherit; height:100%; margin:0; padding:0; border:0; vertical-align:top;}
+
+       /* Martin. Modification de la largeur des boîtes pour fiter avec la largeur des boutons. */
+      .inscription .faire-inscription .bg-group-2 .bg-uqam:nth-child(1){width:70%;}
+      .inscription .faire-inscription .bg-group-2 .bg-uqam:nth-child(2){width:30%;}
+
+      .inscription .faire-inscription .bg-group-3 .bg-uqam h3{font-size:175%;}
+        .inscription .faire-inscription .bg-group-3 .bg-uqam h3 a .uqam-icone-md{margin:-2px 0 0 0;}
+
+       /* Martin. Modification de la hauteur du <hr> vertical (1px width) à 80 pour l'ensemble
+         des libellés. */
+      .inscription .faire-inscription .bg-group-4 .bg-uqam hr{height:80px;}
+
+      .inscription .faire-inscription .tabs div ul.nav-tabs li a,
+
+      /* Martin titre dans l'onglet en bold.*/
+      .inscription .faire-inscription .tabs div ul.nav-tabs li a:link{font-size:105%; font-weight:bold;}
+
+      .inscription .faire-inscription .bg-group-3.modification .bg-uqam button{}
+
+      .inscription .faire-inscription .bg-group-3.modification .bg-uqam button{font-size:100%; margin:0 0 0 0px;}
+
+ }

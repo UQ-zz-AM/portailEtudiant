@@ -1,0 +1,360 @@
+<!--
+
+/*  @license
+
+    Copyright 2014-2016 Université du Québec à Montréal (UQAM)
+
+    This file is part of Portail Étudiant.
+
+    Portail Étudiant is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Portail Étudiant is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Portail Étudiant. If not, see <http://www.gnu.org/licenses/>.
+
+
+    Ce fichier fait partie de l'application Portail Étudiant.
+
+    Portail Étudiant est un logiciel libre ; vous pouvez le redistribuer ou
+    le modifier suivant les termes de la GNU General Public License telle que
+    publiée par la Free Software Foundation ; soit la version 3 de la licence,
+    soit (à votre gré) toute version ultérieure.
+
+    Portail Étudiant est distribué dans l'espoir qu'il sera utile, mais
+    SANS AUCUNE GARANTIE ; sans même la garantie tacite de QUALITÉ MARCHANDE
+    ou d'ADÉQUATION à UN BUT PARTICULIER. Consultez la GNU General Public
+    License pour plus de détails.
+
+    Vous devez avoir reçu une copie de la GNU General Public License en même
+    temps que Portail Étudiant ; si ce n'est pas le cas,
+    consultez <http://www.gnu.org/licenses>.
+*/
+
+-->
+
+<img ng-hide="faireeval || err || avertissements || info" class="telechargement" src="/assets/images/ajax-loader.gif" alt="Veuillez patienter pendant que la page se télécharge">
+
+
+<section class="sous-entete clearfix hidden-print">
+   <h1 class="text-uppercase hidden-print">
+      <span class="visible-sm visible-md visible-lg">Évaluation de l'enseignement</span>
+      <span style="font-size:0.85em" class="visible-xs">Évaluation de l'enseignement</span>
+   </h1>
+</section>
+
+
+<!-- **************************************************************************************************************************************** -->
+<!-- CONTENU DE LA PAGE -->
+<div class="faireeval" ng-hide="err || avertissements || !faireeval">
+
+   <div>
+      <!-- ############################################################################################################################# -->
+      <!-- Version bureau, tablette et téléphone paysage -->
+      <div style="overflow:hidden;" class="table-responsive visible-sm visible-md visible-lg imprimable">
+
+         <span style="color: #004e68;font-family: 'Asap-Bold',arial,sans-serif;font-size: 190%;">Cours : </span> <span style="color: #004e68;font-family:'Asap-Regular',arial,sans-serif;font-size: 175%;">{{evaluation.titre}}</span><br>
+         <span style="color: #004e68;font-family: 'Asap-Bold',arial,sans-serif;font-size: 190%;">Enseignant : </span> <span style="color: #004e68;font-family:'Asap-Regular',arial,sans-serif;font-size: 175%;">{{evaluation.nom}}</span><br>
+         <span style="color: #004e68;font-family: 'Asap-Bold',arial,sans-serif;font-size: 190%;">Trimestre : </span> <span style="color: #004e68;font-family:'Asap-Regular',arial,sans-serif;font-size: 175%;">{{evaluation.trimestre}}</span><br>
+
+         <hr>
+
+         <!-- Message supplémentaire -->
+         <div ng-if="faireeval.liste_question[0].categorie === 'head'" style="margin-top:-30px;font-size:100%;padding-bottom:33px;">
+            <p ng-bind-html="faireeval.liste_question[0].texte">
+               (<strong>{{faireeval.liste_question[0].type_question}}, {{faireeval.liste_question[0].categorie}}-SUP</strong>)
+            </p>
+         </div>
+         <!-- Message supplémentaire par défaut. Ne devrait pas être nécessaire au cas ou.  -->
+         <div ng-if="faireeval.liste_question[0].categorie !== 'head'" style="margin-top:-30px;font-size:100%;padding-bottom:33px;">
+            <p>
+               Le but de l'évaluation de l'enseignement est d'améliorer la qualité de l'enseignement.
+               Répondez individuellement, et sans vous identifier, à chacun des énoncés suivants. Soyez assuré de la confidentialité
+               de cette évaluation. Les résultats de cette évaluation et vos commentaires seront transmis à l'enseignante, l'enseignant
+               après la remise des notes finales.
+               <br><br>
+               Vous êtes tenus d'éviter tout commentaire de nature à porter atteinte aux droits et libertés de toute personne.
+               Tout commentaire jugé haineux, discriminatoire ou calomnieux par l'enseignante, l'enseignant sera référé au comité
+               exécutif du département et entraînera le retrait, par celui-ci, de l'évaluation complète faite par l'étudiante, l'étudiant.
+               <br><br>
+               Merci de votre collaboration !
+            </p>
+         </div>
+
+         <table class="table-condensed">
+
+            <thead>
+               <tr>
+                  <th style="padding-left:0;" colspan="3" class="hidden-print">
+                     <img style="max-width: 100%;height: auto;" src="/assets/images/general/legende.png" />
+
+                     <h4 class="hidden-print" style="text-transform:none;padding-top:67px;font-size:1.6em;font-weight:lighter;">
+                        Veuillez répondre individuellement à chacun des énoncés suivants:<br>&nbsp;
+                     </h4>
+                  </th>
+               </tr>
+            </thead>
+
+            <!-- Attention on $index ne pointe pas vers le même endroite que liste_question à
+                 cause du filtre. -->
+            <tbody>
+               <tr valign="top" ng-repeat="question in choix | filter : {categorie:'!head'}"
+                   ng-class="{'odd' : !($index % 2)}">
+
+
+                  <!-- Question num normale -->
+                  <td valign="top" ng-if="question.type_question === 'num' && question.categorie !=='SUP'">
+                     {{question.index}}.
+                  </td>
+                  <td ng-if="question.type_question === 'num' && question.categorie !=='SUP'">
+                     <span ng-bind-html="question.texte"></span>
+                  </td>
+                  <!-- Question num supplémentaire sur 2 colonnes -->
+                  <td ng-if="question.type_question === 'num' && question.categorie ==='SUP'" colspan="2">
+                     <span style="font-weight:normal;" ng-bind-html="question.texte"></span>
+                  </td>
+
+
+                  <!-- Les messages. -->
+                  <td ng-if="question.type_question === 'msg'"
+                      colspan="3"
+                      style="background-color:white;padding-top:72px;">
+
+                     <h4 style="text-transform:none;margin-left:-10px;font-size:1.7em;"
+                         ng-bind-html="question.texte">
+                     </h4>
+                  </td>
+
+                  <!-- Les questions textuelles. -->
+                  <td ng-if="question.type_question === 'txt'" colspan="3"
+                     style="background-color:white;padding-top:72px;padding-bottom:8px;">
+
+                     <h4 style="text-transform:none;margin-left:-10px;font-size:1.7em;"
+                         ng-bind-html="question.texte"></h4>
+
+                     <textarea style="margin-left:-10px;height:200px;border:1px solid #AFCCD1;" class="form-control"
+                               maxlength="3900"
+                               type="textarea"
+                               ng-model="question.reponse">
+                     </textarea>
+
+                  </td>
+
+                  <!-- Ne pas imprimer -->
+                  <td style="padding-right:0" align="right" class="hidden-print" ng-if="question.type_question === 'num'">
+                     <ul class="pagination pagination-sm">
+                        <li><a ng-attr-style="{{formatterReponse(question,0)}}" ng-click="evaluer(question,0);">X</a></li>
+                        <li><a ng-attr-style="{{formatterReponse(question,1)}}" ng-click="evaluer(question,1);">1</a></li>
+                        <li><a ng-attr-style="{{formatterReponse(question,2)}}" ng-click="evaluer(question,2);">2</a></li>
+                        <li><a ng-attr-style="{{formatterReponse(question,3)}}" ng-click="evaluer(question,3);">3</a></li>
+                        <li><a ng-attr-style="{{formatterReponse(question,4)}}" ng-click="evaluer(question,4);">4</a></li>
+                     </ul>
+                  </td>
+                  <!-- Seulement pout l'impression de la réponse -->
+                  <td ng-if="question.type_question === 'num'" style="display:none;" class="imprimable">Réponse:{{question.reponse}}</td>
+
+               </tr>
+
+            </tbody>
+
+            <tfoot>
+               <tr>
+                  <td colspan="3">
+                     <a style="color:white;font-size:13px;min-width:50px;width:85px;background-color:#0681AE;font-family:Asap-Bold',arial, sans-serif;"
+                     class="btn btn-primary btn-sm hidden-print text-uppercase visible-sm visible-md visible-lg" href="/evaluation">
+                        Annuler
+                     </a>
+                     <a style="margin-top:-29px;float:right;font-size:13px;min-width:100px;width:215px;background-color:#0681AE;font-family:Asap-Bold',arial, sans-serif;"
+                        class="btn btn-primary btn-sm hidden-print text-uppercase visible-sm visible-md visible-lg"
+                        ng-click="transmettre()">
+                        Transmettre l'évaluation
+                     </a>
+                  </td>
+               </tr>
+
+            </tfoot>
+         </table>
+
+      </div>
+
+
+      <!-- ############################################################################################################################# -->
+      <!-- VERSION  TÉLÉPHONE ##############################################################################@@@@@@@##################### -->
+      <div class="table-responsive visible-xs hidden-print">
+
+         <span class="titre">Cours :<br><span>{{evaluation.titre}}</span></span><br>
+         <span class="titre">Enseignant :<br><span>{{evaluation.nom}}</span></span><br>
+         <span class="titre">Trimestre :<br><span>{{evaluation.trimestre}}</span></span><br>
+
+         <!-- Page mobile de présentation avant de commencer l'évaluation. -->
+         <div class="presentation" ng-if="mobileStep === -1">
+
+            <div ng-if="faireeval.liste_question[0].categorie === 'head'">
+               <br>
+               <p ng-bind-html="faireeval.liste_question[0].texte"></p>
+            </div>
+            <div ng-if="faireeval.liste_question[0].categorie !== 'head'">
+               <br>
+               <p>
+                  Le but de l'évaluation de l'enseignement est d'améliorer la qualité de l'enseignement.
+                  Répondez individuellement, et sans vous identifier, à chacun des énoncés suivants. Soyez assuré de la confidentialité
+                  de cette évaluation. Les résultats de cette évaluation et vos commentaires seront transmis à l'enseignante, l'enseignant
+                  après la remise des notes finales.
+                  <br><br>
+                  Vous êtes tenus d'éviter tout commentaire de nature à porter atteinte aux droits et libertés de toute personne.
+                  Tout commentaire jugé haineux, discriminatoire ou calomnieux par l'enseignante, l'enseignant sera référé au comité
+                  exécutif du département et entraînera le retrait, par celui-ci, de l'évaluation complète faite par l'étudiante, l'étudiant.
+                  <br><br>
+                  Merci de votre collaboration !
+               </p>
+
+            </div>
+
+
+            <br><br>
+            <a class="btn btn-primary btn-sm hidden-print text-uppercase" ng-click="suivant()">
+               <span>Commencer l'évaluation</span>
+            </a>
+         </div>
+
+
+         <!--  Wizard: étape par étape pour chacunne des questions.  -->
+         <!--  Étape -1 est la page de présentation.                 -->
+         <div class="wizard" ng-if="mobileStep !== -1">
+
+            <!-- Attention comme on utilise nth-of-type dans le css, nous devons
+                 utiliser ng-show pour avoir toujours le même nb d'éléments dans le DOM. -->
+            <div id="scrollID">
+               <br><br>
+
+
+               <p ng-if="choixMobile[mobileStep].type_question === 'num' && choixMobile[mobileStep].categorie !=='SUP'">
+                  {{choixMobile[mobileStep].index}}.
+               </p>
+
+               <p ng-if="choixMobile[mobileStep].type_question !== 'num'">&nbsp;</p>
+
+               <p ng-if="choixMobile[mobileStep].type_question !== 'num'"
+                  style="margin-left:5px;padding-bottom:20px;"
+                  ng-bind-html="choixMobile[mobileStep].texte">
+               </p>
+               <p ng-if="choixMobile[mobileStep].type_question === 'num'"
+                  ng-bind-html="choixMobile[mobileStep].texte">
+               </p>
+
+               <!-- Contrôles radios verticaux pour les choix multiples mobiles. -->
+               <div ng-show="choixMobile[mobileStep].type_question == 'num'" class="mobile-button-container">
+                  <div class="mobile-button">
+                     <div ng-click="evaluer(choixMobile[mobileStep],4);" ng-attr-style="{{formatterReponse(choixMobile[mobileStep],4)}}">
+                        <span>4</span>
+                     </div><span class="libel">Fortement d'accord</span><br>
+                     <div ng-attr-style="{{formatterReponse(choixMobile[mobileStep],3)}}" ng-click="evaluer(choixMobile[mobileStep],3);">
+                        <span>3</span>
+                     </div><span class="libel">Plutôt d'accord</span><br>
+                     <div ng-attr-style="{{formatterReponse(choixMobile[mobileStep],2)}}" ng-click="evaluer(choixMobile[mobileStep],2);">
+                        <span>2</span>
+                     </div><span class="libel">Plutôt en désaccord</span><br>
+                     <div ng-attr-style="{{formatterReponse(choixMobile[mobileStep],1)}}" ng-click="evaluer(choixMobile[mobileStep],1);">
+                        <span>1</span>
+                     </div><span class="libel">Fortement en désaccord</span><br>
+                     <div ng-attr-style="{{formatterReponse(choixMobile[mobileStep],0)}}" ng-click="evaluer(choixMobile[mobileStep],0);">
+                        <span>X</span>
+                     </div><span class="libel">Ne s'applique pas</span><br>
+                  </div>
+               </div>
+
+               <!-- Question texte pour le mobile.-->
+               <div ng-show="choixMobile[mobileStep].type_question == 'txt'">
+                  <h4 ng-bind-html="question.texte"></h4>
+                  <textarea class="form-control" type="textarea" style="height:200px;"
+                            maxlength="3900"
+                            ng-model="choixMobile[mobileStep].reponse">
+                  </textarea>
+                  <br>
+               </div>
+
+               <!-- Warning avant les boutons. DIV nécessaire por les sélecteurs de CSS-->
+               <!--div ng-show="mobileStep +1 == choixMobile.length" class="bg-warning">
+                  <p ng-repeat="message in faireeval.liste_question | filter : { type_question : 'msg', categorie: 'SUP' }">
+                     <{{message.texte}}>
+                  </p>
+               </div-->
+               <div></div>
+
+
+               <!--  Boutons pour le wizard mobile.  -->
+               <div>
+                  <table width="100%">
+                     <tr>
+
+                        <td align="left">
+                           <a class="btn btn-primary btn-sm hidden-print text-uppercase" ng-click="precedent()">
+                              <span>
+                                 <span>&lt;</span>&nbsp;Précédent
+                              </span>
+                           </a>
+                        </td>
+
+                        <td align="center">
+                           <span ng-if="mobileStep !== -1 ">
+                              {{mobileStep +1}} / {{choixMobile.length}}
+                           </span>
+                        </td>
+
+                        <td align="right">
+                           <!-- Wizard en cours -->
+                           <a ng-if="mobileStep +1 !== choixMobile.length"
+                              class="btn btn-primary btn-sm hidden-print text-uppercase" ng-click="suivant()">
+                              <span >Suivant&nbsp;<span>&gt;</span></span>
+                           </a>
+                           <!-- Dernière question disable le bouton-->
+                           <a ng-if="mobileStep +1 == choixMobile.length"
+                              class="btn btn-primary btn-sm hidden-print text-uppercase" disabled>
+                              <span >Suivant&nbsp;<span>&gt;</span></span>
+                           </a>
+                        </td>
+
+                     </tr>
+
+                     <!-- Bouton transmettre seulement pour la dernière question. -->
+                     <tr align="center" ng-if="mobileStep +1 === choixMobile.length">
+                        <td colspan="3">
+                           <br><br>
+                           <a class="btn btn-primary btn-sm hidden-print text-uppercase" ng-click="transmettre()">
+                              <strong >Transmettre l'évaluation</strong>
+                           </a>
+                        </td>
+                     </tr>
+
+                  </table>
+
+               </div> <!--  Boutons-->
+
+            </div> <!--  Wizard 1st div -->
+
+         </div> <!--  Wizard -->
+
+
+      </div>
+
+
+   </div> <!-- CONTENU DE LA PAGE ist div -->
+
+</div> <!-- CONTENU DE LA PAGE -->
+
+<!-- Afficher les err -->
+<div class="bg-danger" ng-show="err">
+   <h5>Attention</h5>
+   <p>{{err}}</p>
+</div>
+
+<!-- Afficher les avertissements -->
+<div class="bg-warning" ng-show="avertissements">
+   <p ng-repeat="message in avertissements">{{message}}</p>
+</div>

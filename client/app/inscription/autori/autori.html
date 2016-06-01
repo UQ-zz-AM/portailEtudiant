@@ -1,0 +1,556 @@
+
+<!--
+
+/*  @license
+
+    Copyright 2014-2016 Université du Québec à Montréal (UQAM)
+
+    This file is part of Portail Étudiant.
+
+    Portail Étudiant is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Portail Étudiant is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Portail Étudiant. If not, see <http://www.gnu.org/licenses/>.
+
+
+    Ce fichier fait partie de l'application Portail Étudiant.
+
+    Portail Étudiant est un logiciel libre ; vous pouvez le redistribuer ou
+    le modifier suivant les termes de la GNU General Public License telle que
+    publiée par la Free Software Foundation ; soit la version 3 de la licence,
+    soit (à votre gré) toute version ultérieure.
+
+    Portail Étudiant est distribué dans l'espoir qu'il sera utile, mais
+    SANS AUCUNE GARANTIE ; sans même la garantie tacite de QUALITÉ MARCHANDE
+    ou d'ADÉQUATION à UN BUT PARTICULIER. Consultez la GNU General Public
+    License pour plus de détails.
+
+    Vous devez avoir reçu une copie de la GNU General Public License en même
+    temps que Portail Étudiant ; si ce n'est pas le cas,
+    consultez <http://www.gnu.org/licenses>.
+*/
+
+-->
+
+<img ng-hide="autorisation || err || avertissements" class="telechargement" src="/assets/images/ajax-loader.gif" alt="Veuillez patienter pendant que la page se télécharge">
+
+<!-- **************************************************************************************************************************************** -->
+<!-- ENTÊTE IMPRESSION -->
+<div class="entete-impression visible-print-block">
+   <div class="table-responsive">
+      <table class="table">
+         <tbody>
+            <tr>
+               <td style="width:63.8554%; padding:0 15px 15px 0;">
+                  <img class="pull-left" src="/assets/images/general/logo/logo_uqam-general-imprimer_noir.svg" alt="UQAM">
+               </td>
+
+               <td style="width:36.1445%; padding:0 0 15px 15px;">
+                  <h4 class="text-uppercase">{{utilisateur().prenom}} {{utilisateur().nom}}</h4> {{utilisateur().adresse_l1}}
+                  <br/>{{utilisateur().adresse_l2}}
+                  <br/>{{utilisateur.etudiant.adresse_l3}}
+               </td>
+            </tr>
+         </tbody>
+
+         <tfoot>
+            <tr>
+               <td>
+                  <strong>Date d’impression : </strong>{{dateImpression | dateComplete}}
+               </td>
+
+               <td>
+                  <strong>Code permanent : </strong>
+                  <span class="text-uppercase">{{utilisateur().code_perm}}</span>
+               </td>
+            </tr>
+         </tfoot>
+      </table>
+   </div>
+</div>
+
+<!-- **************************************************************************************************************************************** -->
+<!-- TITRE IMPRESSION -->
+<section class="sous-entete clearfix visible-print-block">
+   <h1 class="text-uppercase">
+      Mes périodes d'inscription
+   </h1>
+</section>
+
+<!-- **************************************************************************************************************************************** -->
+<!-- TITRE ÉCRAN -->
+<section class="sous-entete clearfix hidden-print">
+   <h1 class="text-uppercase hidden-print">
+      Mes périodes d'inscription
+   </h1>
+
+   <a href="" onClick="window.print();return false" class="pull-right clearfix hidden-print text-uppercase visible-md visible-lg">
+      Imprimer
+      <span class="uqam-icone uqam-icone-sm impression_bleu-etudiant pull-right"></span>
+   </a>
+</section>
+
+<!-- **************************************************************************************************************************************** -->
+<!-- CONTENU DE LA PAGE -->
+
+<div class="inscription" ng-show="autorisation">
+   <div class="periode">
+
+      <h2 ng-if="programmeCourant">{{programmeCourant.titre_prog}} ({{programmeCourant.code_prog}})</h2>
+
+
+      <!-- POPUP programmes -->
+      <!-- **************************************************************************************************************************************** -->
+      <!-- FORMULAIRE -->
+      <div class="form clearfix hidden-print" ng-show="autorisation.programmes && autorisation.programmes.length>1">
+         <div class="col-xs-12 col-sm-3">
+            <label>Changer de programme</label>
+         </div>
+
+         <div class="col-xs-12 col-sm-9">
+            <div class="select-form-control">
+               <select class="form-control" ng-change="changerProgramme();" ng-options="((menu.titre_prog + ' (' + menu.code_prog +')') | capitalize) for menu in autorisation.programmes" ng-model="progSelectionne">
+               </select>
+            </div>
+         </div>
+      </div>
+
+
+
+
+
+      <!-- MESSAGES GÉNÉRAUX -->
+      <!-- **************************************************************************************************************************************** -->
+      <!-- Ne pas afficher les programes avec un icode: 2, 3, 5, 6, 8, 9 -->
+      <div ng-if="isIcodeValid(programmeCourant.icode)">
+
+         <!-- **************************************************************************************************************************************** -->
+         <!-- MESSAGE pour les étudiants sans programme. -->
+         <div class="bg-warning" ng-if="programmeCourant && programmeCourant.length === 0">
+            <p>
+               <span>
+                  Il n'y a aucun programme à votre dossier.
+                  <br>
+                  Si vous êtes nouvellement admis à un programme, il est possible qu'il y ait un délai entre
+                  l'émission de l'offre d'admission et l'affichage des périodes d'inscription des programmes
+                  auxquels vous avez été admis.
+               </span>
+            </p>
+         </div>
+
+         <!-- **************************************************************************************************************************************** -->
+         <!-- MESSAGE pour les nouveaux (pas de icode) avec un programme et période(s). -->
+         <div class="bg-warning" ng-if="!programmeCourant.icode && isPeriodePourProgramme(programmeCourant)">
+            <p>
+               <span>
+                  Nouveaux admis : L'inscription à des cours valide votre admission dans un programme.
+                  Si vous avez reçu plusieurs offres d'admission pour un même trimestre, vous devez vous
+                  inscrire dans un seul programme. Vous pouvez annuler vos cours dans un programme donné
+                  et vous inscrire dans un autre programme pour lequel vous êtes admis jusqu'à la fin de
+                  la période d'inscription (modification de cours et annulation sans facturation des droits
+                  de scolarité) de ce trimestre.
+               </span>
+            </p>
+         </div>
+
+         <!-- **************************************************************************************************************************************** -->
+         <!-- MESSAGE pour les nouveaux (pas de icode) avec un programme sans période. -->
+         <div class="bg-warning" ng-if="!programmeCourant.icode && !isPeriodePourProgramme(programmeCourant) && programmeCourant.length !== 0">
+            <p>
+               <span>
+                  Nouveaux admis : les périodes d'inscription sont disponibles à partir de la fin mars pour l'automne,
+                  la fin octobre pour l'hiver et la mi-mars pour l'été. À partir de ces moments et une fois qu'une décision
+                  d'admission positive est rendue, il faut prévoir environ une semaine pour que les périodes d'inscription
+                  du programme concerné soient affichées dans le portail étudiant.
+               </span>
+            </p>
+         </div>
+
+         <!-- **************************************************************************************************************************************** -->
+         <!-- MESSAGE pour étudiant (avec icode) avec un programme sans période. -->
+         <div class="bg-warning" ng-if="programmeCourant.icode && !isPeriodePourProgramme(programmeCourant) && programmeCourant.length !== 0">
+            <p>
+               <span>
+                  Il n'y a aucune période d'inscription pour ce programme.
+               </span>
+            </p>
+         </div>
+      </div>
+
+      <!-- **************************************************************************************************************************************** -->
+      <!-- PÉRIODES D'INSCRIPTION -->
+
+      <!-- Ne pas afficher les programes avec un icode: 2, 3, 5, 6, 8, 9 -->
+      <!-- Si icode est valide, afficher les périodes, légendes et cie.  -->
+      <div ng-if="isIcodeValid(programmeCourant.icode)">
+
+         <!-- Vérifier si on a au moins une période d'inscription -->
+         <div class="bg-info" ng-show="programmeCourant.trimestres.length <= 0">
+            <p>
+               Il n'y a aucune période d'inscription en cours ou à venir pour ce programme.
+            </p>
+         </div>
+
+         <!-- Afficher seulement les rangées qui ont des périodes. -->
+         <div ng-repeat="trimestre in programmeCourant.trimestres" ng-if="trimestre.fenetres.length > 0">
+            <h4 ng-if="!trimestre.sous_ses_txt">Trimestre d'{{trimestre.an_ses_num | trimestre | capitalize}}</h4>
+            <h4 ng-if="trimestre.sous_ses_txt">Trimestre d'{{trimestre.an_ses_num | trimestre | capitalize}}&nbsp;({{trimestre.sous_ses_txt}})</h4>
+
+            <!-- MESSAGE moyenne insuffisante. -->
+            <div class="bg-warning" ng-if="trimestre.statut ==='MOYENNEINSUFFISANTE'">
+               <p>
+                  <span>
+                     Votre inscription en ligne est suspendue pour ce trimestre à la demande de
+                     la direction de votre programme ou en raison d'une moyenne cumulative
+                     inférieure au seuil exigé. Vous devez contacter votre programme pour vous inscrire.
+                  </span>
+               </p>
+            </div>
+
+            <!-- BUREAU -->
+            <div class="table-responsive visible-md visible-lg">
+               <table class="table table-bordered table-condensed">
+                  <thead>
+                     <tr style="align:left;">
+                        <th style="width:20%;">
+                           MODE D'INSCRIPTION
+                        </th>
+                        <th style="width:40%;">
+                           INSCRIPTION : AJOUT, MODIFICATION ET ANNULATION DE COURS
+                        </th>
+                        <th style="width:40%;">
+                           ABANDON DE COURS
+                           <br>
+                           <span style="font-size:0.75em">
+                              avec facturation des droits de scolarité
+                           </span>
+                        </th>
+                     </tr>
+                  </thead>
+
+                  <tbody>
+
+                     <tr>
+                        <!-- Mode d'inscription -->
+                        <td style="vertical-align:middle;">
+
+                           <h5 ng-if="trimestre.mode_inscription !== 'WEB' && trimestre.mode_inscription !== 'REG'">
+                              {{autorisation.libellesMethodeIns[trimestre.mode_inscription].desc_courte}}
+                              <button style="margin-top:-0.5px" type="button" class="btn btn-info hidden-print note" popover-title="" popover="{{autorisation.libellesMethodeIns[trimestre.mode_inscription].desc_longue}}" popover-trigger="{{deviceEvent}}" popover-append-to-body="true" popover-placement="right">
+                                 <span class="uqam-icone uqam-icone-sm interrogation_blanc"></span>
+                              </button>
+                           </h5>
+
+                           <h5 ng-if="trimestre.mode_inscription === 'WEB'">
+                              <a href="/inscription/autori/landing">{{autorisation.libellesMethodeIns[trimestre.mode_inscription].desc_courte}}</a>
+                              <button style="margin-top:-0.5px" type="button" class="btn btn-info hidden-print note" popover-title="" popover="{{autorisation.libellesMethodeIns[trimestre.mode_inscription].desc_longue}}" popover-trigger="{{deviceEvent}}" popover-append-to-body="true" popover-placement="right">
+                                 <span class="uqam-icone uqam-icone-sm interrogation_blanc"></span>
+                              </button>
+                           </h5>
+
+                           <h5 ng-if="trimestre.mode_inscription === 'REG'">
+                              <a href="http://www.etudier.uqam.ca/coordonnees-registrariat" target="_blank">
+                                 {{autorisation.libellesMethodeIns[trimestre.mode_inscription].desc_courte}}
+                              </a>
+                              <button style="margin-top:-0.5px" type="button" class="btn btn-info hidden-print note" popover-title="" popover="{{autorisation.libellesMethodeIns[trimestre.mode_inscription].desc_longue}}" popover-trigger="{{deviceEvent}}" popover-append-to-body="true" popover-placement="right">
+                                 <span class="uqam-icone uqam-icone-sm interrogation_blanc"></span>
+                              </button>
+                           </h5>
+
+                        </td>
+
+                        <!-- Colonne ajouts, modifs et annulations -->
+                        <td>
+                           <table>
+                              <tr ng-repeat="fenetreNoABA in trimestre.fenetres | filter: { type_fenetre: '!ABA' }">
+                                 <td>
+                                    <div ng-class="isPeriodeTermine(fenetreNoABA.date_fin_fen)?'desactive':''">
+                                       <div class="col-xs-6">
+                                          {{"Du " + getJour(fenetreNoABA.date_deb_fen)}}
+                                          <br>
+                                          <strong class="text-uppercase" ng-bind-html="formatterDate(getDate(fenetreNoABA.date_deb_fen))"></strong>
+                                       </div>
+
+                                       <div></div>
+
+                                       <div class="col-xs-6">
+                                          {{"au " + getJour(fenetreNoABA.date_fin_fen)}}
+                                          <br>
+                                          <strong class="text-uppercase" ng-bind-html="formatterDate(getDate(fenetreNoABA.date_fin_fen))"></strong>
+                                       </div>
+                                    </div>
+                                 </td>
+                              </tr>
+                           </table>
+                        </td>
+
+                        <!-- Colonne Abandons -->
+                        <td>
+                           <table>
+                              <tr ng-repeat="fenetreABA in trimestre.fenetres | filter: { type_fenetre: 'ABA' }">
+                                 <td>
+                                    <div ng-class="isPeriodeTermine(fenetreABA.date_fin_fen)?'desactive':''">
+                                       <div class="col-xs-6">
+                                          {{"Du " + getJour(fenetreABA.date_deb_fen)}}
+                                          <br>
+                                          <strong class="text-uppercase" ng-bind-html="formatterDate(getDate(fenetreABA.date_deb_fen))"></strong>
+                                       </div>
+
+                                       <div></div>
+
+                                       <div class="col-xs-6">
+                                          {{"au " + getJour(fenetreABA.date_fin_fen)}}
+                                          <br>
+                                          <strong class="text-uppercase" ng-bind-html="formatterDate(getDate(fenetreABA.date_fin_fen))"></strong>
+                                       </div>
+                                    </div>
+                                 </td>
+                              </tr>
+                           </table>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+
+            <!-- MOBILE -->
+            <div class="table-responsive visible-xs visible-sm">
+               <table class="table table-bordered table-condensed">
+                  <tbody>
+
+                     <tr style="align:left;">
+                        <td>
+                           <h5>MODE D'INSCRIPTION</h5>
+                           <strong ng-if="trimestre.mode_inscription !== 'WEB' && trimestre.mode_inscription !== 'REG'">
+                              {{autorisation.libellesMethodeIns[trimestre.mode_inscription].desc_courte}}
+                              <button style="margin-top:-0.5px" type="button" class="btn btn-info hidden-print note" popover-title="" popover="{{autorisation.libellesMethodeIns[trimestre.mode_inscription].desc_longue}}" popover-trigger="{{deviceEvent}}" popover-append-to-body="true" popover-placement="right">
+                                 <span class="uqam-icone uqam-icone-sm interrogation_blanc"></span>
+                              </button>
+                           </strong>
+                           <strong ng-if="trimestre.mode_inscription === 'WEB'">
+                              <a href="/inscription/autori/landing">{{autorisation.libellesMethodeIns[trimestre.mode_inscription].desc_courte}}</a>
+                              <button style="margin-top:-0.5px" type="button" class="btn btn-info hidden-print note" popover-title="" popover="{{autorisation.libellesMethodeIns[trimestre.mode_inscription].desc_longue}}" popover-trigger="{{deviceEvent}}" popover-append-to-body="true" popover-placement="right">
+                                 <span class="uqam-icone uqam-icone-sm interrogation_blanc"></span>
+                              </button>
+                           </strong>
+                           <strong ng-if="trimestre.mode_inscription === 'REG'">
+                              <a href="http://www.etudier.uqam.ca/coordonnees-registrariat" target="_blank">
+                                {{autorisation.libellesMethodeIns[trimestre.mode_inscription].desc_courte}}
+                              </a>
+                              <button style="margin-top:-0.5px" type="button" class="btn btn-info hidden-print note" popover-title="" popover="{{autorisation.libellesMethodeIns[trimestre.mode_inscription].desc_longue}}" popover-trigger="{{deviceEvent}}" popover-append-to-body="true" popover-placement="right">
+                                 <span class="uqam-icone uqam-icone-sm interrogation_blanc"></span>
+                              </button>
+                           </strong>
+
+                        </td>
+                     </tr>
+
+                     <tr>
+                        <td>
+                           <h5>
+                              INSCRIPTION : AJOUT, MODIFICATION ET ANNULATION DE COURS
+                           </h5>
+                           <div class="clearfix"
+                                ng-repeat="fenetre in trimestre.fenetres" ng-if="fenetre.type_fenetre !== 'ABA'"
+                                ng-class="isPeriodeTermine(fenetre.date_fin_fen)?'desactive':''">
+
+                              <div class="col-xs-6">
+                                 {{"Du " + getJour(fenetre.date_deb_fen)}}
+                                 <br>
+                                 <strong class="text-uppercase" ng-bind-html="formatterDate(getDate(fenetre.date_deb_fen))"></strong>
+                              </div>
+
+                              <div></div>
+
+                              <div class="col-xs-6">
+                                 {{"au " + getJour(fenetre.date_fin_fen)}}
+                                 <br>
+                                 <strong class="text-uppercase" ng-bind-html="formatterDate(getDate(fenetre.date_fin_fen))"></strong>
+                              </div>
+
+                           </div>
+                        </td>
+                     </tr>
+
+                     <tr>
+                        <td>
+                           <h5>
+                              ABANDON DE COURS
+                              <br>
+                              <span style="font-size:0.75em">
+                                 AVEC FACTURATION DES DROITS DE SCOLARITÉ
+                              </span>
+                           </h5>
+                           <div class="clearfix"
+                                ng-repeat="fenetre in trimestre.fenetres" ng-if="fenetre.type_fenetre === 'ABA'"
+                                ng-class="isPeriodeTermine(fenetre.date_fin_fen)?'desactive':''">
+
+                              <div class="col-xs-6">
+                                 {{"Du " + getJour(fenetre.date_deb_fen)}}
+                                 <br>
+                                 <strong class="text-uppercase" ng-bind-html="formatterDate(getDate(fenetre.date_deb_fen))"></strong>
+                              </div>
+
+                              <div></div>
+
+                              <div class="col-xs-6">
+                                 {{"au " + getJour(fenetre.date_fin_fen)}}
+                                 <br>
+                                 <strong class="text-uppercase" ng-bind-html="formatterDate(getDate(fenetre.date_fin_fen))"></strong>
+                              </div>
+
+                           </div>
+                        </td>
+                     </tr>
+
+                  </tbody>
+               </table>
+            </div>
+
+         </div>
+
+         <!-- **************************************************************************************************************************************** -->
+         <!-- WARNING TOUJOURS PRÉSENT -->
+         <div class="bg-info" ng-if="programmeCourant.trimestres.length > 0 && isPeriodeEnLigne(programmeCourant.code_prog)">
+            <h5>HORAIRE DE L'INSCRIPTION EN LIGNE</h5>
+            <p>Lors des périodes d'inscription, l'inscription en ligne est accessible du lundi au samedi, de 6h00 à 22h00.
+            </p>
+         </div>
+
+         <!-- **************************************************************************************************************************************** -->
+         <!-- LÉGENDE -->
+         <div class="bg-uqam" ng-if="programmeCourant.trimestres.length > 0">
+            <h4>Légende</h4>
+            <div class="table-responsive">
+               <!-- BUREAU -->
+               <table class="table table-bordered table-condensed visible-md visible-lg">
+                  <tbody>
+                     <tr>
+                        <td>
+                           <span>Ajout</span>
+                        </td>
+                        <td>Signifie que vous pouvez ajouter un ou plusieurs cours à un trimestre dans la période d'inscription donnée.</td>
+                     </tr>
+                     <tr>
+                        <td>
+                           <span>Modification</span>
+                        </td>
+                        <td>Signifie que vous pouvez modifier le groupe d'un cours auquel vous êtes déjà inscrit et également remplacer ce cours par un autre.</td>
+                     </tr>
+                     <tr>
+                        <td>
+                           <span>Annulation</span>
+                        </td>
+                        <td>Signifie que vous pouvez annuler votre inscription à un cours sans mention d'échec, avec remboursement des droits de scolarité.</td>
+                     </tr>
+                     <tr>
+                        <td>
+                           <span>Abandon</span>
+                        </td>
+                        <td>Signifie que vous pouvez abandonner votre inscription à un cours sans mention d'échec, sans remboursement des droits de scolarité.</td>
+                     </tr>
+                  </tbody>
+               </table>
+
+               <!-- MOBILE -->
+               <table class="table table-bordered table-condensed visible-xs visible-sm">
+                  <tbody>
+                     <tr>
+                        <td>
+                           <span>Ajout</span>
+                           <br>
+                           <p>Signifie que vous pouvez ajouter un ou plusieurs cours à un trimestre dans la période d'inscription donnée.</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>
+                           <span>Modification</span>
+                           <br>
+                           <p>Signifie que vous pouvez modifier le groupe d'un cours auquel vous êtes déjà inscrit et également remplacer ce cours par un autre.</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>
+                           <span>Annulation</span>
+                           <br>
+                           <p>Signifie que vous pouvez annuler votre inscription à un cours sans mention d'échec, avec remboursement des droits de scolarité.</p>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>
+                           <span>Abandon</span>
+                           <br>
+                           <p>Signifie que vous pouvez abandonner votre inscription à un cours sans mention d'échec, sans remboursement des droits de scolarité.</p>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+
+      </div>
+
+   </div>
+</div>
+
+
+<!-- **************************************************************************************************************************************** -->
+<!-- MESSAGES SPÉCIFIQUES EN FONCTION DU ICODE. -->
+<div class="bg-warning" ng-if="!isIcodeValid(programmeCourant.icode)">
+   <p>
+      <span ng-if="programmeCourant.icode === '2'">
+         Il n'y a aucune période d'inscription. Vous êtes suspendu de l'Université.
+      </span>
+
+      <span ng-if="programmeCourant.icode === '3'">
+         Il n'y a aucune période d'inscription. Vous êtes exclu de ce programme.
+      </span>
+
+      <span ng-if="programmeCourant.icode === '8'">
+         Il n'y a aucune période d'inscription. Votre dossier pour ce programme est inactif.
+      </span>
+
+      <span ng-if="programmeCourant.icode === '9'">
+         Il n'y a aucune période d'inscription. Vous êtes exclu de ce programme.
+      </span>
+
+      <span ng-if="programmeCourant.icode === '6'">
+         Il n'y a aucune période d'inscription. Vous êtes diplômé.
+      </span>
+
+      <span ng-if="programmeCourant.icode === '5'">
+         Il n'y a aucune période d'inscription. Vous serez diplômé sous peu.
+      </span>
+   </p>
+
+</div>
+
+
+<!-- **************************************************************************************************************************************** -->
+<!-- MESSAGE ERREUR -->
+<div class="bg-danger" ng-show="err">
+   <h5>Attention</h5>
+   <p>Attention une erreur est survenue, veuillez essayer plus tard.</p>
+</div>
+
+
+<!-- **************************************************************************************************************************************** -->
+<!-- MESSAGE AVERTISSEMENT -->
+<div class="bg-warning" ng-if="avertissements">
+   <p ng-repeat="message in avertissements">
+      <span ng-if="message.indexOf('Il n\'y a aucun programme à votre dossier.') != -1">
+         Il n'y a aucun programme actif à votre dossier.
+      </span>
+      <span ng-if="message.indexOf('Il n\'y a aucun programme à votre dossier.') == -1">
+         {{message}}
+      </span>
+   </p>
+</div>

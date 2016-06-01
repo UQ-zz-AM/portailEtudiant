@@ -1,0 +1,55 @@
+/* AUDIOVISUEL FONTS.CSS ----------------------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------------------------------------------- */
+/* ASAP */
+@font-face {
+  font-family: 'Asap-Regular';
+  src: url('/assets/fonts/Asap-Regular.eot');
+  src: local('☺'), url('/assets/fonts/Asap-Regular.woff') format('woff'), url('/assets/fonts/Asap-Regular.ttf') format('truetype'), url('/assets/fonts/Asap-Regular.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Asap-Bold';
+  src: url('/assets/fonts/Asap-Bold.eot');
+  src: local('☺'), url('/assets/fonts/Asap-Bold.woff') format('woff'), url('/assets/fonts/Asap-Bold.ttf') format('truetype'), url('/assets/fonts/Asap-Bold.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Asap-Regular-Italic';
+  src: url('/assets/fonts/Asap-Italic.eot');
+  src: local('☺'), url('/assets/fonts/Asap-Italic.woff') format('woff'), url('/assets/fonts/Asap-Italic.ttf') format('truetype'), url('/assets/fonts/Asap-Italic.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Asap-Bold-Italic';
+  src: url('/assets/fonts/Asap-BoldItalic.eot');
+  src: local('☺'), url('/assets/fonts/Asap-BoldItalic.woff') format('woff'), url('/assets/fonts/Asap-BoldItalic.ttf') format('truetype'), url('/assets/fonts/Asap-BoldItalic.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* --------------------------------------------------------------------------------------------------------------- */
+/* DOSIS */
+@font-face {
+  font-family: 'Conv_Dosis-Regular';
+  src: url('/assets/fonts/Dosis-Regular.eot');
+  src: local('☺'), url('/assets/fonts/Dosis-Regular.woff') format('woff'), url('/assets/fonts/Dosis-Regular.ttf') format('truetype'), url('/assets/fonts/Dosis-Regular.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Conv_Dosis-Bold';
+  src: url('/assets/fonts/Dosis-Bold.eot');
+  src: local('☺'), url('/assets/fonts/Dosis-Bold.woff') format('woff'), url('/assets/fonts/Dosis-Bold.ttf') format('truetype'), url('/assets/fonts/Dosis-Bold.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}

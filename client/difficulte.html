@@ -1,0 +1,183 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+
+<!--
+/*  @license
+
+    Copyright 2014-2016 Université du Québec à Montréal (UQAM)
+
+    This file is part of Portail Étudiant.
+
+    Portail Étudiant is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Portail Étudiant is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Portail Étudiant. If not, see <http://www.gnu.org/licenses/>.
+
+
+    Ce fichier fait partie de l'application Portail Étudiant.
+
+    Portail Étudiant est un logiciel libre ; vous pouvez le redistribuer ou
+    le modifier suivant les termes de la GNU General Public License telle que
+    publiée par la Free Software Foundation ; soit la version 3 de la licence,
+    soit (à votre gré) toute version ultérieure.
+
+    Portail Étudiant est distribué dans l'espoir qu'il sera utile, mais
+    SANS AUCUNE GARANTIE ; sans même la garantie tacite de QUALITÉ MARCHANDE
+    ou d'ADÉQUATION à UN BUT PARTICULIER. Consultez la GNU General Public
+    License pour plus de détails.
+
+    Vous devez avoir reçu une copie de la GNU General Public License en même
+    temps que Portail Étudiant ; si ce n'est pas le cas,
+    consultez <http://www.gnu.org/licenses>.
+*/
+-->
+
+<head>
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <base href="/">
+   <title>Difficultés techniques</title>
+   <meta name="description" content="">
+   <meta name="viewport" content="width=device-width">
+
+   <!-- build:css(client) app/vendorDifficulte.css -->
+   <!-- injector:css -->
+   <link rel="stylesheet" href="assets/css/bootstrap/bootstrap-3.3.0.min.css">
+   <link rel="stylesheet" href="assets/css/fonts.css">
+   <link rel="stylesheet" href="assets/css/gabarit-a-sort.css">
+   <link rel="stylesheet" href="assets/css/gabarit-queries.css">
+   <link rel="stylesheet" href="assets/css/impression.css">
+   <!-- endinjector -->
+   <!-- endbuild -->
+
+</head>
+
+<body class="sans-arriere-plan">
+   <!--[if lt IE 7]>
+    <p class="browsehappy">Vous utilisez un <strong>vieux</strong> fureteur. S.v.p. <a href="http://browsehappy.com/?locale=fr">installez un fureteur moderne</a> afin d'améliorer votre expérience.</p>
+   <![endif]-->
+
+   <div class="uqam_conteneur sans-arriere-plan">
+
+
+      <!-- ************************************************************************************************************ -->
+      <!-- ENTÊTE -->
+      <header class="uqam_entete hidden-print">
+         <div class="uqam_entete_interieur">
+
+            <!-- LOGO, LIENS RAPIDES ET SÉPARATION -->
+            <div class="uqam_entete_logo col-xs-3 col-md-4 col-lg-3">
+               <div class="uqam_entete_section-interieur v-millieu">
+                  <a href="http://www.uqam.ca/"><img class="uqam_lien-logo svg" src="/assets/images/general/logo/logo_uqam_couleur-blanc.svg" alt="UQAM, Université du Québec à Montréal"></a>
+               </div>
+
+               <div class="uqam_entete_section-interieur v-millieu visible-md visible-lg">
+                  <a class="uqam_lien-rapides visible-md visible-lg" href="#"><span class="uqam_arriere-plan"></span><img class="svg icon-plus" src="/assets/images/general/icone/uqam/icone_plus_blanc.svg" alt="Ouvrir les liens rapides de l'UQAM"><img class="svg icon-moins" src="/assets/images/general/icone/uqam/icone_moins_blanc.svg" alt="Fermer les liens rapides de l'UQAM"></a>
+
+                  <div class="uqam_conteneur_lien-rapides">
+                     <ul>
+                        <li><a target="_blank" href="http://www.uqam.ca/"><span>Page d'accueil de l'UQAM</span></a></li>
+                        <li><a target="_blank" href="http://www.etudier.uqam.ca/"><span>Étudier à l'UQAM</span></a></li>
+                        <li><a target="_blank" href="http://www.repertoire.uqam.ca"><span>Bottin du personnel</span></a></li>
+                        <li><a target="_blank" href="http://www.uqam.ca/campus"><span>Carte du campus</span></a></li>
+                        <li><a target="_blank" href="http://www.bibliotheques.uqam.ca/"><span>Bibliothèques</span></a></li>
+                        <li><a target="_blank" href="http://www.uqam.ca/joindre"><span>Pour nous joindre</span></a></li>
+                     </ul>
+                  </div>
+               </div>
+
+               <div class="uqam_entete_section-interieur v-bas visible-md visible-lg">
+                  <hr class="">
+               </div>
+            </div>
+
+            <!-- TITRE -->
+            <div class="uqam_entete_titre col-xs-6 col-md-8 col-lg-9 visible-md visible-lg">
+               <div class="uqam_entete_section-interieur v-millieu">
+                  <h2>Portail étudiant</h2>
+               </div>
+            </div>
+         </div>
+      </header>
+      <!-- ************************************************************************************************************ -->
+
+      <!-- ************************************************************************************************************ -->
+      <!-- CONTENU -->
+
+      <div class="contenu">
+         <div class="contenu-millieu col-xs-12 col-md-12 col-lg-12">
+            <br>
+            <br>
+            <div class="bg-warning">
+               <h4 class="text-uppercase">Attention</h4>
+               <p>Désolé, nous éprouvons présentement des difficultés techniques. Veuillez essayer plus tard.</p>
+            </div>
+
+            <a id="lienVersSite" href class="btn btn-info text-uppercase pull-right">
+               Retour à l'accueil
+            </a>
+         </div>
+      </div>
+      <!-- ************************************************************************************************************ -->
+
+      <!-- ************************************************************************************************************ -->
+      <!-- PIED DE PAGE -->
+      <footer class="uqam_pied-page hidden-print">
+         <div class="uqam_pied-page_interieur">
+
+            <!-- GAUCHE - NOM DE L'UNIVERSITÉ -->
+            <div class="uqam_pied-page_universite col-xs-12 col-sm-12 col-md-4 col-lg-3">
+               <div class="uqam_pied-page_section-interieur v-millieu">
+                  <a class="pull-left" href="http://www.uqam.ca/">UQAM - Université du Québec à Montréal</a>
+               </div>
+               <div class="uqam_pied-page_section-interieur v-haut">
+                  <hr class="pull-right visible-md visible-lg">
+               </div>
+            </div>
+
+               <!-- DROITE - TITRE DU SITE & COURRIEL -->
+               <div class="uqam_pied-page_information col-xs-12 col-sm-12 col-md-8 col-lg-9">
+                  <div class="uqam_pied-page_section-interieur v-millieu">
+                     <ul>
+                        <li><span class="pull-left"></span><a class="uqam_pied-page_site" href="index.html">Portail étudiant</a></li>
+                        <li class="separation"><img class="svg" src="/assets/images/general/icone/uqam/icone_fleche-horizontale_blanc.svg" alt="Flèche de séparation"></li>
+                        <li><a class="uqam_pied-page_courriel" href="http://www.etudier.uqam.ca/nous-joindre" target="_blank">Nous joindre</a></li>
+                     </ul>
+
+                  </div>
+               </div>
+            </div>
+      </footer>
+      <!-- FIN : PIED DE PAGE -->
+      </div>
+      <!-- ************************************************************************************************************ -->
+
+      <!-- build:js({.tmp,client}) app/diffilculte.js -->
+      <!-- injector:js -->
+      <script src="bower_components/jquery/jquery.js"></script>
+      <script src="assets/js/CSSPlugin.min.js"></script>
+      <script src="assets/js/EasePack.min.js"></script>
+      <script src="assets/js/TweenLite.min.js"></script>
+      <script src="assets/js/menu.js"></script>
+      <!-- endinjector -->
+      <!-- endbuild -->
+      <script>
+         jQuery(document).ready(function() {
+            $('#lienVersSite').prop('href', location.protocol + '//' + document.domain + '/');
+         });
+      </script>
+
+
+</body>
+</html>

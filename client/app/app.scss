@@ -1,0 +1,21 @@
+$icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
+$fa-font-path: "/bower_components/font-awesome/fonts";
+
+@import 'bootstrap-sass-official/vendor/assets/stylesheets/bootstrap';
+@import 'font-awesome/scss/font-awesome';
+
+// Component styles are injected through grunt
+// injector
+@import 'calendrier/calendrier.scss';
+@import 'evaluation/evaluation.scss';
+@import 'facturesEtImpots/facturesHistoriques/factHisto.scss';
+@import 'facturesEtImpots/recu/recu.scss';
+@import 'facturesEtImpots/rif/rif.scss';
+@import 'horaire/horaire.scss';
+@import 'inscription/autori/autori.scss';
+@import 'inscription/inscription.scss';
+@import 'main/main.scss';
+@import 'opus/opus.scss';
+@import 'ren/releve/releve.scss';
+@import 'ren/resultats/resultats.scss';
+// endinjector

@@ -1,0 +1,236 @@
+<!--
+
+/*  @license
+
+    Copyright 2014-2016 Université du Québec à Montréal (UQAM)
+
+    This file is part of Portail Étudiant.
+
+    Portail Étudiant is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Portail Étudiant is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Portail Étudiant. If not, see <http://www.gnu.org/licenses/>.
+
+
+    Ce fichier fait partie de l'application Portail Étudiant.
+
+    Portail Étudiant est un logiciel libre ; vous pouvez le redistribuer ou
+    le modifier suivant les termes de la GNU General Public License telle que
+    publiée par la Free Software Foundation ; soit la version 3 de la licence,
+    soit (à votre gré) toute version ultérieure.
+
+    Portail Étudiant est distribué dans l'espoir qu'il sera utile, mais
+    SANS AUCUNE GARANTIE ; sans même la garantie tacite de QUALITÉ MARCHANDE
+    ou d'ADÉQUATION à UN BUT PARTICULIER. Consultez la GNU General Public
+    License pour plus de détails.
+
+    Vous devez avoir reçu une copie de la GNU General Public License en même
+    temps que Portail Étudiant ; si ce n'est pas le cas,
+    consultez <http://www.gnu.org/licenses>.
+*/
+
+-->
+
+<img ng-hide="periode || err || avertissements" class="telechargement" src="/assets/images/ajax-loader.gif" alt="Veuillez patienter pendant que la page se télécharge">
+
+
+<!-- **************************************************************************************************************************************** -->
+<!-- TITRE ÉCRAN -->
+<section class="sous-entete clearfix hidden-print">
+   <h1 class="text-uppercase hidden-print">
+      Faire mon inscription
+   </h1>
+</section>
+
+
+<!-- **************************************************************************************************************************************** -->
+<!-- CONTENU DE LA PAGE -->
+<div class="inscription" ng-cloak>
+
+
+   <!-- **************************************************************************************************************************************** -->
+   <!-- Page d'accueil -->
+
+   <!-- Vérifier si il n'y a aucun programme à afficher -->
+   <div class="bg-warning" ng-if="nbProgIcodeNonNull===0 && nbProgIcodeNull===0">
+      <p>
+         Vous ne pouvez pas vous inscrire, car vous n'avez aucune période d'inscription.
+      </p>
+   </div>
+
+
+   <!-- PROGRAMME(S) ACTIF(S)-->
+   <div ng-if="nbProgIcodeNonNull >= 1" style="">
+      <h2 style="text-transform:none;font-size:200%" ng-if="nbProgIcodeNonNull === 1 ">Programme actif</h2>
+      <h2 style="text-transform:none;font-size:200%" ng-if="nbProgIcodeNonNull > 1 ">Programmes actifs</h2>
+      <br>
+   </div>
+
+   <!-- Afficher seulement les programme avec des trimestres. -->
+   <!-- On commence par les programmes d'études actifs, on affichera les nouveaux après -->
+   <!--       Note technique le ng-if fonctionne mal avec les undefined et les null
+              Aussi le !!programme.icode indique que le icode est non null
+    -->
+   <div class="faire-inscription clearfix" ng-repeat="programme in listeProgFiltre('actif') | orderBy:periodeAvecFenetre">
+
+      <!-- Titre du programme -->
+      <h3 style="text-transform:none">{{programme.titre_prog | capitalize }} ({{programme.code_prog}})</h3>
+
+      <div class="clearfix" ng-if="isPeriodePourProgramme(programme)">
+
+         <!-- Seulement les trimestres non vide avec des fenêtres. -->
+         <div class="bloc-trimestre clearfix" ng-repeat="trimestre in programme.trimestres" ng-if="trimestre.an_ses_num && trimestre.fenetres">
+            <div class="bg-uqam">
+               <div>
+                  <h3>
+                     <a style="color:#004e68;" href="/inscription/faireIns/{{programme.code_prog}}/{{trimestre.an_ses_num}}">{{trimestre.an_ses_num | trimestre | capitalize}}
+                     <span class="pull-right uqam-icone uqam-icone-md">
+                        <span class="uqam-icone icone_fleche-titre_blanc"></span>
+                     </span>
+                     </a>
+                  </h3>
+               </div>
+            </div>
+         </div>
+
+      </div>
+
+      <!-- Consulter vos périodes -->
+      <a ng-if="isPeriodePourProgramme(programme)" class="pull-right visible-md visible-lg" href="/inscription/autori/{{programme.code_prog}}/programme" style="margin-top:-20px;font-size:0.9em;font-weight:bold">
+         Consultez vos périodes d'inscription pour ce programme
+         <span class="uqam-icone uqam-icone-md fleche-horizontal_bleu"></span>
+      </a>
+
+      <!-- Messages spécifique. Vérifier si on a au moins une période d'inscription -->
+      <div style="margin-bottom:0;" class="bg-warning" ng-if="!isPeriodePourProgramme(programme)">
+         <p>
+            Vous ne pouvez pas vous inscrire en ligne, car vous n'avez aucune période d'inscription pour ce programme.
+         </p>
+      </div>
+
+      <!-- Ligne entre les programmes.-->
+      <div ng-if="!$last">
+         <hr>
+      </div>
+
+   </div>
+
+
+
+
+
+
+   <!-- NOUVEAU(X) PROGRAMME(S) -->
+   <div style="margin-top:-30px;" ng-if="nbProgIcodeNull > 0">
+      <br>
+      <hr style="color: #004e68;height: 1px;">
+      <h2 style="text-transform:none;font-size:200%" ng-if="nbProgIcodeNull===1">Nouveau programme avec décision d'admission positive</h2>
+      <h2 style="text-transform:none;font-size:200%" ng-if="nbProgIcodeNull>1">Nouveaux programmes avec décision d'admission positive</h2>
+      <br>
+   </div>
+
+   <!-- Afficher seulement les programmes avec des trimestres. -->
+   <!-- On affiche les nouveaux, donc avec icode null -->
+   <!--       Note technique le ng-if fonctionne mal avec les undefined et les null
+              Aussi le !programme.icode indique que le icode est à null
+    -->
+   <div class="faire-inscription clearfix" ng-repeat="programme in listeProgFiltre('nouveau') | orderBy:periodeAvecFenetre">
+
+      <h3 style="text-transform:none;">{{programme.titre_prog | capitalize}} ({{programme.code_prog}})</h3>
+      <div class="clearfix" ng-if="isPeriodePourProgramme(programme)">
+
+         <!-- Seulement les trimestres non vide avec des fenêtres. -->
+         <div class="bloc-trimestre clearfix" ng-repeat="trimestre in programme.trimestres" ng-if="trimestre.an_ses_num && trimestre.fenetres">
+            <div class="bg-uqam">
+               <div>
+                  <h3>
+                     <a style="color:#004e68;" href="/inscription/faireIns/{{programme.code_prog}}/{{trimestre.an_ses_num}}">{{trimestre.an_ses_num | trimestre | capitalize}}
+                     <span class="pull-right uqam-icone uqam-icone-md">
+                        <span class="uqam-icone icone_fleche-titre_blanc"></span>
+                     </span>
+                     </a>
+                  </h3>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <!-- Consulter vos périodes -->
+      <a ng-if="isPeriodePourProgramme(programme)" class="pull-right visible-md visible-lg" href="/inscription/autori/{{programme.code_prog}}/programme" style="margin-top:-20px;font-size:0.9em;font-weight:bold">
+         Consultez vos périodes d'inscription pour ce programme
+         <span class="uqam-icone uqam-icone-md fleche-horizontal_bleu"></span>
+      </a>
+
+      <!-- Messages spécifique. Vérifier si on a au moins une période d'inscription -->
+      <div style="padding-bottom:0;margin-bottom:0;" class="bg-warning" ng-if="!isPeriodePourProgramme(programme)">
+         <p>
+            Vous ne pouvez pas vous inscrire en ligne, car vous n'avez aucune période d'inscription pour ce programme.
+         </p>
+      </div>
+
+      <!-- Ligne entre les programmes.-->
+      <div ng-if="!$last">
+         <hr>
+      </div>
+
+   </div>
+
+   <!-- Messages spécifique pour les nouveaux (pas de icode) avec un programme et période(s). -->
+   <hr ng-if="nbProgIcodeNull>0">
+   <div style="margin-top:24px;" class="bg-info" ng-if="nbProgIcodeNull>0">
+      <h5>nouveaux étudiants admis</h5>
+      <p>
+         L'inscription à des cours valide votre admission. Si vous avez reçu plusieurs offres d'admission,
+         vous devez vous inscrire dans un seul programme au trimestre où vous avez été admis.
+         Vous pouvez annuler vos cours dans un programme
+         donné et vous inscrire dans un autre programme pour lequel vous êtes admis jusqu'à la fin de
+         la <a href="http://www.etudier.uqam.ca/calendrier" target="_blank">période d'inscription</a>
+         (modification de cours et annulation sans facturation des droits de scolarité) de ce trimestre.
+      </p>
+      <br>
+      <p>
+         Les périodes d'inscription sont disponibles à partir de la fin mars pour l'automne, la fin octobre
+         pour l'hiver et la mi-mars pour l'été. À partir de ces moments et une fois qu'une décision
+         d'admission positive est rendue, il faut prévoir environ une semaine pour que les périodes
+         d'inscription du programme concerné soient affichées dans le portail étudiant.
+      </p>
+   </div>
+
+
+   <!-- Frais de retard.-->
+   <hr>
+   <div class="text-danger">
+      <h5 class="text-uppercase">avis important</h5>
+      Des frais de retard d'inscription de 50$ seront facturés à tous les étudiants qui s'inscrivent
+      pour la toute première fois du trimestre à une ou plusieurs activités à la
+      <a style="color:#a71700;text-decoration: underline;" href="http://www.etudier.uqam.ca/calendrier" target="_blank">première journée du trimestre</a> ou après.
+   </div>
+
+
+
+
+
+   <!-- **************************************************************************************************************************************** -->
+   <!-- MESSAGE ERREUR -->
+   <div class="bg-danger" ng-show="err">
+      <h5>Attention</h5>
+      <p>Attention une erreur est survenue, veuillez essayer plus tard.</p>
+   </div>
+
+   <!-- **************************************************************************************************************************************** -->
+   <!-- MESSAGE AVERTISSEMENT -->
+   <div class="bg-warning" ng-if="avertissements">
+      <h5>Attention</h5>
+      <p ng-repeat="message in avertissements">{{message}}</p>
+   </div>
+
+
+</div>

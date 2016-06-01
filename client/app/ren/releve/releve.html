@@ -1,0 +1,1013 @@
+<!--
+
+/*  @license
+
+    Copyright 2014-2016 Université du Québec à Montréal (UQAM)
+
+    This file is part of Portail Étudiant.
+
+    Portail Étudiant is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Portail Étudiant is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Portail Étudiant. If not, see <http://www.gnu.org/licenses/>.
+
+
+    Ce fichier fait partie de l'application Portail Étudiant.
+
+    Portail Étudiant est un logiciel libre ; vous pouvez le redistribuer ou
+    le modifier suivant les termes de la GNU General Public License telle que
+    publiée par la Free Software Foundation ; soit la version 3 de la licence,
+    soit (à votre gré) toute version ultérieure.
+
+    Portail Étudiant est distribué dans l'espoir qu'il sera utile, mais
+    SANS AUCUNE GARANTIE ; sans même la garantie tacite de QUALITÉ MARCHANDE
+    ou d'ADÉQUATION à UN BUT PARTICULIER. Consultez la GNU General Public
+    License pour plus de détails.
+
+    Vous devez avoir reçu une copie de la GNU General Public License en même
+    temps que Portail Étudiant ; si ce n'est pas le cas,
+    consultez <http://www.gnu.org/licenses>.
+*/
+
+-->
+
+<img ng-hide="renProgramme || err || avertissements" class="telechargement" src="/assets/images/ajax-loader.gif" alt="Veuillez patienter pendant que la page se télécharge">
+
+<!-- **************************************************************************************************************************************** -->
+<!-- ENTÊTE IMPRESSION -->
+<div class="entete-impression visible-print-block" ng-show="!impressionReleve">
+   <div class="table-responsive">
+      <table class="table">
+         <tbody>
+            <tr>
+               <td style="width:63.8554%; padding:0 15px 15px 0;">
+                  <img class="pull-left" src="/assets/images/general/logo/logo_uqam-general-imprimer_noir.svg" alt="UQAM">
+               </td>
+
+               <td style="width:36.1445%; padding:0 0 15px 15px;">
+                  <h4 class="text-uppercase">
+                     {{releveCourant.prenom}} {{releveCourant.nom}}
+                  </h4>
+                  {{releveCourant.adresse_l1}}<br>
+                  {{releveCourant.adresse_l2}}<br>
+                  {{releveCourant.adresse_l3}}
+               </td>
+            </tr>
+         </tbody>
+
+         <tfoot>
+            <tr>
+               <td>
+                  <strong>Date d’impression : </strong>{{dateImpression | dateComplete}}
+               </td>
+
+               <td>
+                  <strong>Code permanent : </strong><span class="text-uppercase">{{utilisateur().code_perm}}</span>
+               </td>
+            </tr>
+         </tfoot>
+      </table>
+   </div>
+</div>
+
+
+<!-- **************************************************************************************************************************************** -->
+<!-- ENTÊTE IMPRESSION: RELEVÉ -->
+<div class="entete-impression-releve visible-print-block" ng-show="impressionReleve">
+   <div class="table-responsive">
+      <table class="table">
+         <tbody>
+            <tr>
+               <td style="width:50%; vertical-align:top;">
+                  <img class="pull-left" src="/assets/images/general/logo/logo_uqam-general-imprimer_noir.svg" alt="UQAM">
+               </td>
+
+               <td style="width:50%;" class="text-right">
+                  <strong class="text-uppercase">Relevé de notes non officiel</strong>
+               </td>
+            </tr>
+
+            <tr>
+               <td colspan="2" class="text-center">
+                  <h4>Cette page ne constitue pas un document officiel.</h4>
+               </td>
+            </tr>
+            <tr>
+               <td class="text-left">
+                  <strong>{{releveCourant.prenom}} {{releveCourant.nom}}</strong><br>
+                  {{releveCourant.adresse_l1}}<br>
+                  {{releveCourant.adresse_l2}}<br>
+                  {{releveCourant.adresse_l3}}
+               </td>
+               <td class="text-right">
+                  Date d’affichage<br><strong>{{dateImpression | dateComplete}}</strong>
+                  <br><br>
+                  Code permanent<br><strong>{{utilisateur().code_perm}}</strong>
+               </td>
+            </tr>
+         </tbody>
+      </table>
+   </div>
+</div>
+
+
+<!-- **************************************************************************************************************************************** -->
+<!-- TITRE IMPRESSION -->
+<section class="sous-entete clearfix visible-print-block" ng-show="!impressionReleve">
+   <h1 class="text-uppercase">
+      Relevés de notes
+   </h1>
+</section>
+
+
+<!-- **************************************************************************************************************************************** -->
+<!-- TITRE ÉCRAN -->
+<section class="sous-entete clearfix hidden-print">
+   <h1 class="text-uppercase hidden-print">
+      Relevés de notes
+   </h1>
+
+   <div class="controle" ng-hide="err || !renProgramme">
+
+      <a class="btn btn-info text-uppercase pull-left" ng-show="!telephone" href="https://www-s.uqam.ca/commDoc/" target="_blank">
+         Commander un relevé de notes officiel&nbsp;&nbsp;
+         <span class="uqam-icone uqam-icone-sm fleche-horizontal_blanc"></span>
+      </a>
+      <div class="clearfix visible-xs visible-sm visible-md"></div>
+      <a href="" ng-show="releveCourant && !telephone" type="button" ng-click="impressionReleve=true;imprimer();"
+             class="btn btn-info text-uppercase pull-left">
+         Relevé de notes non officiel&nbsp;&nbsp;
+         <img src="/assets/images/general/icone/uqam/icone_fichier_blanc.svg" alt="">
+      </a>
+   </div>
+
+   <a href="" ng-click="impressionReleve=false;imprimer();" ng-show="!telephone" class="pull-right clearfix hidden-print text-uppercase visible-md visible-lg">
+      Imprimer
+      <span class="uqam-icone uqam-icone-sm impression_bleu-etudiant pull-right"></span>
+   </a>
+
+   <br>
+</section>
+
+<!-- **************************************************************************************************************************************** -->
+<!-- CONTENU DE LA PAGE -->
+<div class="ren" ng-class="{impressionReleve: impressionReleve == 1}" ng-show="renProgramme">
+
+   <!-- Relevé vesion bureau  -->
+   <div class="releves-de-notes">
+
+      <h2 ng-show="!impressionReleve" style="
+         -ms-word-break:break-all;
+         word-break:break-all;
+         word-break:break-word;
+         -webkit-hyphens:auto;
+         -moz-hyphens:auto;
+         -ms-hyphens:auto;
+         hyphens:auto;
+      ">{{programmeCourant.titre_prog | capitalize }} ({{programmeCourant.code_prog}})</h2>
+      <h4 ng-show="impressionReleve" style="
+         -ms-word-break:break-all;
+         word-break:break-all;
+         word-break:break-word;
+         -webkit-hyphens:auto;
+         -moz-hyphens:auto;
+         -ms-hyphens:auto;
+         hyphens:auto;
+      ">{{programmeCourant.titre_prog}} ({{programmeCourant.code_prog}})</h4>
+
+      <!-- **************************************************************************************************************************************** -->
+      <!-- FORMULAIRE -->
+      <div class="form clearfix hidden-print" ng-show="renProgramme.programme && renProgramme.programme.length>1">
+         <div class="col-xs-12 col-sm-4 col-lg-3">
+            <label>Changer de programme</label>
+         </div>
+
+         <div class="col-xs-12 col-sm-8 col-lg-9">
+            <div class="select-form-control">
+               <select class="form-control" ng-disabled="!(releveCourant || err || errReleve || avertissementsRevele || avertissements)"
+                  ng-change="changerProgramme();" ng-options="((menu.titre_prog + ' (' + menu.code_prog +')') | capitalize) for menu in renProgramme.programme | orderBy:'[stat_prog,code_prog]'" ng-model="progSelectionne">
+               </select>
+            </div>
+         </div>
+      </div>
+
+      <!-- **************************************************************************************************************************************** -->
+      <!-- WARNING TOUJOURS PRÉSENT -->
+      <div class="bg-warning bg-warning-custom" ng-show="!impressionReleve">
+         <p>
+            <strong>Cette page ne constitue pas un document officiel.</strong>
+         </p>
+      </div>
+
+      <!-- **************************************************************************************************************************************** -->
+      <!-- WARNING Infractions académiques et programmes inactifs. -->
+      <div class="bg-warning"
+           ng-if="releveCourant.message_infraction.length > 0 ||
+                    (programmeCourant.stat_prog =='INACTIF' && (
+                     programmeCourant.icode == '2' ||
+                     programmeCourant.icode == '3' ||
+                     programmeCourant.icode == '8' ||
+                     programmeCourant.icode == '9')
+                    )
+                    && !impressionReleve">
+
+         <p ng-if="releveCourant.message_infraction.length > 0">
+            <span ng-repeat="message in releveCourant.message_infraction">{{message.message }} </span>
+         </p>
+
+         <p ng-if="programmeCourant.stat_prog =='INACTIF' && (
+                                        programmeCourant.icode == '2' ||
+                                        programmeCourant.icode == '3' ||
+                                        programmeCourant.icode == '8' ||
+                                        programmeCourant.icode == '9')" >
+            <br ng-if="releveCourant.message_infraction.length > 0">
+            <span>Votre dossier pour ce programme est inactif.</span>
+
+         </p>
+
+      </div>
+
+      <!-- **************************************************************************************************************************************** -->
+      <!-- GRADE & DATE pour le moment seulement icode 6 -->
+      <div ng-show="releveCourant.diplome && !impressionReleve">
+         <div class="bg-group-2 clearfix">
+            <div class="bg-uqam">
+               <div class="col-xs-3 col-md-3 col-lg-3">
+                  <img src="/assets/images/general/icone/uqam/icon_grade-obtenu.svg" alt="Grade obetnu">
+               </div>
+               <div class="col-xs-9 col-md-9 col-lg-9">
+                  <h5>
+                     {{releveCourant.diplome.type | capitalize}}
+                  </h5>
+                  <h3>{{releveCourant.diplome.titre | capitalize}}</h3>
+               </div>
+               <div class="clearfix"></div>
+            </div>
+
+            <div class="bg-uqam">
+               <hr class="verticale pull-left visible-lg">
+               <h5>
+                  Date d'obtention
+               </h5>
+               <h3>{{releveCourant.diplome.date_obtention}}</h3>
+            </div>
+         </div>
+      </div>
+
+      <!-- **************************************************************************************************************************************** -->
+      <!-- CHEMINEMENT -->
+      <div style="padding:{{!releveCourant.message_moyenne?'0 0 45px 0':'0 0 15px 0'}};" class="bg-group-3 clearfix" ng-show="!impressionReleve">
+         <div ng-if = "programmeCourant.nb_cred_crs == '0.0' &&
+                       programmeCourant.nb_cred_reu == '0.0' &&
+                       programmeCourant.nb_cred_pot == '0.0' &&
+                       programmeCourant.nb_cred_res == '0.0' "
+              class="bg-uqam" class="bg-uqam">
+              <h5>Aucun cheminement</h5>
+         </div>
+         <div ng-if="programmeCourant.nb_cred_crs != '0.0' ||
+                     programmeCourant.nb_cred_reu != '0.0' ||
+                     programmeCourant.nb_cred_pot != '0.0' ||
+                     programmeCourant.nb_cred_res != '0.0' "
+              class="bg-uqam" class="bg-uqam">
+            <h5 ng-class="{'text-left': !telephone}">
+               <span ng-class="{'pull-left': !telephone}" ng-hide="cheminementSpecial()">
+                 Cheminement dans ce programme de {{programmeCourant.nb_cred_prog}} crédits&nbsp;&nbsp;</span>
+
+               <span class="pull-left" ng-show="cheminementSpecial()">
+                 Cheminement&nbsp;&nbsp;
+               </span>
+
+               <button ng-if="cheminementSpecial()" type="button" class="btn btn-info hidden-print pull-left"
+                  class="note"
+                  popover-title=""
+                  popover="{{popoverCheminement}}"
+                  popover-trigger="{{deviceEvent}}"
+                  popover-append-to-body="true">
+                     <span class="uqam-icone uqam-icone-sm interrogation_blanc"></span>
+               </button>
+
+                <button ng-if="!cheminementSpecial()" ng-class="{'pull-left': !telephone}" type="button" class="btn btn-info hidden-print visible-lg"
+                  class="note"
+                  popover-title=""
+                  popover="{{popoverCheminement}}"
+                  popover-trigger="{{deviceEvent}}"
+                  popover-append-to-body="true">
+                     <span class="uqam-icone uqam-icone-sm interrogation_blanc"></span>
+               </button>
+
+               <button ng-if="!cheminementSpecial()" ng-class="{'pull-left': !telephone}" type="button" class="btn btn-info hidden-print visible-xs visible-sm visible-md"
+                  class="note"
+                  popover-title=""
+                  popover="{{popoverCheminement}}"
+                  popover-trigger="{{deviceEvent}}"
+                  popover-append-to-body="true"
+                  popover-placement="left">
+                     <span class="uqam-icone uqam-icone-sm interrogation_blanc"></span>
+               </button>
+            </h5>
+
+            <!-- NE VALIDE PAS MAIS NE CAUSE PAS DE PROBLÈME | ALEX -->
+            <style ng-if="!cheminementSpecial()"  cn-styler type="text/css">
+               .progression:before {
+                  content: "0";
+               }
+               .progression:after{
+                  content:"/*{{programmeCourant.nb_cred_prog}}*/"
+               }
+            </style>
+
+            <style ng-if="cheminementSpecial()" type="text/css">
+               .progression:before {
+                  content: "";
+               }
+               .progression:after{
+                  content:"";
+               }
+               .cheminement-special {
+                  visibility:hidden !important;
+               }
+            </style>
+
+            <div class="progression">
+               <!-- Réussis -->
+               <div class="reussis"
+                  ng-class="{creditsVide: programmeCourant.nb_cred_reu == 0, reussisDroite: programmeCourant.nb_cred_crs == 0 && programmeCourant.nb_cred_res == 0}"
+                  ng-style="{ width: programmeCourant.pct_cred_reu + '%' }">
+                  <div></div>
+                  <div>{{programmeCourant.nb_cred_reu_tot | number}}</div>
+               </div>
+
+               <!-- En cours -->
+               <div class="enCours"
+                  ng-class="{creditsVide: programmeCourant.nb_cred_crs == 0, enCoursGauche: programmeCourant.nb_cred_reu == 0, enCoursDroite: programmeCourant.nb_cred_res == 0}"
+                  ng-style="{ width: programmeCourant.pct_cred_crs + '%' }">
+                  <div></div>
+                  <div>{{programmeCourant.nb_cred_crs | number}}</div>
+               </div>
+
+               <!-- Restants -->
+               <div class="restants cheminement-special"
+                  ng-class="{creditsVide: programmeCourant.nb_cred_res == 0,  restantsGauche: programmeCourant.nb_cred_reu == 0 && programmeCourant.nb_cred_crs == 0}"
+                  ng-style="{ width: programmeCourant.pct_cred_res + '%' }">
+                  <div></div>
+                  <div ng-show="!cheminementSpecial()">{{programmeCourant.nb_cred_res | number}}</div>
+               </div>
+            </div>
+
+            <br class="hidden-print">
+
+            <hr class="visible-print-block">
+            <div class="legende col-xs-12">
+               <p class="col-xs-12 col-sm-6">
+                  <span ng-show="programmeCourant.nb_cred_reu_tot != 0" >Crédits réussis  ({{programmeCourant.nb_cred_reu_tot | number }})</span>
+                  <span ng-show="programmeCourant.nb_cred_crs != 0">Crédits en cours ({{programmeCourant.nb_cred_crs | number }})</span>
+               </p>
+               <p class="col-xs-12 col-sm-6">
+                  <span ng-show="programmeCourant.nb_cred_res != 0 && !cheminementSpecial()">Crédits restants ({{programmeCourant.nb_cred_res | number }})</span>
+               </p>
+            </div>
+            <hr class="visible-print-block">
+
+            <div class="clearfix"></div>
+         </div>
+
+         <!-- Crédits réussis-->
+         <div class="bg-uqam">
+            <h5 ng-class="{'text-left': !telephone}">
+               <span ng-class="{'pull-left': !telephone}">Crédits réussis&nbsp;&nbsp;</span>
+               <button ng-class="{'pull-left': !telephone}" type="button" class="btn btn-info hidden-print"
+                  class="note"
+                  popover-title=""
+                  popover="{{popoverCredits}}"
+                  popover-trigger="{{deviceEvent}}"
+                  popover-append-to-body="true"
+                  ng-show="!telephone">
+                  <span class="uqam-icone uqam-icone-sm interrogation_blanc"></span>
+               </button>
+
+               <button type="button" class="btn btn-info hidden-print"
+                  class="note"
+                  popover-title=""
+                  popover="{{popoverCredits}}"
+                  popover-trigger="{{deviceEvent}}"
+                  popover-append-to-body="true"
+                  popover-placement="right"
+                  ng-show="telephone">
+                  <span class="uqam-icone uqam-icone-sm interrogation_blanc"></span>
+               </button>
+            </h5>
+
+            <hr>
+            <h2>{{programmeCourant.nb_cred_reu_tot | number}}</h2>
+            <hr>
+         </div>
+
+         <!-- MOYENNE CUMULATIVE -->
+         <!-- Seulement si on a un relevé de notes puisqu'on utilise la moyenne du relevé -->
+         <div class="bg-uqam">
+            <h5 ng-class="{'text-left': !telephone}">
+               <span ng-class="{'pull-left': !telephone}">Moyenne cumulative&nbsp;&nbsp;</span>
+               <button ng-if="releveCourant.moy_acad.indexOf(' / ')   !== -1   &&
+                       releveCourant.moy_acad.indexOf('NIL / ') == -1 &&
+                       releveCourant.moy_acad.indexOf('N.A.')   == -1"
+                  ng-class="{'pull-left': !telephone}" type="button"
+                  class="btn btn-info hidden-print note"
+                  popover-title=""
+                  popover="La moyenne cumulative est calculée à la fin de chaque trimestre à partir des notes obtenues."
+                  popover-trigger="{{deviceEvent}}"
+                  popover-append-to-body="true"
+                  popover-placement="left">
+                  <span class="uqam-icone uqam-icone-sm interrogation_blanc"></span>
+               </button>
+
+               <button ng-if="releveCourant && releveCourant.moy_acad.indexOf('N.A.') !== -1 || releveCourant.moy_acad && releveCourant.moy_acad.indexOf('NIL / ') != -1"
+                  ng-class="{'pull-left': !telephone}" type="button"
+                  class="btn btn-info hidden-print note"
+                  popover-title=""
+                  popover="Moyenne cumulative non applicable"
+                  popover-trigger="{{deviceEvent}}"
+                  popover-append-to-body="true"
+                  popover-placement="left">
+                  <span class="uqam-icone uqam-icone-sm interrogation_blanc"></span>
+               </button>
+            </h5>
+
+            <hr ng-show="releveCourant.moy_acad">
+
+            <!-- Moyenne présente -->
+
+            <h2 ng-if="releveCourant.moy_acad.indexOf(' / ')   !== -1   &&
+                       releveCourant.moy_acad.indexOf('NIL / ') == -1 &&
+                       releveCourant.moy_acad.indexOf('N.A.')   == -1">
+               {{(releveCourant.moy_acad.split(' / '))[0] | formatteChiffre}}&nbsp;
+               <span>/ {{(releveCourant.moy_acad.split(' / '))[1]  | formatteChiffre}}</span>
+            </h2>
+            <!-- Moyenne N.A. -->
+            <h2 ng-if="releveCourant && releveCourant.moy_acad.indexOf('N.A.') !== -1">
+               NA
+            </h2>
+
+            <!-- Moyenne -->
+            <h2 ng-if="releveCourant.moy_acad && releveCourant.moy_acad.indexOf('NIL / ') != -1">
+            NA
+            </h2>
+
+            <hr ng-show="releveCourant.moy_acad">
+         </div>
+      </div>
+
+      <!-- Spinning pour le relevé. -->
+      <h2>
+         <img ng-hide="releveCourant || err || errReleve || avertissementsRevele || avertissements"
+              class="telechargement"
+              src="/assets/images/ajax-loader.gif" alt="Veuillez patienter pendant que la page se télécharge">
+      </h2>
+
+      <!-- **************************************************************************************************************************************** -->
+      <!-- Message des moyennes sous la section cheminement -->
+      <div ng-if="releveCourant.message_moyenne" class="bg-uqam" ng-show="!impressionReleve && !telephone">
+         <ul>
+            <li ng-repeat="item in releveCourant.message_moyenne">{{item.message.replace(' 92 : ','  1992 : ')}}{{item.moy_acad}}</li>
+         </ul>
+      </div>
+
+      <!-- MESSAGE AVERTISSEMENT du RELEVÉ -->
+      <div class="bg-warning" ng-if="avertissementsRevele">
+         <!--h5>Attention</h5-->
+         <p ng-repeat="message in avertissementsRevele">{{message}}</p>
+      </div>
+
+      <!-- MESSAGE ERREUR DU RELEVÉ -->
+      <div class="bg-danger hidden-print" ng-if="errReleve">
+         <h5>Attention</h5>
+         <p>{{errReleve}}</p>
+      </div>
+
+      <!-- **************************************************************************************************************************************** -->
+      <!-- COMPÉTENCES LINGUISTIQUES -->
+      <div ng-if="releveCourant.competence_linguistique.length > 0 || releveCourant.test_francais" ng-show="!telephone">
+         <h4 ng-show="!impressionReleve">Compétences linguistiques</h4>
+         <h5 ng-show="impressionReleve">Compétences linguistiques</h5>
+         <div class="table-responsive">
+
+            <table class="table table-bordered table-condensed">
+               <thead>
+                  <tr>
+                     <th style="width:{{!impressionReleve?'52.5%':'60%'}};">Titre</th>
+                     <th style="width:{{!impressionReleve?'30%':'20%'}};">Remarque</th>
+                     <th ng-if="!impressionReleve" colspan="2" class="info" style="width:17.5%;">
+                        <span class="visible-xs visible-sm visible-md">Note</span>
+                        <span class="visible-lg">Note finale</span>
+                     </th>
+
+                     <th ng-if="impressionReleve" class="info" style="width:10%;">
+                        Note
+                     </th>
+                     <th ng-if="impressionReleve" class="info" style="width:10%;">
+                        Mention
+                     </th>
+                  </tr>
+               </thead>
+
+               <tbody>
+                  <!-- Tests de français -->
+                  <tr ng-show="releveCourant.test_francais">
+                     <td>{{releveCourant.test_francais.titre}}</td>
+                     <td>{{releveCourant.test_francais.raison_exemption}}</td>
+
+                     <!-- Note -->
+                     <td class="info">
+                        <strong ng-if="releveCourant.test_francais.resultat !== '----'">
+                           <span ng-hide="releveCourant.test_francais.resultat.indexOf('EXE') != -1">
+                              {{releveCourant.test_francais.resultat | trim}}
+                           </span>
+                           <br class="visible-xs visible-sm visible-md">
+                        </strong>
+
+                     </td>
+
+                     <!-- Mention -->
+                     <td class="info text-center">
+                        <strong>
+                           <span ng-show="releveCourant.test_francais.resultat.indexOf('EXE') != -1"
+                                 class="note"
+                                 popover-title=""
+                                 popover="{{'EXE' | notationLibel}}"
+                                 popover-trigger="{{deviceEvent}}"
+                                 popover-append-to-body="true"
+                                 popover-placement="left"
+                                 >EXE
+                           </span>
+                        </strong>
+                     </td>
+                  </tr>
+
+                  <!-- Compétences -->
+                  <tr ng-repeat="comp in releveCourant.competence_linguistique">
+                     <td>{{comp.titre}}</td>
+                     <td>{{comp.raison_non_satisfait}}</td>
+
+                     <td class="info">
+                        <strong>{{comp.resultat | trim}}</strong>
+                     </td>
+                     <td class="info text-center"></td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+      </div>
+
+      <!-- **************************************************************************************************************************************** -->
+      <!-- ACTIVITÉS -->
+      <h4 ng-show="releveCourant && !releveCourant.provenance && !telephone">Aucun cours inscrit</h4>
+      <div ng-repeat="provenance in releveCourant.provenance" ng-show="!telephone">
+         <h4 ng-show="!impressionReleve">{{provenance.titre_provenance}}</h4>
+         <h5 ng-show="impressionReleve">{{provenance.titre_provenance}}</h5>
+         <div class="table-responsive">
+            <table class="table table-bordered table-condensed">
+               <thead>
+                  <tr>
+                     <th style="width:15%;">
+                        <div class="visible-xs visible-sm visible-md">
+                           <span class="hidden-print">Trim.</span>
+                           <span class="visible-print-block">Trimestre</span>
+                        </div>
+                        <span class="visible-lg">Trimestre</span>
+                     </th>
+                     <th style="width:10%;">Sigle</th>
+                     <th style="width:{{!impressionReleve?'27.5%':'35%'}};">Titre</th>
+                     <th style="width:10%;" colspan="2">
+                        <span class="visible-xs visible-sm visible-md">Cr.</span>
+                        <span class="visible-lg">Crédits</span>
+                     </th>
+                     <th style="width:10%;">
+                        <span class="visible-xs visible-sm visible-md">Moy. <br ng-if="!impressionReleve">gr.</span>
+                        <span class="visible-lg">Moyenne <br ng-if="!impressionReleve">groupe</span>
+                     </th>
+
+                     <th ng-if="!impressionReleve" style="width:10%;" class="info" colspan="2">
+                        <span class="visible-xs visible-sm visible-md">Note</span>
+                        <span class="visible-lg">Note finale</span>
+                     </th>
+
+                     <th ng-if="impressionReleve" style="width:10%;" class="info" colspan="1">
+                        Note
+                     </th>
+                     <th ng-if="impressionReleve" style="width:10%;" class="info" colspan="1">
+                        Mention
+                     </th>
+
+                     <th style="width:17.5%;" ng-if="!impressionReleve">
+                        <span class="visible-xs visible-sm visible-md pull-left">Rés.&nbsp;&nbsp;</span>
+                        <span class="visible-lg pull-left">Résultats&nbsp;&nbsp;</span>
+                        <button type="button"
+                           class="btn btn-info hidden-print note pull-left"
+                           popover-title=""
+                           popover="Un + apparaîtra dans cette colonne dès que votre enseignant publiera au moins un résultat.
+                                    Il est toutefois possible que votre enseignant n'utilise pas cette fonctionnalité."
+                           popover-trigger="{{deviceEvent}}"
+                           popover-append-to-body="true"
+                           popover-placement="left">
+                           <span class="uqam-icone uqam-icone-sm interrogation_blanc"></span>
+                        </button>
+                     </th>
+                  </tr>
+               </thead>
+
+               <tbody ng-repeat="session in provenance.trimestre" >
+                  <tr ng-repeat-start="cours in session.cours">
+                     <td rowspan="{{session.cours.length + compteToggleAffiche(cours.trim_txt)}}" ng-if="$first">
+                        {{session.trim_txt.replace(' - ',' ') | capitalize}}
+                     </td>
+                     <td>{{cours.sigle}}</td>
+                     <td style="
+                        -ms-word-break:break-all;
+                        word-break:break-all;
+                        word-break:break-word;
+                        -webkit-hyphens:auto;
+                        -moz-hyphens:auto;
+                        -ms-hyphens:auto;
+                        hyphens:auto;
+                     ">{{cours.titre}}</td>
+
+                     <!-- COURS -->
+                     <td style="width:5%;">
+                        {{cours.nb_cred}}
+                     </td>
+
+                     <td style="width:5%;" class="text-center">
+                        <span ng-show="cours.no_ref_inst.length > 0"
+                           class="note"
+                           popover-title=""
+                           popover="{{releveCourant.seq_institution[cours.no_ref_inst -1].nom_institution}}"
+                           popover-trigger="{{deviceEvent}}"
+                           popover-append-to-body="true"
+                           >
+                           T{{cours.no_ref_inst}}
+                        </span>
+                     <!-- Moyenne académique -->
+                     <td>
+
+                        <!-- On affiche la moyenne seulement les icode !=  5/6. -->
+                        <div ng-if="programmeCourant.icode !== '5' && programmeCourant.icode !== '6'">
+
+                           <!--Moyenne Non disponible. -->
+                           <span ng-show="cours.moy_grp  == '' && (
+                                          cours.resultat == '#' ||
+                                          cours.resultat == 'A+'||
+                                          cours.resultat == 'A' ||
+                                          cours.resultat == 'A-'||
+                                          cours.resultat == 'tA'||
+                                          cours.resultat == 'B+'||
+                                          cours.resultat == 'B' ||
+                                          cours.resultat == 'B-'||
+                                          cours.resultat == 'tB'||
+                                          cours.resultat == 'C+'||
+                                          cours.resultat == 'C' ||
+                                          cours.resultat == 'C-'||
+                                          cours.resultat == 'tC'||
+                                          cours.resultat == 'D+'||
+                                          cours.resultat == 'D' ||
+                                          cours.resultat == 'E' ||
+                                          cours.resultat == 'H' ||
+                                          cours.resultat == 'HG'||
+                                          cours.resultat == 'I' ||
+                                          cours.resultat == 'J' ||
+                                          cours.resultat == 'R' ||
+                                          cours.resultat == '*'
+                                         )"
+                              class="note"
+                              popover-title=""
+                              popover="{{'ND' | notationLibel}}"
+                              popover-trigger="{{deviceEvent}}"
+                              popover-append-to-body="true"
+                              ><!--ND-->
+                           </span>
+
+                           <span ng-show="cours.moy_grp  == '' && (
+                                          cours.resultat == 'EXE'||
+                                          cours.resultat == 'K'  ||
+                                          cours.resultat == 'L'  ||
+                                          cours.resultat == 'N'  ||
+                                          cours.resultat == 'V'  ||
+                                          cours.resultat == 'W'  ||
+                                          cours.resultat == 'X'
+                                         )">
+                           </span>
+
+                           <!-- Moyenne non applicable. NA -->
+                           <span ng-show="cours.moy_grp =='N.A.' ||
+                                          ( cours.moy_grp  == '' &&
+                                          cours.resultat == 'S'
+                                          )"
+                              class="note"
+                              popover-title=""
+                              popover="{{'N.A.' | notationLibel}}"
+                              popover-trigger="{{deviceEvent}}"
+                              popover-append-to-body="true"
+                              >
+                           </span>
+
+                           <!-- Afficher la moyenne -->
+                           <span ng-show="cours.moy_grp !='' &&
+                                          cours.moy_grp !='N.A.'">
+                              {{cours.moy_grp | formatteChiffre }}
+                           </span>
+                        </div>
+
+                     </td>
+
+                     <!-- Note -->
+                     <!-- ALEX mettre la classe pour l'alignement. -->
+                     <td class="info no-border-right" style="width:5%; border-right:0;">
+                        <span ng-if="cours.resultat != ''    &&
+                                       cours.resultat != 'K'   &&
+                                       cours.resultat != 'ABS' &&
+                                       cours.resultat != 'EXE' &&
+                                       cours.resultat != 'I'   &&
+                                       cours.resultat != 'L'   &&
+                                       cours.resultat != 'N'   &&
+                                       cours.resultat != 'N.A.'&&
+                                       cours.resultat != 'P'   &&
+                                       cours.resultat != 'R'   &&
+                                       cours.resultat != 'W'   &&
+                                       cours.resultat != 'K'   &&
+                                       cours.resultat != 'X'   &&
+                                       cours.resultat != '*'   &&
+                                       cours.resultat != '**'  &&
+                                       cours.resultat != '#'"><strong>{{cours.resultat}}</strong>
+                        </span>
+                     </td>
+
+                     <!-- Icône pour mention -->
+                     <td class="info text-center" style="width:5%;">
+                        <span ng-show="
+                           cours.resultat== 'K'   ||
+                           cours.resultat== 'ABS' ||
+                           cours.resultat== 'EXE' ||
+                           cours.resultat== 'I'   ||
+                           cours.resultat== 'L'   ||
+                           cours.resultat== 'N'   ||
+                           cours.resultat== 'N.A.'||
+                           cours.resultat== 'P'   ||
+                           cours.resultat== 'R'   ||
+                           cours.resultat== 'W'   ||
+                           cours.resultat== 'X'   ||
+                           cours.resultat== '**'  ||
+                           cours.resultat== '#'"
+                           class="note"
+                           popover-title=""
+                           popover="{{cours.resultat | notationLibel}}"
+                           popover-trigger="{{deviceEvent}}"
+                           popover-append-to-body="true">
+                           {{cours.resultat}}
+                        </span>
+
+                        <span ng-show="cours.ind_hp=='H'" class="note"
+                           popover-title=""
+                           popover="{{cours.ind_hp | notationLibel}}"
+                           popover-trigger="{{deviceEvent}}"
+                           popover-append-to-body="true">H
+                        </span>
+                     </td>
+
+                     <!-- Détail avec Résultats -->
+                     <td class="text-center" ng-if="!impressionReleve">
+                        <button ng-if="cours.activite && cours.activite.systemeResultats==='O' && cours.activite.compteurEvaluation>0" ng-click="changeToggle('cours', ''+cours.trim_txt+cours.sigle)"
+                                type="button" class="btn btn-info hidden-print">
+                           <span ng-class="toggle.cours[''+cours.trim_txt+cours.sigle] ? 'uqam-icone uqam-icone-sm moins-petit_blanc' : 'uqam-icone uqam-icone-sm plus-petit_blanc'"></span>
+                        </button>
+                     </td>
+                  </tr>
+
+                  <!-- Détail avec Résultats -->
+                  <tr ng-repeat-end ng-if="toggle.cours[''+cours.trim_txt+cours.sigle]" ng-show="!impressionReleve">
+                     <td class="plus-info" colspan="8">
+                        <div class="moreInfo">
+                           <!-- SOUS TABLEAU : DÉTAIL -->
+                           <div afficher-resultats param-resultats="cours.activite" note-au-dossier="cours.resultat" bouton-commentaire="true"></div>
+                        </div>
+                     </td>
+                  </tr>
+
+               </tbody>
+            </table>
+         </div>
+
+      </div>
+
+      <!-- **************************************************************************************************************************************** -->
+      <!-- PROJET DE THÈSE -->
+
+      <div ng-show="releveCourant.liste_these.length >0 && !telephone">
+
+
+         <h4 ng-show="!impressionReleve && releveCourant.liste_these.length <= 1">Travail de recherche</h4>
+         <h5 ng-show="impressionReleve && releveCourant.liste_these.length <= 1">Travail de recherche</h5>
+         <h4 ng-show="!impressionReleve && releveCourant.liste_these.length > 1">Travaux de recherche</h4>
+         <h5 ng-show="impressionReleve && releveCourant.liste_these.length > 1">Travaux de recherche</h5>
+
+         <div class="table-responsive">
+            <table class="table table-bordered table-condensed">
+               <thead>
+                  <tr>
+
+                     <th style="width:15%;">
+                        <div class="visible-xs visible-sm visible-md">
+                           <span class="hidden-print">Trim.</span>
+                           <span class="visible-print-block">Trimestre</span>
+                        </div>
+                        <span class="visible-lg">Trimestre</span>
+                     </th>
+
+                     <th style="width:10%;">Sigle</th>
+                     <th style="width:{{!impressionReleve?'27.5%':'35%'}};">Titre</th>
+                     <th style="width:10%;">
+                        <span class="visible-xs visible-sm visible-md">Cr.</span>
+                        <span class="visible-lg">Crédits</span>
+                     </th>
+
+                     <th ng-if="impressionReleve" style="width:10%; text-align:left;">
+                        <span class="visible-xs visible-sm visible-md">Appr.</span>
+                        <span class="visible-lg">Approbation</span>
+                     </th>
+
+                     <th ng-if="!impressionReleve" colspan="2" class="info text-center" style="width:20%;">
+                        <span class="visible-xs visible-sm visible-md">Éval.</span>
+                        <span class="visible-lg">Évaluation</span>
+                     </th>
+
+                     <th ng-if="impressionReleve" style="width:10%;" class="info" colspan="1">
+                        Note
+                     </th>
+
+                     <th ng-if="impressionReleve" style="width:10%;" class="info" colspan="1">
+                        Mention
+                     </th>
+
+                     <th ng-if="!impressionReleve" style="width:17.5%; text-align:left;">
+                        <span class="visible-xs visible-sm visible-md">Appr.</span>
+                        <span class="visible-lg">Approbation</span>
+                     </th>
+                  </tr>
+               </thead>
+
+               <tbody>
+                  <tr ng-repeat="these in releveCourant.liste_these">
+                     <td>{{these.trim_txt.replace(' - ',' ')}}</td>
+                     <td>{{these.sigle}}</td>
+                     <td>
+                        {{these.categorie | uppercase}}
+                        <br ng-if="these.categorie">
+                        {{these.titre}}
+                     </td>
+                     <td class="text-center">{{these.credit}}</td>
+
+                     <td ng-if="impressionReleve">{{these.date_approb}}</td>
+
+                     <!-- Evaluation -->
+                     <td class="info text-left no-border-right" style="width:10%;">
+                        <span ng-if="these.eval.toUpperCase().indexOf('MENTION INDÉTERMINÉE') == -1 &&
+                                     these.eval != '#'">
+                           {{these.eval | lowercase | capitalize}}
+                     </td>
+
+
+                     <!-- mention -->
+                     <td class="info text-center" style="width:10%;">
+                        <span ng-show="
+                           these.eval.toUpperCase().indexOf('MENTION INDÉTERMINÉE') == -1 &&
+                           these.eval == '#'"
+                           class="note"
+                           popover-title=""
+                           popover="{{these.eval | notationLibel}}"
+                           popover-trigger="{{deviceEvent}}"
+                           popover-append-to-body="true">
+                           {{these.eval | lowercase | capitalize}}
+                        </span>
+
+                     </td>
+
+                     <td ng-if="!impressionReleve">{{these.date_approb}}</td>
+
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+      </div>
+
+
+      <hr class="visible-print-block" ng-show="impressionReleve && !telephone">
+
+      <!-- **************************************************************************************************************************************** -->
+      <!-- CRÉDITS & MOYENNE : IMPRIMÉ SEULEMENT -->
+      <div class="clearfix visible-print-block" ng-show="impressionReleve && !telephone">
+         <p class="pull-left">Crédits réussis : <strong>{{programmeCourant.nb_cred_reu_tot}}</strong></p>
+
+         <!-- Moyenne N.A. -->
+         <p class="pull-right"  ng-if="releveCourant.moy_acad.indexOf('N.A.') !== -1">
+            Moyenne cumulative : NA
+         </p>
+
+         <!-- Moyenne NIL -->
+         <p class="pull-right" ng-if="releveCourant.moy_acad.indexOf('NIL / ') != -1">
+            Moyenne cumulative : NA
+         </p>
+
+         <!-- Moyenne normale -->
+         <p class="pull-right" ng-if="releveCourant.moy_acad.indexOf(' / ')   !== -1   &&
+                    releveCourant.moy_acad.indexOf('NIL / ') == -1 &&
+                    releveCourant.moy_acad.indexOf('N.A.')   == -1">
+                    Moyenne cumulative : <strong>{{releveCourant.moy_acad}}</strong>
+         </p>
+
+      </div>
+
+      <hr class="visible-print-block" ng-show="impressionReleve">
+
+      <!-- **************************************************************************************************************************************** -->
+      <!-- Message des moyennes sous la section cheminement -->
+      <div ng-if="releveCourant.message_moyenne" ng-show="impressionReleve && !telephone">
+         <ul>
+            <li ng-repeat="item in releveCourant.message_moyenne">{{item.message.replace(' 92 : ','  1992 : ')}}{{item.moy_acad}}</li>
+         </ul>
+      </div>
+
+      <!-- **************************************************************************************************************************************** -->
+      <!-- GRADE AND DATE POUR LE RELEVÉ NON OFFICIEL -->
+      <div ng-show="impressionReleve && releveCourant.diplome" class="bg-uqam">
+         <span>
+            {{releveCourant.diplome.type | capitalize}} : <strong>{{releveCourant.diplome.titre | capitalize}}</strong>
+            <br>
+            Date d'obtention : <strong>{{releveCourant.diplome.date_obtention}}</strong>
+         </span>
+      </div>
+
+      <!-- **************************************************************************************************************************************** -->
+      <!-- TRANSFERT -->
+      <div ng-if="releveCourant.seq_institution.length>0" ng-show="!telephone" class="bg-uqam">
+         <h5>
+            Transfert de crédits en provenance de
+         </h5>
+
+         <div ng-repeat="transfert in releveCourant.seq_institution">
+            <span class="note">T{{transfert.no_seq}}</span>&nbsp;&nbsp;{{transfert.nom_institution}}
+         </div>
+      </div>
+   </div>
+
+   <!-- **************************************************************************************************************************************** -->
+   <!-- **************************************************************************************************************************************** -->
+   <!-- ROTATION : APPAREIL MOBILE TÉLÉPHONE EN MODE PORTRAIT -->
+   <div class="releves-de-notes" ng-show="telephone">
+      <div class="text-center">
+         <img src="/assets/images/general/icone/uqam/icone_rotation_telephone.svg" width="35%" alt="Tourner votre appareil pour voir l'information complète">
+         <br><br>
+         <h5>Basculez votre appareil pour<br>accéder au contenu complet</h5>
+      </div>
+   </div>
+</div>
+
+<!-- **************************************************************************************************************************************** -->
+<!-- MESSAGE ERREUR -->
+<div class="bg-danger" ng-show="err">
+   <h5>Attention</h5>
+   <p>Une erreur est survenue. Veuillez essayer plus tard.</p>
+</div>
+
+<!-- **************************************************************************************************************************************** -->
+<!-- MESSAGE AVERTISSEMENT -->
+<div class="bg-warning" ng-if="avertissements" ng-show="!impressionReleve">
+   <!--h5>Attention</h5-->
+   <p ng-repeat="message in avertissements">
+      <span ng-if="message.indexOf('Aucun programme n\'est présentement à votre dossier') != -1">
+         Il n'y a aucun programme avec des cours inscrits à votre dossier.
+      </span>
+      <span ng-if="message.indexOf('Aucun programme n\'est présentement à votre dossier') == -1">
+         {{message}}
+      </span>
+   </p>
+</div>
+
+<div ng-show="!impressionReleve && !telephone" class="clearfix bg-info" style="margin:15px 0 0 0;">
+   <p style="padding:6px 0 0 0;">
+      Pour toute question sur votre relevé de notes, <a href="http://www.etudier.uqam.ca/coordonnees-registrariat" target="_blank">contacter le Registrariat</a>.<br>
+      Pour des questions sur vos résultats, contacter votre enseignant.
+   </p>
+</div>
+
+<!-- **************************************************************************************************************************************** -->
+<!-- LÉGENDE -->
+<br>
+
+<div class="hidden-print" ng-show="!telephone">
+   <p><a href="http://www.etudier.uqam.ca/legende-releve-notes" target="_blank">Légende du relevé de notes</a></p>
+</div>

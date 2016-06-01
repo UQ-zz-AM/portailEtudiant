@@ -1,0 +1,238 @@
+/* AUDIOVISUEL IMPRESSION.CSS ------------------------------------------------------------------------------------ */
+/* --------------------------------------------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------------------------------------------- */
+@media print {
+
+    /* --------------------------------------------------------------------------------------------------------------- */
+    /* GABARIT */
+
+    /* --------------------------------------------------------------------------------------------------------------- */
+    /* GENERAL */
+    html{}
+        body{font-size:75%;}
+            .contenu{width:100%; margin:0; padding:0 25px 0 25px;}
+                .contenu-droite{width:100%; margin:0 !important; padding:0 !important;}
+                    .imprimable{display:block !important; visibility:visible !important;}
+                    .hidden-print{display:none; visibility:hidden;}
+                      
+                    .contenu-millieu ul,
+                    .contenu-droite ul{list-style-type:square;}
+                        .contenu-millieu ul li,
+                        .contenu-droite ul li{position:relative; margin:0; padding:0 0 5px 5px;}
+
+                    hr{background:#000 !important; border-color:#000 !important;}
+                      
+                    table{border-color:#000 !important;}
+                        .table-bordered{border-color:#000 !important;}
+                            .table-bordered thead{border-color:#000 !important;}
+                                .table-bordered thead tr{border-color:#000 !important;}
+                                    .table-bordered thead tr th{border-color:#000 !important;}
+                                    .table-bordered thead tr td{border-color:#000 !important;}
+
+                        .table-bordered tbody{border-color:#000 !important;}
+                            .table-bordered tbody tr{border-color:#000 !important;}
+                                .table-bordered tbody tr th{border-color:#000 !important;}
+                                .table-bordered tbody tr td{border-color:#000 !important;}
+                                .table-bordered tbody tr td.no-border-right{border-right:0 !important;}
+                                .table-bordered tbody tr td.no-border-left{border-left:0 !important;}
+                                .table-bordered tbody tr td.separation{display:none;}
+
+                    .sous-entete{margin:10px 0 25px 0;}
+
+                        .sous-entete h1{border-bottom:1px solid #000;}
+
+                        .contenu-millieu ul, 
+                        .contenu-droite ul{list-style-type:square; margin:0 0 30px 5px;}
+
+                        .contenu-millieu ol, 
+                        .contenu-droite ol{margin:0 0 30px 5px;}
+
+                    .entete-impression{margin:0 0 25px 0;}
+
+    a[href]:after {
+        content: none !important;
+    }
+
+    /* --------------------------------------------------------------------------------------------------------------- */
+    /* CLASSE BOOTSTRAP */
+    .bg-info{border:1px solid #000; min-height:0; padding:6px;}
+    .bg-danger{border:1px solid #000; padding:6px;}
+    .bg-warning{border:1px solid #000; min-height:0; padding:6px;}
+    .text-danger{border-left:1px solid #000; margin:0 0 30px 0; padding:0 6px 0 8px; display:block;}
+    .text-danger p{margin:0; padding:0;}
+
+    /* --------------------------------------------------------------------------------------------------------------- */
+    /* FACTURES ET IMPÔTS */
+    .factures-et-impots .entete-impression{margin:0 0 50px 0;}
+    .factures-et-impots h3{margin-top:0;}
+    .factures-et-impots .table{margin:0 0 15px 0;}
+
+    .factures-et-impots .soldes-et-operation{margin-bottom:15px; padding:0; border:0;}
+        .factures-et-impots .soldes-et-operation .bg-primary{padding:0; padding-right:20px;}
+    .factures-et-impots .facture{margin-bottom:15px; padding:0; border:0;}
+        .factures-et-impots .facture .table{margin:0;}
+
+        .factures-et-impots .table-bordered tr td h4{margin-top:25px;}
+        .factures-et-impots .table-bordered tr td .table-bordered, .factures-et-impots .table-bordered tr td .table{margin-bottom:25px;}
+
+    .factures-et-impots .facture .tableau-total{margin-top:25px;}
+
+    .factures-et-impots .table tr td{background:none !important;}
+    .factures-et-impots .table .warning{background:none !important;}
+    .factures-et-impots .table .info{background:none !important;}
+
+    /* --------------------------------------------------------------------------------------------------------------- */
+    /* CALENDRIER ET HORAIRE */
+    .calendrier .entete-impression{margin:0 0 0 25px;}
+    .calendrier .sous-entete{margin:10px 0 0 40px;}
+
+    .entete-calendrier table{margin:0 !important; padding:0 !important;}
+    .entete-calendrier table tr td{border-bottom:1px solid #000;}
+  
+    .entete-calendrier table tbody tr td{border-bottom:1px solid #000;}
+
+    .fc-time-grid-container .fc-time-grid .fc-bg table tbody tr .fc-widget-content{border-color:#acacac;}
+
+    .fc-time-grid-container .fc-time-grid .fc-slats table tbody .fc-minor .fc-widget-content{border-color:#acacac;}
+    .fc-time-grid-container .fc-time-grid .fc-slats table tbody tr .fc-widget-content{border-color:#e3e3e3;}
+    .fc-time-grid-container .fc-time-grid .fc-slats table tbody tr .fc-axis, 
+    .fc-time-grid-container .fc-time-grid .fc-slats table tbody .fc-minor .fc-axis{border-color:#fff;}
+
+    .fc-view-container table thead tr .fc-widget-header{margin:0;}
+    .fc-view-container table thead tr td div table thead tr td, 
+    .fc-view-container table thead tr td div table thead tr .fc-widget-header{border-left:1px solid #000; border-bottom:1px solid #000;}
+    .fc-view-container table thead tr td div table thead tr .fc-widget-header:first-child{border:0;}
+    .fc-view-container table thead tr td div table thead tr .fc-widget-header:nth-child(2){border-left:1px solid #000;}
+    .fc-view-container table thead tr td div table thead tr .fc-widget-header:last-child{border-right:1px solid #000;}
+  
+    .fc-time-grid-container{height:auto !important; margin:0;}
+  
+    accordion .panel-group .panel .panel-heading h4 a>span.ouvert{border-top:1px solid #000; border-left:1px solid #000; border-right:1px solid #000; border-bottom:0;}
+    accordion .panel-group .panel .panel-heading h4 a>span{border:1px solid #000;}
+    accordion .panel-group .panel .panel-collapse, 
+    accordion .panel-group .panel .panel-collapse{border-color:#000;}
+
+    .cours table tbody tr td{border-color:#e3e3e3;}
+
+    .fc-event{background:#d4d4d4 !important; border:1px solid #000 !important;}
+    .fc-event:before{display:none !important;}
+    .fc-event:after{display:none !important;}
+
+    .cours .table-bordered{border-color:#fff !important;}
+        .cours .table-bordered thead tr th{padding:10px 0 10px 0; font-size:125%;}
+
+    accordion .panel-group .panel .panel-heading h4 a:after{display:none;}
+
+    .fc-day-grid .fc-bg table{border-color:#fff !important;}
+
+    .fc-toolbar{display:none !important;}
+    .fc-view-container table thead tr td div table thead tr .fc-axis{width:40px !important;}
+
+    /* --------------------------------------------------------------------------------------------------------------- */
+    /* RÉSULTATS & NOTES */
+
+    /* RÉSULTATS */
+    .ren{}
+        .ren .resultats{}
+            .ren .resultats .panel-heading h4{font-family:'Asap-Bold',arial,sans-serif !important; font-size:100% !important;}
+            .ren .resultats .panel-body h4{font-family:'Asap-Regular',arial,sans-serif !important; font-size:100% !important;}
+
+            .ren .resultats .table-responsive{}
+                .ren .resultats .table-responsive table{border-color:#000 !important;}
+                    .ren .resultats .table-responsive table thead{}
+                        .ren .resultats .table-responsive table thead tr{border:3px solid #000 !important;}
+                            .ren .resultats .table-responsive table thead tr th{border:3px solid #000 !important;}
+                            .ren .resultats .table-responsive table thead tr td{border:3px solid #000 !important;}
+                    .ren .resultats .table-responsive table tbody{}
+                        .ren .resultats .table-responsive table tbody tr{border-color:#000 !important;}
+                            .ren .resultats .table-responsive table tbody tr th{border-color:#000 !important;}
+                            .ren .resultats .table-responsive table tbody tr th:first-child,
+                            .ren .resultats .table-responsive table tbody tr th:nth-child(4){border-right:3px solid #000 !important;}
+                            .ren .resultats .table-responsive table tbody tr td{border-color:#000 !important;}
+                            .ren .resultats .table-responsive table tbody tr td:first-child,
+                            .ren .resultats .table-responsive table tbody tr td:nth-child(4){border-right:3px solid #000 !important;}
+                            .ren .resultats .table-responsive table tbody tr td.plus-info{border-right:0 !important;}
+                    .ren .resultats .table-responsive table tfoot{}
+                        .ren .resultats .table-responsive table tfoot tr{border-color:#000 !important;}
+                            .ren .resultats .table-responsive table tfoot tr th{border-color:#000 !important;}
+                            .ren .resultats .table-responsive table  tfoot tr td{border-color:#000 !important;}
+
+            .ren .resultats .bg-group-2{}
+                .ren .resultats div table tbody tr td.plus-info .moreInfo .bg-uqam{padding:10px 30px 10px 30px;}
+                .ren .resultats .bg-group-2 h4{font-family:'Asap-Bold',arial,sans-serif !important; font-size:200% !important;}
+                .ren .resultats .bg-group-2 .bg-uqam:first-child{border:#000 3px solid !important;}
+
+    /* RELEVÉ DE NOTES */
+    .ren .releves-de-notes div.table-responsive{margin:0 0 30px 0;}
+    .ren .releves-de-notes .progression{display:none;}
+    .ren .releves-de-notes .progression:before{display:none;}
+    .ren .releves-de-notes .progression:after{display:none;}
+    .ren .releves-de-notes .legende{float:none; height:58px;}
+    .ren .releves-de-notes .legende span{padding:0;}
+    .ren .releves-de-notes .legende span:before{display:none;}
+    .ren .releves-de-notes h2{padding:0 0 15px 0;}
+    .ren .releves-de-notes .bg-warning{margin:0 0 15px 0;}
+    .ren .releves-de-notes div>.bg-group-2,
+    .ren .releves-de-notes .bg-group-2{margin:0 0 15px 0; padding:10px; border:1px solid #000;}
+        .ren .releves-de-notes .bg-group-2 .bg-uqam{border:0; margin:0; padding:0;}
+            .ren .releves-de-notes .bg-group-2 .bg-uqam img{width:80%;}
+    .ren .releves-de-notes .bg-uqam h2 span{left:50%; right:auto; margin:0 0 0 45px;}
+    .ren .releves-de-notes .bg-group-3{margin:0 0 15px 0; padding:10px !important; border:1px solid #000;}
+        .ren .releves-de-notes .bg-group-3 .bg-uqam{border:0; margin:0; padding:0;}
+        .ren .releves-de-notes .bg-uqam{margin:0 0 15px 0; padding:10px; border:1px solid #000;}
+    .ren .releves-de-notes div table tbody tr td div.moreInfo .bg-group-2{border:0; padding:0;}
+       .ren .releves-de-notes div table tbody tr td div.moreInfo .bg-group-2 .bg-uqam{padding:20px;}
+       .ren .releves-de-notes div table tbody tr td div.moreInfo .bg-group-2 .bg-uqam:first-child{border:#000 3px solid !important;}
+
+       .ren .releves-de-notes>div>.bg-group-2 .bg-uqam:nth-child(1) h5{margin:10px 0 10px 0;}
+       .ren .releves-de-notes>div>.bg-group-2 .bg-uqam:nth-child(2) h5{margin:10px 0 10px 0;}
+
+    /* RELEVÉ DE NOTES NON OFFICIEL */
+    body{-webkit-print-color-adjust:exact;}
+
+    .ren.impressionReleve{}
+        .ren.impressionReleve .releves-de-notes{}
+            
+            .ren.impressionReleve .releves-de-notes .table .info{background:none !important;}
+
+            .ren.impressionReleve .releves-de-notes ul{margin-left:0;}
+                .ren.impressionReleve .releves-de-notes ul li{padding-left:0;}
+            
+            .ren.impressionReleve .releves-de-notes h4{margin:0; padding:0 0 5px 0; border:0; text-transform:none;}
+            .ren.impressionReleve .releves-de-notes h4:first-letter{text-transform: uppercase;}
+            .ren.impressionReleve .releves-de-notes h5{background-color:none !important; display:block; margin:0 0 5px 0; padding:0; /*padding:5px 5px 3px 5px;*/ color:#000 !important;}
+
+            .ren.impressionReleve .releves-de-notes hr{background-color:#000 !important; display:block; margin:0 0 15px 0; border-top:1px solid #000;}
+
+            .ren.impressionReleve .releves-de-notes div.table-responsive{margin:0 0 15px 0;}
+                .ren.impressionReleve .releves-de-notes div.table-responsive table.table{border:0 !important;}
+                    .ren.impressionReleve .releves-de-notes div.table-responsive table thead{}
+                        .ren.impressionReleve .releves-de-notes div.table-responsive table thead tr{border:0 !important;}
+                            .ren.impressionReleve .releves-de-notes div.table-responsive table thead tr th{height:auto; padding:0 0 3px 0; border:0 !important; border-bottom:1px solid #000 !important; text-align:left !important; vertical-align:bottom;}
+                            .ren.impressionReleve .releves-de-notes div.table-responsive table thead tr td{padding:0; border:0 !important; border-bottom:1px solid #000 !important; text-align:left !important;}
+
+                    .ren.impressionReleve .releves-de-notes div.table-responsive table tbody{border:0 !important; border-bottom:1px solid #000 !important;}
+                    .ren.impressionReleve .releves-de-notes div.table-responsive table tbody:last-child{border:0 !important; border-bottom:0 !important;}
+                        .ren.impressionReleve .releves-de-notes div.table-responsive table tbody tr{border:0 !important;}
+                            .ren.impressionReleve .releves-de-notes div.table-responsive table tbody tr th{padding:0; border:0 !important; text-align:left !important;}
+                            .ren.impressionReleve .releves-de-notes div.table-responsive table tbody tr td{padding:2px 0 2px 0; border:0 !important; text-align:left !important;}
+
+                    .ren.impressionReleve .releves-de-notes div.table-responsive table tfoot{}
+                        .ren.impressionReleve .releves-de-notes div.table-responsive table tfoot tr{border:0 !important;}
+                            .ren.impressionReleve .releves-de-notes div.table-responsive table tfoot tr th{padding:0; border:0 !important; text-align:left !important;}
+                            .ren.impressionReleve .releves-de-notes div.table-responsive table tfoot tr td{padding:0; border:0 !important; text-align:left !important;}
+
+            .ren.impressionReleve .bg-uqam{padding:10px;}
+
+            .entete-impression-releve{}
+                .entete-impression-releve div.table-responsive{}
+                    .entete-impression-releve .table-responsive table.table{margin:0 0 5px 0; border:0;}
+                        .entete-impression-releve .table-responsive .table tbody{}
+                            .entete-impression-releve .table-responsive .table tbody tr{border:0;}
+                                .entete-impression-releve .table-responsive .table tbody tr td{padding:0 0 0 0; border:0;}
+                                    .entete-impression-releve .table-responsive .table tbody tr td img{width:200px;}
+                                    .entete-impression-releve .table-responsive .table tbody tr td h4{padding:20px 0 20px 0;}
+
+    /* AUTORISATION D'INSCRIPTION */
+    .inscription .periode .bg-uqam{border:0; padding:0;}
+}

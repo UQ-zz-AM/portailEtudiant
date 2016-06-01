@@ -1,0 +1,1144 @@
+<!--
+
+/*  @license
+
+    Copyright 2014-2016 Université du Québec à Montréal (UQAM)
+
+    This file is part of Portail Étudiant.
+
+    Portail Étudiant is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Portail Étudiant is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Portail Étudiant. If not, see <http://www.gnu.org/licenses/>.
+
+
+    Ce fichier fait partie de l'application Portail Étudiant.
+
+    Portail Étudiant est un logiciel libre ; vous pouvez le redistribuer ou
+    le modifier suivant les termes de la GNU General Public License telle que
+    publiée par la Free Software Foundation ; soit la version 3 de la licence,
+    soit (à votre gré) toute version ultérieure.
+
+    Portail Étudiant est distribué dans l'espoir qu'il sera utile, mais
+    SANS AUCUNE GARANTIE ; sans même la garantie tacite de QUALITÉ MARCHANDE
+    ou d'ADÉQUATION à UN BUT PARTICULIER. Consultez la GNU General Public
+    License pour plus de détails.
+
+    Vous devez avoir reçu une copie de la GNU General Public License en même
+    temps que Portail Étudiant ; si ce n'est pas le cas,
+    consultez <http://www.gnu.org/licenses>.
+*/
+
+-->
+
+<img ng-hide="utilisateur().prenom || err || avertissements" class="telechargement" src="/assets/images/ajax-loader.gif" alt="Veuillez patienter pendant que la page se télécharge">
+
+<!-- **************************************************************************************************************************************** -->
+<!-- ENTÊTE IMPRESSION -->
+<div class="entete-impression visible-print-block">
+   <div class="table-responsive">
+      <table class="table">
+         <tbody>
+            <tr>
+               <td style="width:63.8554%; padding:0 15px 15px 0;">
+                 <img class="pull-left" src="/assets/images/general/logo/logo_uqam-general-imprimer_noir.svg" alt="UQAM">
+              </td>
+
+               <td style="width:36.1445%; padding:0 0 15px 15px;">
+                  <h4 class="text-uppercase">{{utilisateur().prenom}} {{utilisateur().nom}}</h4> {{utilisateur().adresse_l1}}
+                  <br/>{{utilisateur().adresse_l2}}<br/>{{utilisateur.etudiant.adresse_l3}}
+               </td>
+            </tr>
+         </tbody>
+
+         <tfoot>
+            <tr>
+               <td>
+                  <strong>Date d’impression : </strong>{{dateImpression | dateComplete}}
+               </td>
+
+               <td>
+                  <strong>Code permanent : </strong><span class="text-uppercase">{{utilisateur().code_perm}}</span>
+               </td>
+            </tr>
+         </tfoot>
+      </table>
+   </div>
+</div>
+
+<!-- **************************************************************************************************************************************** -->
+<!-- TITRE IMPRESSION -->
+<section class="sous-entete clearfix visible-print-block">
+   <h1 class="text-uppercase">
+      Faire mon inscription
+   </h1>
+</section>
+
+<!-- **************************************************************************************************************************************** -->
+<!-- TITRE ÉCRAN -->
+<section class="sous-entete clearfix hidden-print">
+   <h1 class="text-uppercase hidden-print">
+      Faire mon inscription
+   </h1>
+
+   <a href="" onclick="window.print();return false" class="pull-right clearfix hidden-print text-uppercase visible-md visible-lg">
+      Imprimer
+      <span class="uqam-icone uqam-icone-sm impression_bleu-etudiant pull-right"></span>
+   </a>
+</section>
+
+<!-- **************************************************************************************************************************************** -->
+<!-- CONTENU DE LA PAGE -->
+<div class="inscription" ng-show="!err" ng-cloak>
+
+   <!-- **************************************************************************************************************************************** -->
+   <!-- **************************************************************************************************************************************** -->
+   <!-- PROGRAMME TRIMESTRE -->
+   <div class="faire-inscription" ng-if="programmeCourant">
+      <h2>{{programmeCourant.titre_prog | capitalize}} ({{programmeCourant.code_prog}})
+         <br>Trimestre d'{{trimestreCourant.an_ses_num | trimestre}}
+      </h2>
+
+      <a class="btn btn-default pull-right hidden-print text-uppercase visible-md visible-lg" href="inscription/autori/landing">
+         <strong>Changer de programme ou de trimestre</strong>
+      </a>
+      <a style="font-size:0.95em;padding:5px 8px;text-align:center;margin-bottom:5px;" class="btn btn-default pull-left hidden-print text-uppercase visible-xs visible-sm" href="inscription/autori/landing">
+         <strong>Changer de programme ou de trimestre</strong>
+      </a>
+
+      <hr class="hidden-print">
+   </div>
+
+
+   <!-- **************************************************************************************************************************************** -->
+   <!-- Page d'inscription -->
+   <div class="faire-inscription" ng-if="decisionProg">
+
+
+      <!-- **************************************************************************************************************************************** -->
+      <!-- BARRE D'ÉTAT -->
+
+      <!-- **************************************************************************************************************************************** -->
+      <!-- Section Période -->
+      <div class="bg-group-4 clearfix">
+
+         <!-- Mode d'inscription -->
+         <div class="bg-uqam" ng-hide="isMobile && !decisionProg.isInscriptionNonPermise">
+            <p>Mode d'inscription</p>
+            <h5>{{autorisation.libellesMethodeIns[trimestreCourant.mode_inscription].desc_courte}}</h5>
+         </div>
+
+         <!-- Période -->
+         <div class="bg-uqam" ng-hide="isMobile && !decisionProg.isInscriptionNonPermise">
+
+            <!-- Fenêtres active -->
+            <div ng-if="decisionProg.fenetresActives.length > 0"
+                 ng-repeat="fenetre in decisionProg.fenetresActives">
+
+               <hr class="pull-left">
+               <p ng-if="!decisionProg.isPeriodeAbandon">Période d'inscription
+                  <span ng-if="fenetre.sousSession!=='' && trimestreCourant.an_ses_num.substring(4, 5) === '2'"> (trimestre {{fenetre.sousSession | lowercase}})</span></p>
+               <p ng-if="decisionProg.isPeriodeAbandon">Période d'abandon
+                  <span ng-if="fenetre.sousSession!=='' && trimestreCourant.an_ses_num.substring(4, 5) === '2'"> (trimestre {{fenetre.sousSession | lowercase}})</span></p>
+               <h5>
+                  Du <span ng-bind-html="formatterDate(getDate(fenetre.date_deb_fen))"></span>
+                  <br> au <span ng-bind-html="formatterDate(getDate(fenetre.date_fin_fen))"></span>
+                  <span ng-if="!$last"><br>&nbsp;</span>
+               </h5>
+            </div>
+
+            <!-- Fenêtre future -->
+            <div ng-if="decisionProg.premiereFenetreFuture !== null && decisionProg.fenetresActives.length === 0">
+               {{premiereFenetreFuture}}
+               <hr class="pull-left">
+               <p ng-if="decisionProg.premiereFenetreFuture.type_fenetre !=='ABA'">Période d'inscription</p>
+               <p ng-if="decisionProg.premiereFenetreFuture.type_fenetre ==='ABA'">Période d'abandon</p>
+               <h5>
+                  Du <span ng-bind-html="formatterDate(getDate(decisionProg.premiereFenetreFuture.date_deb_fen))"></span>
+                  <br> au <span ng-bind-html="formatterDate(getDate(decisionProg.premiereFenetreFuture.date_fin_fen))"></span>
+               </h5>
+            </div>
+
+         </div>
+
+         <!-- Heures, horaire   ( decisionProg.modeInscription === '' pour fenetre future.) -->
+         <div class="bg-uqam" ng-if="decisionProg.modeInscription === 'WEB' || decisionProg.modeInscription === ''" ng-hide="isMobile && !decisionProg.isInscriptionNonPermise">
+            <hr class="pull-left">
+            <p>Horaire de <br>l'inscription en ligne</p>
+            <h5>
+               Du lundi au samedi,<br> de 6h00 à 22h00
+            </h5>
+         </div>
+         <div class="bg-uqam" ng-if="decisionProg.modeInscription === 'PRO' || decisionProg.modeInscription === 'REG' ">
+            <hr class="pull-left">
+            <p ng-if="decisionProg.modeInscription === 'PRO'">Contactez votre programme</p>
+            <p ng-if="decisionProg.modeInscription === 'REG'">Contactez le Registrariat</p>
+            <h5>&nbsp;
+            </h5>
+         </div>
+
+
+         <!-- Panneau de droite de la barre d'état -->
+         <!-- Inscription non permise -->
+         <div class="bg-uqam danger" ng-if="decisionProg.isInscriptionNonPermise">
+            <p>Inscription<span ng-if="decisionProg.modeInscription != 'WEB'"> en ligne</span></p>
+            <h5>Inactive&nbsp;
+               <img src="/assets/images/general/icone/uqam/icone_bg-danger.svg" alt="">
+            </h5>
+         </div>
+         <!-- Inscription partielle Abandon ou Annulation seulement -->
+         <div class="bg-uqam warning" style="background-color:#ca4700" ng-if="decisionProg.isInscriptionPartielle">
+            <p>Inscription en ligne</p>
+            <h5>
+               Partielle&nbsp;
+               <img src="/assets/images/general/icone/uqam/icone_bg-success.svg" alt="">
+            </h5>
+            <span style="color:white;">(Annulation ou abandon seulement)</span>
+         </div>
+         <!-- Inscription permise -->
+         <div class="bg-uqam success" ng-if="decisionProg.isInscriptionPermise">
+            <p>Inscription en ligne</p>
+            <h5>Active&nbsp;
+               <img src="/assets/images/general/icone/uqam/icone_bg-success.svg" alt="">
+            </h5>
+         </div>
+
+      </div>
+
+
+      <!-- **************************************************************************************************************************************** -->
+      <!-- Section message de la barre d'état -->
+
+      <!-- **************************************************************************************************************************************** -->
+      <!-- Inscription permise -->
+      <div class="bg-success" ng-if="decisionProg.isInscriptionPermise">
+         <p>{{decisionProg.messageBarreEtat}}</p>
+      </div>
+
+      <!-- Inscription partielle -->
+      <div class="bg-warning" ng-if="decisionProg.isInscriptionPartielle">
+         <p>{{decisionProg.messageBarreEtat}}</p>
+      </div>
+
+      <!-- Inscription NON permise  -->
+      <div class="bg-danger" ng-if="decisionProg.isInscriptionNonPermise">
+         <p>{{decisionProg.messageBarreEtat}}</p>
+         <!-- Si inscription non WEB, afficher message de rejet si présent. -->
+         <p style="margin-top:8px;" ng-repeat="message in decisionProg.tableauMessages | filter: {typeMsg:'REJ'}" ng-if="decisionProg.modeInscription !='WEB'">
+            {{message.texteMsg}}
+         </p>
+      </div>
+
+
+
+      <!-- **************************************************************************************************************************************** -->
+      <!-- Zone de messages.
+            -  Connaissance du français.
+            -  messages Succes de validerInscription: remarques. -->
+
+      <div class="bg-warning"
+           ng-if="autorisation.validerInscription.exigencesFrancais.length > 0 ||
+                  ( (!decisionProg.isInscriptionNonPermise) && isMsgOfTypeForTab(decisionProg.tableauMessages,'REM') )">
+
+         <!-- Exigences linguitiques -->
+         <div ng-if="autorisation.validerInscription.exigencesFrancais.length > 0">
+            <h5>EXIGENCE - CONNAISSANCE DU FRANÇAIS</h5>
+
+            <span ng-if="autorisation.validerInscription.exigencesFrancais.length <= 1 ">
+               Vous devez avoir réussi le cours suivant qui a le statut de cours obligatoire dans votre cheminement :<br>
+            </span>
+            <span ng-if="autorisation.validerInscription.exigencesFrancais.length > 1 ">
+               Vous devez avoir réussi les cours suivants qui ont le statut de cours obligatoires dans votre cheminement :<br>
+            </span>
+
+            <span>
+               <table>
+                  <tr valign="top" ng-repeat="competence in autorisation.validerInscription.exigencesFrancais">
+                     <td>{{competence.sigle}}</td>
+                     <td style="padding-left:3px;">{{competence.titre}}</td>
+                  </tr>
+               </table>
+            </span>
+
+         </div>
+
+         <!-- S'il y a de messgaes de type remarque les afficher. -->
+         <div ng-if="isMsgOfTypeForTab(decisionProg.tableauMessages,'REM')">
+            <h5>Remarque<span ng-if="decisionProg.tableauMessages.length > 1">s</span></h5>
+            <p ng-style="!$last && {'margin-bottom':'8px'}" ng-repeat="message in decisionProg.tableauMessages">
+               {{message.texteMsg}}
+            </p>
+         </div>
+
+      </div>
+
+
+      <!-- FIN MESSAGES *************************************************************************************************************************** -->
+      <!-- **************************************************************************************************************************************** -->
+
+
+      <!-- **************************************************************************************************************************************** -->
+      <!-- AJOUT DE COURS : MOBILE -->
+      <div class="tabs-mobile visible-xs visible-sm hidden-print" ng-controller="EditCtrl as aj" ng-init="aj.typeTransaction='ajouter'; aj.showAj=false">
+
+         <div style="background:#0D668E;padding:15px;" ng-click="aj.showAj = !aj.showAj;">
+            <h4 style="padding-bottom:0">
+               <span style="display:bloc;color:white;padding-left:10px;padding-bottom:0;text-transform:none;">Ajouter un cours</span>
+               <span ng-if="aj.showAj" style="font-size:1.2em;cursor:pointer;float:right;color:white;padding-right:10px;padding-bottom:0">–</span>
+               <span ng-if="!aj.showAj" style="font-size:1.2em;cursor:pointer;float:right;color:white;padding-right:10px;padding-bottom:0">+</span>
+            </h4>
+         </div>
+
+         <div ng-if="aj.showAj" class="bg-group-3 modification clearfix list-message">
+
+            <div class="bg-uqam"></div>
+
+            <!-- sigle -->
+            <div class="bg-uqam" ng-class="isAjoutPermis() ? '' :'disabled' ">
+
+               <h5>Entrez le sigle du cours</h5>
+                  <div style="postion:relative;" class="clearfix">
+                     <input return4tab
+                            ng-attr-style="{{aj.statutCouleur()}}"
+                            maxlength="8"
+                            ng-change="aj.changeSigle()"
+                            type="text"
+                            ng-model="aj.sigleCourant"
+                            typeahead="sigle for sigle in aj.getSigles($viewValue)"
+                            typeahead-min-length="2"
+                            typeahead-on-select="aj.onSelect()"
+                            ng-blur="aj.onSelect()">
+                            &nbsp;
+                            <span>
+                              <img ng-show="aj.spinningGroupe"
+                                    src="/assets/images/ajax-loader.gif"
+                                    alt="Veuillez patienter pendant que le cours se télécharge">
+                            </span>
+                  </div>
+
+               <!-- Message pour cours -->
+                  <div class="bg-success ng-scope" ng-if="aj.isCoursValide() && aj.sigleCourant !== '' ">
+                     <strong>{{aj.crsCourant.titre}}</strong>
+                     <ul style="color:white;margin-bottom: 0px;">
+                        <li ng-if="aj.crsCourant.credit !== '0' && aj.crsCourant.credit !== '1' ">{{aj.crsCourant.credit}} crédits</li>
+                        <li ng-if="aj.crsCourant.credit == '0' || aj.crsCourant.credit == '1' ">{{aj.crsCourant.credit}} crédit</li>
+                     </ul>
+                  </div>
+                  <div class="bg-danger ng-scope" ng-if="aj.isCoursInvalide() && aj.sigleCourant !== '' ">
+                     <strong ng-if="aj.crsCourant.titre !== ''">{{aj.crsCourant.titre}}</strong>
+                     <strong ng-if="aj.crsCourant.titre === '' ">Erreur{{aj.crsCourant.titre}}</strong>
+                     <ul style="color:white;margin-bottom: 0px;" ng-if="aj.crsCourant.messageCours !== ' '">
+                        <li>{{aj.crsCourant.messageCours}}</li>
+                     </ul>
+                  </div>
+
+
+            </div>
+
+            <!-- Groupe -->
+            <div class="bg-uqam" ng-class="(aj.crsCourant.groupe.length > 0 && aj.sigleCourant.length > 0) ? '' : 'disabled'">
+
+               <hr class="pull-left">
+               <h5>Choisissez le groupe</h5>
+
+               <div style="overflow:hidden;">
+                  <div class="form clearfix" style="margin-right:8px;">
+                     <div class="select-form-control">
+                        <select max-length="20" class="select-form-control"
+                                ng-change="aj.changerGroupe();"
+                                ng-options="('&nbsp;' + menu.menuText) for menu in aj.crsCourant.groupe"
+                                options-disabled="menu.disabled for menu in aj.crsCourant.groupe"
+                                ng-model="aj.groupeSelectionne">
+                        </select>
+                     </div>
+                  </div>
+               </div>
+
+
+               <!-- Message pour groupe -->
+               <div class="bg-danger ng-scope" ng-if="aj.isGroupeInvalide()">
+                  <p>
+                     <strong>Groupe {{aj.groupeSelectionne.noGroupe | trimGroupe}}</strong>
+                     <ul style="margin-bottom:0">
+                        <li>{{aj.groupeSelectionne.campus}}</li>
+                        <li ng-repeat="hor in aj.groupeSelectionne.horaire">
+                            {{hor.jour | capitalize}}, {{hor.heurDebut| heureSansZero}} à {{hor.heureFin| heureSansZero}}
+                        </li>
+                       <li ng-if="aj.groupeSelectionne.nbPlace ==='0'">0 place disponible pour votre programme</li>
+                       <li ng-if="aj.groupeSelectionne.nbPlace !=='0'">{{aj.groupeSelectionne.nbPlace}} places disponibles pour votre programme</li>
+                     </ul>
+                     <strong ng-if="aj.groupeSelectionne.messageGroupe"><br>{{aj.groupeSelectionne.messageGroupe}}.</strong>
+                  </p>
+               </div>
+
+               <div class="bg-success ng-scope" ng-if="aj.isGroupeValide()">
+                  <p>
+                     <strong>Groupe {{aj.groupeSelectionne.noGroupe | trimGroupe}}</strong>
+                     <ul style="margin-bottom:0">
+                        <li>{{aj.groupeSelectionne.campus}}</li>
+                        <li ng-if="aj.groupeSelectionne.sousSession !=''">Trimestre {{aj.groupeSelectionne.sousSession | lowercase}}</li>
+                        <li ng-repeat="hor in aj.groupeSelectionne.horaire">
+                            {{hor.jour | capitalize}}, {{hor.heurDebut| heureSansZero}} à {{hor.heureFin| heureSansZero}}
+                        </li>
+                       <li ng-if="aj.groupeSelectionne.nbPlace ==='0'">0 place disponible pour votre programme</li>
+                       <li ng-if="aj.groupeSelectionne.nbPlace !=='0'">{{aj.groupeSelectionne.nbPlace}} places disponibles pour votre programme</li>
+                     </ul>
+                  </p>
+               </div>
+
+            </div>
+
+            <!-- Action -->
+            <!-- Disabled jusqu'à ce qu'un sigle et un groupe soient sélectionnés et valides. -->
+            <div class="bg-uqam" ng-class="aj.isGroupeValide() && !traitementEnCours  ?'':'disabled'">
+               <hr class="pull-left">
+               <h5>Confirmez l'ajout du cours</h5>
+               <button style="margin-left:35px;" ng-click="aj.traiteInscription()" class="btn btn-default text-uppercase">Ajouter ce cours</button>
+            </div>
+
+         </div>
+
+         <!-- Message cours. -->
+         <div class="bg-uqam" ng-if="aj.isCoursDeLangue()" style="padding:0;">
+            <div class="bg-warning" style="margin:0">
+               <p>Assurez-vous d'avoir passé le test de classement obligatoire exigé avant une première inscription à un cours de langues.
+                  Dans le cas contraire, le cours sera annulé par votre programme. Consultez le site de
+                  l'<a href="http://www.langues.uqam.ca/" style="color:white;" target="_blank">École de langues</a>﻿﻿.
+               </p>
+            </div>
+         </div>
+
+
+      </div>
+
+
+
+      <!-- **************************************************************************************************************************************** -->
+      <!-- AJOUTER COURS : BUREAU -->
+      <!-- ** Attention contrôleur pour l'ajout. **-->
+
+
+      <!--div class="tabs visible-md visible-lg" ng-controller="EditCtrl as aj"-->
+      <div class="tabs visible-md visible-lg hidden-print">
+         <tabset>
+
+            <!-- AJOUT UN COURS À LA FOIS        -->
+            <tab heading="Ajouter un cours à la fois" ng-controller="EditCtrl as aj" ng-init="aj.typeTransaction='ajouter'">
+               <div class="bg-group-3 modification clearfix list-message">
+
+                  <div class="bg-uqam"></div>
+
+                  <!-- sigle -->
+                  <div class="bg-uqam" ng-class="isAjoutPermis() ? '' :'disabled' ">
+
+                     <h5>Entrez le sigle du cours</h5>
+                     <div style="position:relative;" class="clearfix">
+                        <input return4tab
+                               ng-attr-style="{{aj.statutCouleur()}}"
+                               maxlength="8"
+                               ng-change="aj.changeSigle()"
+                               type="text"
+                               ng-model="aj.sigleCourant"
+                               typeahead="sigle for sigle in aj.getSigles($viewValue)"
+                               typeahead-min-length="2"
+                               typeahead-on-select="aj.onSelect()"
+                               ng-blur="aj.onSelect()">
+                               &nbsp;
+                               <span>
+                                  <img ng-show="aj.spinningGroupe"
+                                       src="/assets/images/ajax-loader.gif"
+                                       alt="Veuillez patienter pendant que le cours se télécharge">
+                               </span>
+                     </div>
+
+                     <!-- Message pour cours -->
+                     <div class="bg-success ng-scope" ng-if="aj.isCoursValide() && aj.sigleCourant !== '' ">
+                        <p>
+                           <strong>{{aj.crsCourant.titre}}</strong>
+                           <ul>
+                              <li ng-if="aj.crsCourant.credit !== '0' && aj.crsCourant.credit !== '1' ">{{aj.crsCourant.credit}} crédits</li>
+                              <li ng-if="aj.crsCourant.credit == '0' || aj.crsCourant.credit == '1' ">{{aj.crsCourant.credit}} crédit</li>
+                           </ul>
+                        </p>
+                     </div>
+                     <div class="bg-danger ng-scope" ng-if="aj.isCoursInvalide() && aj.sigleCourant !== '' ">
+                        <strong ng-if="aj.crsCourant.titre !== ''">{{aj.crsCourant.titre}}</strong>
+                        <strong ng-if="aj.crsCourant.titre === ''">Erreur{{aj.crsCourant.titre}}</strong>
+                        <ul ng-if="aj.crsCourant.messageCours !== ' '">
+                           <li>{{aj.crsCourant.messageCours}}</li>
+                        </ul>
+                     </div>
+
+                     <!-- endroit possible pour le spinning groupe. -->
+
+                  </div>
+
+                  <!-- Groupe -->
+                  <div class="bg-uqam" ng-class="(aj.crsCourant.groupe.length > 0 && aj.sigleCourant.length > 0) ? '' : 'disabled'">
+
+                     <hr class="pull-left">
+                     <h5>Choisissez le groupe</h5>
+
+                     <div style="overflow:hidden;">
+                        <div class="form clearfix" style="margin-right:8px;">
+                           <div class="select-form-control">
+                              <select max-length="20" class="select-form-control"
+                                      ng-change="aj.changerGroupe();"
+                                      ng-options="('&nbsp;' + menu.menuText) for menu in aj.crsCourant.groupe"
+                                      options-disabled="menu.disabled for menu in aj.crsCourant.groupe"
+                                      ng-model="aj.groupeSelectionne">
+                              </select>
+                           </div>
+                        </div>
+                     </div>
+
+
+                     <!-- Message pour groupe -->
+                     <div class="bg-danger ng-scope" ng-if="aj.isGroupeInvalide()">
+                        <p>
+                           <strong>Groupe {{aj.groupeSelectionne.noGroupe | trimGroupe}}</strong>
+                           <ul>
+                              <li>{{aj.groupeSelectionne.campus}}</li>
+                              <li ng-repeat="hor in aj.groupeSelectionne.horaire">
+                                  {{hor.jour | capitalize}}, {{hor.heurDebut| heureSansZero}} à {{hor.heureFin| heureSansZero}}
+                              </li>
+                             <li ng-if="aj.groupeSelectionne.nbPlace ==='0'">0 place disponible pour votre programme</li>
+                             <li ng-if="aj.groupeSelectionne.nbPlace !=='0'">{{aj.groupeSelectionne.nbPlace}} places disponibles pour votre programme</li>
+                           </ul>
+                           <strong ng-if="aj.groupeSelectionne.messageGroupe"><br>{{aj.groupeSelectionne.messageGroupe}}.</strong>
+                        </p>
+                     </div>
+
+                     <div class="bg-success ng-scope" ng-if="aj.isGroupeValide()">
+                        <p>
+                           <strong>Groupe {{aj.groupeSelectionne.noGroupe | trimGroupe}}</strong>
+                           <ul>
+                              <li>{{aj.groupeSelectionne.campus}}</li>
+                              <li ng-if="aj.groupeSelectionne.sousSession !=''">Trimestre {{aj.groupeSelectionne.sousSession | lowercase}}</li>
+                              <li ng-repeat="hor in aj.groupeSelectionne.horaire">
+                                  {{hor.jour | capitalize}}, {{hor.heurDebut| heureSansZero}} à {{hor.heureFin| heureSansZero}}
+                              </li>
+                             <li ng-if="aj.groupeSelectionne.nbPlace ==='0'">0 place disponible pour votre programme</li>
+                             <li ng-if="aj.groupeSelectionne.nbPlace !=='0'">{{aj.groupeSelectionne.nbPlace}} places disponibles pour votre programme</li>
+                           </ul>
+                        </p>
+                     </div>
+
+                  </div>
+
+                  <!-- Action -->
+                  <!-- Disabled jusqu'à ce qu'un sigle et un groupe soient sélectionnés et valides. -->
+                  <div class="bg-uqam" ng-class="aj.isGroupeValide() && !traitementEnCours ?'':'disabled'">
+                     <hr class="pull-left">
+                     <h5>Confirmez l'ajout du cours</h5>
+                     <button ng-click="aj.traiteInscription()" class="btn btn-default text-uppercase">Ajouter ce cours</button>
+                  </div>
+
+               </div>
+
+               <!-- Message cours. -->
+               <div class="bg-uqam" ng-if="aj.isCoursDeLangue()" style="padding:0;">
+                  <div class="bg-warning" style="margin:0">
+                     <p>Assurez-vous d'avoir passé le test de classement obligatoire exigé avant une première inscription à un cours de langues.
+                        Dans le cas contraire, le cours sera annulé par votre programme. Consultez le site de
+                        l'<a href="http://www.langues.uqam.ca/" style="color:white;" target="_blank">École de langues</a>﻿﻿.
+                     </p>
+                  </div>
+               </div>
+            </tab>
+
+
+            <!-- AJOUT PLUSIEURS COURS À LA FOIS multiple -->
+            <tab>
+               <tab-heading>
+                  Ajouter plusieurs cours à la fois
+               </tab-heading>
+
+               <div class="table-responsive">
+
+                  <br>
+                  <p>
+                     Vous devez entrer un sigle de  cours valide et ensuite choisir un groupe pour chacun des cours auxquels vous voulez vous inscrire.
+                  </p>
+                  <p>
+                     Suite à la saisie d'un sigle ou d'un groupe, cliquez sur les icônes <span class="uqam-icone uqam-icone-sm icone_success"></span> ou <span class="uqam-icone uqam-icone-sm icone_danger"></span> pour obtenir le détail.
+                  </p>
+
+
+                  <table class="table table-bordered table-condensed">
+                     <thead>
+                        <tr>
+                           <th class="caseVideBleu text-center"></th>
+                           <th class="info text-center">Cours 1</th>
+                           <th class="info text-center">Cours 2</th>
+                           <th class="info text-center">Cours 3</th>
+                           <th class="info text-center">Cours 4</th>
+                           <th class="info text-center">Cours 5</th>
+                           <th style="display:none;">align bug</th>
+                        </tr>
+                     </thead>
+
+                     <tbody>
+                        <tr>
+                           <td class="info text-right text-uppercase">
+                              <div style="padding:5px">
+                                 <strong>Sigle</strong>
+                              </div>
+                              <div style="padding:5px">
+                                 <strong>Groupe</strong>
+                              </div>
+                           </td>
+
+                           <td style="overflow:hidden;padding:0" ng-repeat="dum in ajms"  >
+
+                              <div style="height:71px;width:110px;"
+                                   ng-controller="EditCtrl as ajm"
+                                   ng-init="ajm.typeTransaction='ajouter'; ajm.indice=dum.indice;">
+
+                                 <!-- Sigle -->
+                                 <div style="padding-left:7px;padding-top:2px;padding-bottom:2px;" ng-class="isAjoutPermis() ? '' :'disabled' ">
+                                    <div style="float:left;width:140%;padding:5px;">
+                                       <input
+                                              return4tab
+                                              ng-attr-style="{{ajm.statutCouleur()}}"
+                                              maxlength="8"
+                                              ng-change="ajm.changeSigle()"
+                                              type="text"
+                                              ng-model="ajm.sigleCourant"
+                                              typeahead="sigle for sigle in ajm.getSigles($viewValue)"
+                                              typeahead-min-length="2"
+                                              typeahead-on-select="ajm.onSelect()"
+                                              ng-blur="ajm.onSelect()">
+
+                                       <span class="greenPop" ng-if="ajm.isCoursValide() && ajm.sigleCourant !== ''">
+                                          <button  type="button"
+                                              class="btn btn-info hidden-print"
+                                              style="margin-left:4px;background:none;"
+                                              popover-title=""
+                                              popover="{{ajm.textePopUpSigle()}}"
+                                              popover-trigger="{{deviceEvent}}"
+                                              popover-append-to-body="false"
+                                              popover-placement="{{ajm.afficherMessage5()}}">
+                                              <span class="uqam-icone uqam-icone-sm icone_success"></span>
+                                          </button>
+                                       </span>
+
+                                       <span class="redPop" ng-if="ajm.isCoursInvalide() && ajm.sigleCourant !== ''">
+                                          <button  type="button"
+                                             class="btn btn-info hidden-print"
+                                             style="background:none;"
+                                             popover-title=""
+                                             popover="{{ajm.textePopUpSigle()}}."
+                                             popover-trigger="{{deviceEvent}}"
+                                             popover-append-to-body="false"
+                                             popover-placement="{{ajm.afficherMessage5()}}">
+                                             <span class="uqam-icone uqam-icone-sm icone_danger"></span>
+                                          </button>
+                                       </span>
+
+                                       <span ng-if="ajm.spinningGroupe">
+                                          <img  src="/assets/images/ajax-loader.gif" alt="Veuillez patienter pendant que le cours se télécharge">
+                                       </span>
+
+                                    </div>
+                                 </div>
+
+
+                                 <hr style="margin:0; width:140%;">
+
+                                 <!-- Groupe -->
+                                 <div style="padding:5px;padding-left:12px;width:200%"
+                                     ng-class="(ajm.crsCourant.groupe.length > 0 && ajm.sigleCourant.length > 0) ? '' : 'disabled'">
+
+
+                                    <div class="select-form-control" style="width:35%;float:left;">
+                                       <select max-length="20" class="select-form-control"
+                                               ng-change="ajm.changerGroupe();"
+                                               ng-options="('&nbsp;' + menu.menuText) for menu in ajm.crsCourant.groupe"
+                                               options-disabled="menu.disabled for menu in ajm.crsCourant.groupe"
+                                               ng-model="ajm.groupeSelectionne">
+                                       </select>
+
+                                    </div>
+                                    <span ng-if="ajm.isGroupeValide()" class="greenPop">
+                                       &nbsp;
+                                       <button type="button"
+                                          class="btn btn-info hidden-print"
+                                          style="background:none;"
+                                          popover-title=""
+                                          popover="{{ajm.textePopUpGroupe()}}"
+                                          popover-trigger="{{deviceEvent}}"
+                                          popover-append-to-body="false"
+                                          popover-placement="{{ajm.afficherMessage5()}}">
+                                          <span class="uqam-icone uqam-icone-sm icone_success"></span>
+                                       </button>
+                                    </span>
+
+                                    <span ng-if="ajm.isGroupeInvalide()" class="redPop">
+                                       &nbsp;
+                                       <button type="button"
+                                          class="btn btn-info hidden-print"
+                                          style="background:none;"
+                                          popover-title=""
+                                          popover="{{ajm.textePopUpGroupe()}}"
+                                          popover-trigger="{{deviceEvent}}"
+                                          popover-append-to-body="false"
+                                          popover-placement="{{ajm.afficherMessage5()}}">
+                                          <span class="uqam-icone uqam-icone-sm icone_danger"></span>
+                                       </button>
+                                    </span>
+
+                                 </div>
+
+                              </div>
+
+                           </td>
+
+                        </tr>
+                        <tr ng-if="isDoublon()">
+
+                           <td colspan="6" ngstyle="padding:5px;margin-left:10px;color:white;background-color:#a71700">
+                              <div class="bg-danger" style="margin:0">
+                                 <p>Attention, vous ne pouvez pas vous inscrire 2 fois au même cours.
+                                 </p>
+                              </div>
+                           </td>
+                        </tr>
+
+                        <tr ng-if="isCoursDeLangue()">
+                           <td colspan="6">
+                              <div class="bg-warning" style="margin:0">
+                                 <p>Assurez-vous d'avoir passé le test de classement obligatoire exigé avant une première inscription à un cours de langues.
+                                    Dans le cas contraire, le cours sera annulé par votre programme. Consultez le site de
+                                    l'<a href="http://www.langues.uqam.ca/" style="color:white;" target="_blank">École de langues</a>﻿﻿.
+                                 </p>
+                              </div>
+                           </td>
+                        </tr>
+
+
+
+
+                     </tbody>
+
+                  </table>
+               </div>
+
+               <div class="clearfix">
+
+                  <p style="padding:20px;margin-bottom:15px;color:#a71700" class="pull-right">
+
+                     <span ng-if="!isAjoutMultipleValid(0)">
+                     <img style="margin-top:-2px;" width="16px" src="/assets/images/general/icone/uqam/icone_danger.svg">
+                        <strong>Veuillez terminer la saisie ou corriger les champs marqués d'un «x» ci-haut.</strong>&nbsp;&nbsp;
+                     </span>
+
+                     <button ng-class="(isAjoutMultipleValid(1) && !isDoublon() && !traitementEnCours ) ? '':'disabled'"
+                             ng-click="ajouterMultiple()" class="btn btn-default text-uppercase">Ajouter ce<span ng-if="isAjoutMultipleValid()>0">s {{isAjoutMultipleValid()}}</span> cours</button>
+                  </p>
+
+               </div>
+            </tab>
+
+
+         </tabset>
+      </div>
+
+
+      <!-- **************************************************************************************************************************************** -->
+      <!-- COURS À MON DOSSIER -->
+
+      <div class="visible-xs visible-sm hidden-print">
+         <br>
+         <div style="background:#0D668E;padding:15px;" ng-click="showCd();">
+            <h4 style="padding-bottom:0">
+               <span style="display:bloc!important;color:white;padding-left:10px;padding-bottom:0;text-transform:none;">Cours à mon dossier</span>
+               <span  ng-if="showCdFlag"  style="font-size:1.2em;cursor:pointer;float:right;color:white;padding-right:10px;padding-bottom:0">–</span>
+               <span  ng-if="!showCdFlag" style="font-size:1.2em;cursor:pointer;display:bloc!important;float:right;color:white;padding-right:10px;padding-bottom:0">+</span>
+            </h4>
+            <span ng-if="coursInscrits.length > 0" style="padding-left:10px;padding-bottom:0;font-size:1.2em;color:white;">
+               <span>({{coursInscrits.length}} cours | {{creditsInscrits()}} crédit<span ng-if="creditsInscrits() > 1">s</span> inscrit<span ng-if="creditsInscrits() > 1">s</span>)</span>
+            </span>
+
+         </div>
+      </div>
+
+      <div ng-if="coursInscrits.length > 0 && showCdFlag">
+         <br>
+         <h4 class="visible-md visible-lg hidden-print">Cours à mon dossier ({{coursInscrits.length}} cours | {{creditsInscrits()}} crédit<span ng-if="creditsInscrits() > 1">s</span> inscrit<span ng-if="creditsInscrits() > 1">s</span>)</h4>
+         <h4 class="visible-print-block">               Cours à mon dossier ({{coursInscrits.length}} cours | {{creditsInscrits()}} crédit<span ng-if="creditsInscrits() > 1">s</span> inscrit<span ng-if="creditsInscrits() > 1">s</span>)</h4>
+
+
+
+         <div ng-repeat="cours in coursInscrits">
+
+            <div class="bg-group-2 clearfix" ng-class="(cours.mode === 'edition') ? 'modification' : '' ">
+               <div class="bg-uqam">
+                  <h4 style="text-transform:none;padding-bottom:5px">{{cours.sigle }} - {{cours.titre | capitalize}} ({{cours.credit}}&nbsp;crédit<span ng-if="cours.credit > 1">s</span>)</h4>
+                     <strong>Groupe {{cours.groupe}}</strong>
+                     <br><strong ng-if="cours.sousSession !== ''">Trimestre {{cours.sousSession | lowercase}}</strong>
+                  <!--hr-->
+
+               </div>
+
+
+               <!-- **************************************************************************************************************************************** -->
+               <!-- Boutons  -->
+
+               <!-- Pas de boîte -->
+               <div style="width:257px;position:relative;width:100%" class="bg-uqam autorisee" ng-if="!cours.decisionCours.messages">
+
+                  <button ng-click="ajusterEdition(cours,'remplacer');cours.active='active'"
+                          ng-class="[cours.decisionCours.isRemplacerPermis ? '':'disabled',  cours.action == 'remplacer'?'active' :'']"
+                          class="btn btn-default text-uppercase hidden-print">Modifier</button>
+
+                  <button ng-click="ajusterEdition(cours,'annuler')"
+                          ng-class="[cours.decisionCours.isAnnulationPermise  ? '':'disabled',  cours.action == 'annuler'?'active' :'']"
+                        class="btn btn-default text-uppercase hidden-print">Annuler</button>
+
+                  <button ng-click="ajusterEdition(cours,'abandonner')"
+                          ng-class="[cours.decisionCours.isAbandonPermis  ? '':'disabled', cours.action == 'abandonner'?'active' :'']"
+                          class="btn btn-default text-uppercase hidden-print">Abandonner</button>
+
+               </div>
+
+
+
+               <!-- **************************************************************************************************************************************** -->
+               <!-- Boîtes  -->
+
+               <!-- Demie boîte -->
+               <div style="position:relative;height:117px;"
+                    class="bg-uqam autorisee"
+                    ng-if="cours.decisionCours.messages && (cours.decisionCours.isAbandonPermis || cours.decisionCours.isAnnulationPermise)">
+
+                  <!-- Si cours suspendu on a le droit d'abandonner ou d'annuler -->
+                  <div style="position:absolute;top:0;left:0;right:0;height:115px;text-align:center;padding-top:12px;background-color:#014E68;height:100%"
+                       ng-if="cours.decisionCours.messages">
+
+                     <h6 style="margin:10px;padding:0;" class="text-center hidden-print" ng-if="cours.decisionCours.messages">
+                        <a style="color:white">
+                           <strong>{{cours.decisionCours.messages.texte}}</strong>
+                        </a>
+                     </h6>
+                     <div style="position:relative;">
+
+                        <!-- TODO couleur des boutons -->
+                        <button ng-if = "cours.decisionCours.isAnnulationPermise"
+                                style="text-align:center;margin:0 18px 5px 18px;width:85%;"
+                                ng-click="ajusterEdition(cours,'annuler')"
+                                ng-class="[cours.decisionCours.isAnnulationPermise  ? '':'disabled', cours.action == 'annuler'?'active' :'']"
+                                class="btn btn-default2 text-uppercase hidden-print">
+                           Annuler
+                        </button>
+
+                        <button ng-if = "cours.decisionCours.isAbandonPermis"
+                                style="text-align:center;margin:0 18px 5px 18px;width:85%;"
+                                ng-click="ajusterEdition(cours,'abandonner')"
+                                ng-class="[cours.decisionCours.isAbandonPermis  ? '':'disabled', cours.action == 'abandonner' ? 'active' :'']"
+                                class="btn btn-default2 text-uppercase hidden-print">
+                           Abandonner
+                        </button>
+                     </div>
+
+                  </div>
+
+               </div>
+
+
+               <!-- Bôite complète -->
+               <div class="bg-uqam" ng-if="cours.decisionCours.messages && !cours.decisionCours.isAbandonPermis && !cours.decisionCours.isAnnulationPermise"
+                    style="border:solid 1px #78b9cb;border-left:none; background-color:#014E68;padding-left:4px;padding-right:4px">
+
+                  <h6 class="text-center hidden-print" ng-if="!cours.decisionCours.messages.url">
+                     <strong style="text-transform:none;">{{cours.decisionCours.messages.texte}}</strong>
+                  </h6>
+
+                  <h6 class="text-center hidden-print" ng-if="cours.decisionCours.messages.url">
+                     <strong style="text-transform:none;">{{cours.decisionCours.messages.texte}}</strong>
+                     <br>
+                     <a style="margin-top:10px;display:bloc;padding-bottom:4px;padding-top:4px;width:205px"
+                        class="btn btn-default hidden-print text-uppercase" href="inscription/autori/landing">
+                        CHANGER DE PROGRAMME
+                     </a>
+
+                  </h6>
+
+               </div>
+
+
+            </div>
+
+            <!-- **************************************************************************************************************************************** -->
+            <!-- Editeur cours modification ou remplacement avec controlleur -->
+            <div class="bg-group-3 modification clearfix list-message hidden-print" style="padding-bottom:0px"
+                 ng-if="cours.mode === 'edition' && cours.action === 'remplacer' "
+                 ng-controller="EditCtrl as mo" ng-init="cours.edtidorRef = mo; mo.init()">
+
+
+               <div class="bg-uqam" ng-if="cours.action === 'remplacer'">
+                  <h4 style="text-transform:none;">Modifier le cours {{cours.sigle}}, groupe {{cours.groupe}}.
+                     <button class="btn btn-warning text-uppercase pull-right" ng-click="effacerActionEtmode()">Annuler l'opération&nbsp;&nbsp;
+                        <img style="margin-top:4px;" src="/assets/images/general/icone/uqam/icone_x_blanc.svg" alt="">
+                     </button>
+                  </h4>
+                  <p>Si la modification échoue, vous garderez votre place dans le cours {{cours.sigle}}, groupe {{cours.groupe}}.</p>
+               </div>
+
+
+               <!-- Sigle -->
+               <div class="bg-uqam" ng-class="isAjoutPermis() && cours.action === 'remplacer'  ? '' :'disabled' ">
+
+                  <h5>Entrez le sigle du cours</h5>
+                  <div style="position:relative;" class="clearfix">
+                     <input return4tab
+                            ng-attr-style="{{mo.statutCouleur()}}"
+                            maxlength="8"
+                            ng-change="mo.changeSigle()"
+                            type="text"
+                            ng-model="mo.sigleCourant"
+                            typeahead="sigle for sigle in mo.getSigles($viewValue)"
+                            typeahead-min-length="2"
+                            typeahead-on-select="mo.onSelect()"
+                            ng-blur="mo.onSelect()">
+                            &nbsp;<span>
+                               <img ng-show="mo.spinningGroupe"
+                                    src="/assets/images/ajax-loader.gif"
+                                    alt="Veuillez patienter pendant que le cours se télécharge">
+                            </span>
+                  </div>
+
+                  <!-- Message pour cours -->
+                  <div class="bg-success ng-scope" ng-if="mo.isCoursValide() && mo.sigleCourant !== '' ">
+                     <p>
+                        <strong>{{mo.crsCourant.titre}}</strong>
+                        <ul style="margin:0">
+                           <li ng-if="mo.crsCourant.credit !== '0' && mo.crsCourant.credit !== '1' ">{{mo.crsCourant.credit}} crédits</li>
+                           <li ng-if="mo.crsCourant.credit == '0' || mo.crsCourant.credit == '1' ">{{mo.crsCourant.credit}} crédit</li>
+                        </ul>
+                     </p>
+                  </div>
+                  <div class="bg-danger ng-scope" ng-if="mo.isCoursInvalide() && mo.sigleCourant !== '' ">
+                        <strong>{{mo.crsCourant.titre}}</strong>
+                        <ul ng-if="mo.crsCourant.messageCours !== ' '">
+                           <li>{{mo.crsCourant.messageCours}}</li>
+                        </ul>
+                  </div>
+
+               </div>
+
+
+               <!-- Groupe -->
+               <div class="bg-uqam" ng-class="(mo.crsCourant.groupe.length > 0 && mo.sigleCourant.length > 0) ? '' : 'disabled'">
+
+                  <hr class="pull-left">
+                  <h5>Choisissez le groupe</h5>
+
+                  <div style="overflow:hidden;">
+                     <div class="form clearfix">
+                        <div>
+                           <div class="select-form-control">
+                              <!-- Désactivié le groupe seulement s'il s'agit d'une modification
+                                   de groupe.
+                                   menu.disabled && (mo.sigleCourant === cours.sigle)
+                              -->
+                              <select class="select-form-control"
+                                      ng-change="mo.changerGroupe();"
+                                      ng-options="('&nbsp;' + menu.menuText) for menu in mo.crsCourant.groupe"
+                                      options-disabled="menu.disabled for menu in mo.crsCourant.groupe"
+                                      ng-model="mo.groupeSelectionne">
+                              </select>
+                           </div>
+                        </div>
+                     </div>&nbsp;&nbsp;
+                     <!--img src="/assets/images/general/icone/uqam/icone_success.svg" alt="" ng-if="mo.isGroupeValide()">
+                     <img src="/assets/images/general/icone/uqam/icone_danger.svg" alt="" ng-if="mo.isGroupeInvalide()"-->
+                  </div>
+
+
+                  <!-- Message contextuel-->
+                  <div class="bg-danger ng-scope" ng-if="mo.isGroupeInvalide()">
+                     <p>
+                        <strong>Groupe {{mo.groupeSelectionne.noGroupe | trimGroupe}}</strong>
+                        <ul style="margin:0">
+                           <li>{{mo.groupeSelectionne.campus}}</li>
+                           <li ng-repeat="hor in mo.groupeSelectionne.horaire">
+                              {{hor.jour | capitalize}}, {{hor.heurDebut| heureSansZero}} à {{hor.heureFin| heureSansZero}}
+                           </li>
+                          <li ng-if="mo.groupeSelectionne.nbPlace ==='0'">0 place disponible pour votre programme</li>
+                          <li ng-if="mo.groupeSelectionne.nbPlace !=='0'">{{mo.groupeSelectionne.nbPlace}} places disponibles pour votre programme</li>
+                        </ul>
+                        <strong ng-if="mo.groupeSelectionne.messageGroupe"><br>{{mo.groupeSelectionne.messageGroupe}}</strong>
+                     </p>
+                  </div>
+                  <div class="bg-success ng-scope" ng-if="mo.isGroupeValide()">
+                     <p>
+                        <strong>Groupe {{mo.groupeSelectionne.noGroupe | trimGroupe}}</strong>
+                        <ul style="margin-bottom:0">
+                           <li>{{mo.groupeSelectionne.campus}}</li>
+                           <li ng-repeat="hor in mo.groupeSelectionne.horaire">
+                              {{hor.jour | capitalize}}, {{hor.heurDebut| heureSansZero}} à {{hor.heureFin| heureSansZero}}
+                           </li>
+                          <li ng-if="mo.groupeSelectionne.nbPlace ==='0'">0 place disponible pour votre programme</li>
+                          <li ng-if="mo.groupeSelectionne.nbPlace !=='0'">{{mo.groupeSelectionne.nbPlace}} places disponibles pour votre programme</li>
+                        </ul>
+                     </p>
+                  </div>
+
+               </div>
+
+               <!-- Bouton confirmer la modification -->
+               <div class="bg-uqam"
+                    ng-class="mo.isGroupeValide() && !traitementEnCours ?'':'disabled'"
+                    ng-if="cours.action === 'remplacer'">
+                  <hr class="pull-left">
+                  <h5>Confirmez la modification</h5>
+                  <button ng-click="mo.traiteInscription()" class="btn btn-default text-uppercase">Modifier</button>
+               </div>
+
+
+               <!-- Message cours. -->
+               <div class="fraisGeneraux" ng-if="mo.isCoursDeLangue()" style="padding:0">
+                 <div class="bg-warning" style="margin:0">
+                    <p>Assurez-vous d'avoir passé le test de classement obligatoire exigé avant une première inscription à un cours de langues.
+                       Dans le cas contraire, le cours sera annulé par votre programme. Consultez le site de
+                       l'<a href="http://www.langues.uqam.ca/" style="color:white;" target="_blank">École de langues</a>﻿﻿.
+                    </p>
+                 </div>
+
+               </div>
+
+            </div>
+
+
+            <!-- **************************************************************************************************************************************** -->
+            <!-- Confirmation de l'annulation ou de l'abandon SANS controlleur -->
+
+            <div class="bg-confirmation clearfix" ng-if="cours.mode=='edition' && (cours.action === 'annuler' || cours.action === 'abandonner')">
+
+               <div class="bg-uqam" ng-if="cours.action === 'annuler' || cours.action === 'abandonner' ">
+
+                  <h4 ng-if="cours.action === 'annuler'"    style="text-transform:none;">Êtes-vous sûr de vouloir annuler le cours {{cours.sigle}}, groupe {{cours.groupe}}?</h4>
+                  <h4 ng-if="cours.action === 'abandonner'" style="text-transform:none;">Êtes-vous sûr de vouloir abandonner le cours {{cours.sigle}}, groupe {{cours.groupe}}?</h4>
+
+                  <button style="float:right;margin-right:-16px;" class="btn btn-warning text-uppercase confirmation" ng-click="effacerActionEtmode()">Annuler l'opération&nbsp;&nbsp;
+                     <img src="/assets/images/general/icone/uqam/icone_x_blanc.svg" alt="">
+                  </button>
+                  <button style="float:right;padding-top:6px;padding-bottom:6px;margin-right:5px;"
+                          class="btn btn-default confirmation text-uppercase"
+                          ng-class="!traitementEnCours ?'':'disabled'"
+                          ng-click="anAbAction(cours)">Confirmer&nbsp;&nbsp;</button>
+               </div>
+
+               <!-- Frais généraux -->
+               <div class="fraisGeneraux">
+                  <img src="/assets/images/general/icone/uqam/icone_warning_bleu-fonce.svg" alt="" width="20px" height="20px">
+                  <span ng-if="cours.action === 'annuler'">
+                     Les <a target="_blank" href="http://servicesfinanciers.uqam.ca/droits-de-scolarite-et-autres-frais.html">frais généraux</a>
+                     ne sont pas remboursables, même après l'annulation de tous les cours par l'étudiant.
+                  </span>
+                  <span ng-if="cours.action === 'abandonner'">Au premier cycle, le nombre d’abandons de cours autorisés avec facturation et sans mention d’échec est limité à 20% du nombre de crédits du programme.</span>
+               </div>
+
+            </div>
+
+         </div>
+      </div>
+
+
+      <div ng-if="coursInscrits.length <= 0 && showCdFlag">
+         <h4 class="visible-md visible-lg hidden-print">Cours à mon dossier</h4>
+         <h4 class="visible-print-block">               Cours à mon dossier</h4>
+         <br class="visible-xs visible-sm">
+         <div class="bg-info">
+            Vous n'avez aucun cours inscrit à votre dossier pour ce trimestre.
+         </div>
+      </div>
+
+
+      <!-- **************************************************************************************************************************************** -->
+      <!-- COURS REMPLACÉS -->
+
+      <div class="visible-xs visible-sm hidden-print">
+         <br>
+         <div style="background:#0D668E;padding:15px;" ng-click="showMaa();">
+            <h4 style="padding-bottom:0">
+
+               <span ng-if="coursAnnules.length > 1" style="display:bloc!important;color:white;padding-left:10px;padding-bottom:0;text-transform:none;">
+                  Cours modifiés, annulés <br>
+                  <span style="padding-left:10px;">ou abandonnés</span><span style="font-family:Asap-Regular,arial,sans-serif;" ng-if="coursAnnules.length > 0"> ({{coursAnnules.length}} cours)</span>
+               </span>
+               <span ng-if="coursAnnules.length === 1" style="display:bloc!important;color:white;padding-left:10px;padding-bottom:0;text-transform:none;">
+                  Cours modifié, annulé <br>
+                  <span style="padding-left:10px;">ou abandonné</span><span style="font-family:Asap-Regular,arial,sans-serif;" ng-if="coursAnnules.length > 0"> ({{coursAnnules.length}} cours)</span>
+               </span>
+
+
+               <span ng-if="showMaaFlag"  style="font-size:1.2em;margin-top:-20px;cursor:pointer;float:right;color:white;padding-right:10px;padding-bottom:0">–</span>
+               <span ng-if="!showMaaFlag" style="font-size:1.2em;margin-top:-20px;cursor:pointer;display:bloc!important;float:right;color:white;padding-right:10px;padding-bottom:0">+</span>
+            </h4>
+         </div>
+      </div>
+
+
+      <hr class="visible-md visible-lg" ng-if="coursAnnules.length > 0  && showMaaFlag">
+      <div ng-if="coursAnnules.length > 0 && showMaaFlag">
+         <br>
+
+         <h4 ng-if="coursAnnules.length > 1" class="visible-md visible-lg hidden-print">Cours modifiés, annulés ou abandonnés ({{coursAnnules.length}} cours)</h4>
+         <h4 ng-if="coursAnnules.length > 1" class="visible-print-block">               Cours modifiés, annulés ou abandonnés ({{coursAnnules.length}} cours)</h4>
+
+         <h4 ng-if="coursAnnules.length === 1" class="visible-md visible-lg hidden-print">Cours modifié, annulé ou abandonné ({{coursAnnules.length}} cours)</h4>
+         <h4 ng-if="coursAnnules.length === 1" class="visible-print-block">               Cours modifié, annulé ou abandonné ({{coursAnnules.length}} cours)</h4>
+
+
+         <div class="bg-uqam coursAnnule" ng-repeat="cours in coursAnnules" style="background-color:#f2f2f2;">
+            <h4 class="" style="text-transform:none;padding-bottom:5px;">{{cours.sigle}} - {{cours.titre | capitalize}} ({{cours.credit}} crédit<span ng-if="cours.credit !== '1' && cours.credit !== '0'" >s</span>)</h4>
+
+            <span>
+               <strong>Groupe {{cours.groupe}}</strong>
+            </span>
+            <hr>
+            <p>
+               {{autorisation.messagePatchNote[cours.note]}}
+            </p>
+
+         </div>
+      </div>
+
+      <div ng-if="coursAnnules.length <= 0 && showMaaFlag">
+         <h4 class="visible-md visible-lg hidden-print">Cours modifiés, annulés ou abandonnés</h4>
+         <h4 class="visible-print-block">               Cours modifiés, annulés ou abandonnés</h4>
+         <br class="visible-xs visible-sm">
+         <div class="bg-info">
+            Vous n'avez aucun cours modifié, annulé ou abandonné pour ce trimestre.
+         </div>
+      </div>
+
+
+   </div>
+
+</div>
+
+
+<!-- **************************************************************************************************************************************** -->
+<!-- MESSAGE ERREUR -->
+<div class="bg-danger" ng-show="err">
+   <h5>Attention</h5>
+   <p>Une erreur est survenue, veuillez essayer plus tard.</p>
+</div>
+
+<!-- **************************************************************************************************************************************** -->
+<!-- MESSAGE AVERTISSEMENT -->
+<div class="bg-warning" ng-if="avertissements">
+   <h5>Attention</h5>
+   <p ng-repeat="message in avertissements">{{message}}</p>
+</div>

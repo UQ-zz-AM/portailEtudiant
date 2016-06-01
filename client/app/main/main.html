@@ -1,0 +1,362 @@
+<!--
+
+/*  @license
+
+    Copyright 2014-2016 Université du Québec à Montréal (UQAM)
+
+    This file is part of Portail Étudiant.
+
+    Portail Étudiant is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Portail Étudiant is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Portail Étudiant. If not, see <http://www.gnu.org/licenses/>.
+
+
+    Ce fichier fait partie de l'application Portail Étudiant.
+
+    Portail Étudiant est un logiciel libre ; vous pouvez le redistribuer ou
+    le modifier suivant les termes de la GNU General Public License telle que
+    publiée par la Free Software Foundation ; soit la version 3 de la licence,
+    soit (à votre gré) toute version ultérieure.
+
+    Portail Étudiant est distribué dans l'espoir qu'il sera utile, mais
+    SANS AUCUNE GARANTIE ; sans même la garantie tacite de QUALITÉ MARCHANDE
+    ou d'ADÉQUATION à UN BUT PARTICULIER. Consultez la GNU General Public
+    License pour plus de détails.
+
+    Vous devez avoir reçu une copie de la GNU General Public License en même
+    temps que Portail Étudiant ; si ce n'est pas le cas,
+    consultez <http://www.gnu.org/licenses>.
+*/
+
+-->
+<section class="sous-entete clearfix hidden-print">
+
+   <h1 ng-show="isLoggedIn()" class="text-uppercase hidden-print">
+      Accueil
+   </h1>
+
+</section>
+
+
+<div class="mainOverlay" ng-hide="isLoggedIn()">
+
+
+   <!-- BUREAU -->
+   <div class="hidden-xs boite-main rectangle-noir">
+
+    <form class="form" name="form" ng-submit="login(form)" novalidate touch-submit>
+
+      <table width="90%">
+         <tr>
+            <td align="center" colspan="2">
+               <div style="min-width:750px!important;max-width:850px!important;margin:50px auto auto auto;padding-left:12%;text-align:left" ng-show="messagesGlobaux.length>0">
+                  <div ng-repeat="unMessage in messagesGlobaux">
+                     <div ng-show="unMessage.niveau==='critique'" class="bg-danger">
+                        <h5>Attention</h5>
+                        <p ng-bind-html="unMessage.message"></p>
+                     </div>
+                     <div ng-show="unMessage.niveau==='avertissement'" class="bg-warning">
+                        <h5>Avertissement</h5>
+                        <p ng-bind-html="unMessage.message"></p>
+                     </div>
+                     <div ng-show="unMessage.niveau==='information'" class="bg-info">
+                        <h5>À noter</h5>
+                        <p ng-bind-html="unMessage.message"></p>
+                     </div>
+                  </div>
+               </div>
+            </td>
+         </tr>
+         <tr ng-show="!maintenanceCritique" valign="top">
+
+            <td width="60%">
+
+               <div style="padding-top:60px;">
+
+                  <span>Code permanent&nbsp;&nbsp;</span>
+                  <input type="text"
+                         name="codePermanent"
+                         class=""
+                         ng-model="user.codePermanent"
+                         ng-pattern="/^[A-Za-z]{4}(0[1-9]|[12][0-9]|3[01]|99)([0,5][1-9]|[1,6][012]|13|63)[0-9]{4}$/"
+                         maxlength="12"
+                         tabindex="1"
+                         placeholder="(ex. : ABDC12034566)"
+                         autofocus
+                         required
+                         ><br><br>
+                  <div class="zone-err input-error"
+                     ng-if="form.codePermanent.$invalid && form.codePermanent.$dirty && submitted">
+                     <span>
+                        <img src="/assets/images/general/icone/uqam/icone_err.png" />
+                        Attention, le code permanent n'a pas le bon format.
+                     </span>
+                  </div>
+
+                  <span>NIP&nbsp;&nbsp;</span>
+                  <input type="password"
+                         name="password"
+                         class=""
+                         ng-model="user.password"
+                         ng-pattern="/^[0-9]{5}$/"
+                         maxlength="5"
+                         tabindex="2"
+                         placeholder="(ex. : 12345)"
+                         required
+                         >
+                  <div style="margin-top:-2px;" class="zone-err input-error"
+                       ng-if="form.password.$invalid && submitted">
+                     <span>
+                        <img src="/assets/images/general/icone/uqam/icone_err.png" />
+                        Attention, le NIP n'a pas le bon format.
+                     </span>
+                  </div>
+
+                  <div>
+                     <div style="margin-top:4px;" class="zone-err"
+                        ng-if="form.codePermanent.$error.required && form.password.$error.required && submitted">
+                        <span>
+                           <img src="/assets/images/general/icone/uqam/icone_err.png" />
+                           S.v.p. entrez votre code permanent et votre NIP.
+                        </span>
+                     </div>
+                     <div style="margin-top:4px;" class="zone-err"
+                        ng-if="err">
+                        <span>
+                           <img src="/assets/images/general/icone/uqam/icone_err.png" />
+                           {{ err }}
+                        </span>
+                     </div>
+                  </div>
+                  <br>
+
+                  <div>
+                     <button style="height:60%;width:140px;"
+                             class="btn btn-default btn-inverse btn-lg btn-login text-uppercase" type="submit" click="submitted=true" tabindex="3">
+                        <span style="text-transform:none;font-family:'Conv_Dosis',arial,sans-serif; font-size:100%;">Connexion</span>
+                     </button>
+                  </div>
+
+                  <p style="background-color: #FFFFFF;
+                             border: 0.5px solid #868686;
+                             margin-left:auto;
+                             margin-right:0;
+                             width: 325px;
+                             margin-top:20px;"> </p>
+
+                  <p style="margin-top:-10px" class="text-right"><a href="http://www.etudier.uqam.ca/code-permanent-uqam" target="_blank" tabindex="4">Où trouver mon code permanent&nbsp;&nbsp;<span><strong>&gt;</strong></span></a></p>
+                  <p style="margin-top:-10px" class="text-right"><a href="http://www.etudier.uqam.ca/nip" target="_blank" tabindex="5">J'ai oublié mon NIP&nbsp;&nbsp;<span><strong>&gt;</strong></span></a></p>
+
+                  <br><br><br>
+
+               </div>
+
+            </td>
+
+            <td width="40%">
+
+               <div style="max-width:415px;min-width:315px;padding:60px 25px 0 30px;">
+                  <p >
+                     Le Portail étudiant de l'UQAM vous permet de
+                     consulter dans un même environnement les différents
+                     éléments de votre dossier étudiant.
+                  </p>
+                  <p>
+                     <strong>Veuillez vous connecter pour accéder à votre dossier.</strong>
+                  </p>
+               </div>
+
+               <div ng-show="raccourciDev"
+                   style="max-width:515px;min-width:315px;padding:100px 45px 0 40px;font-size:0.75em">
+                  <a ng-click="raccourciDev=false">Raccourcis de développement (cliquez pour effacer)</a>
+
+                     <ul>
+                        <li ng-repeat="raccourci in configClient.raccourci">
+                           <a ng-click="placeRaccourci(raccourci.codePerm, raccourci.mdp)">{{raccourci.codePerm}}. {{(raccourci.note) ? raccourci.note :''}}</a>
+                        </li>
+                     </ul>
+               </div>
+
+            </td>
+
+         </tr>
+      </table>
+
+    </form>
+
+  </div>
+
+
+  <!-- MOBILE
+
+       le formulaire doit avoir un nom différent.
+       Sinon les règles ng- ne fonctionnent pas. -->
+
+  <div style="top:25%;" class="visible-xs boite-main rectangle-noir">
+
+
+     <div style="padding-top:30px;margin-left:30px;margin-right:30px;padding-bottom:30px;text-align:left" ng-show="messagesGlobaux.length>0">
+        <div ng-repeat="unMessage in messagesGlobaux">
+          <div ng-show="unMessage.niveau==='critique'" class="bg-danger">
+             <h5>Attention</h5>
+             <p ng-bind-html="unMessage.message"></p>
+          </div>
+          <div ng-show="unMessage.niveau==='avertissement'" class="bg-warning">
+             <h5>Avertissement</h5>
+             <p ng-bind-html="unMessage.message"></p>
+          </div>
+          <div ng-show="unMessage.niveau==='information'" class="bg-info">
+             <h5>À noter</h5>
+             <p ng-bind-html="unMessage.message"></p>
+          </div>
+        </div>
+     </div>
+
+
+
+
+
+     <form ng-show="!maintenanceCritique" class="form" name="formMobile" ng-submit="login(formMobile)" novalidate touch-submit>
+
+
+             <div style="padding-top:30px;padding-left:20px;padding-right:20px;">
+
+                  <span>&nbsp;&nbsp;Code permanent</span><br>
+                  <input style="width:100%;"
+                         type="text"
+                         name="codePermanent"
+                         class=""
+                         ng-model="user.codePermanent"
+                         ng-pattern="/^[A-Za-z]{4}(0[1-9]|[12][0-9]|3[01]|99)([0,5][1-9]|[1,6][012]|13|63)[0-9]{4}$/"
+                         maxlength="12"
+                         tabindex="1"
+                         placeholder="(ex. : ABDC12034566)"
+                         autofocus
+                         required
+                  >
+                  <div class="zone-err zone-err-mobi input-error"
+                     ng-if="formMobile.codePermanent.$invalid && formMobile.codePermanent.$dirty && submitted">
+                     <span>
+                        <img src="/assets/images/general/icone/uqam/icone_err.png" />
+                        Attention, le code permanent n'a pas le bon format.
+                     </span>
+                  </div>
+
+                  <br><br>
+                  <span>&nbsp;&nbsp;NIP</span><br>
+                  <input style="width:100%;"
+                  type="password"
+                          name="password"
+                          class=""
+                          ng-model="user.password"
+                          ng-pattern="/^[0-9]{5}$/"
+                          maxlength="5"
+                          tabindex="2"
+                          placeholder="(ex. : 12345)"
+                          required
+                          >
+                  <div class="zone-err zone-err-mobi input-error"
+                     ng-if="formMobile.password.$invalid && submitted">
+                     <span>
+                        <img src="/assets/images/general/icone/uqam/icone_err.png" />
+                        Attention, le NIP n'a pas le bon format.
+                     </span>
+                  </div>
+
+                  <div>
+                     <div style="width:100%;margin-top:4px;" class="zone-err"
+                        ng-if="formMobile.codePermanent.$error.required && formMobile.password.$error.required && submitted">
+                        <span>
+                           <img src="/assets/images/general/icone/uqam/icone_err.png" />
+                           S.v.p. entrez votre code permanent et votre NIP.
+                        </span>
+                     </div>
+                     <div style="width:100%;margin-top:4px;" class="zone-err"
+                        ng-if="err">
+                        <span>
+                           <img src="/assets/images/general/icone/uqam/icone_err.png" />
+                          {{ err }}
+                       </span>
+                     </div>
+                  </div>
+                  <br>
+
+                   <div style="text-align:right;">
+                      <button class="btn btn-default btn-inverse btn-lg btn-login text-uppercase" type="submit" click="submitted=true" tabindex="3">
+                        <span style="height:60%;width:140px;text-transform:none;font-family:'Conv_Dosis',arial,sans-serif; font-size:100%;">Connexion</span>
+                     </button>
+                   </div>
+
+                   <p style="background-color: #FFFFFF;
+                             border: 0.5px solid #868686;
+                             margin-left:auto;
+                             margin-right:0;
+                             margin-top:20px;"> </p>
+
+                             <p style="margin-top:-10px" class="text-right"><a href="http://www.etudier.uqam.ca/code-permanent-uqam" target="_blank" tabindex="4">Où trouver mon code permanent&nbsp;&nbsp;<span><strong>&gt;</strong></span></a></p>
+                            <p style="margin-top:-10px" class="text-right"><a href="http://www.etudier.uqam.ca/nip" target="_blank" tabindex="5">J'ai oublié mon NIP&nbsp;&nbsp;<span><strong>&gt;</strong></span></a></p>
+
+
+                  <div style="padding:30px 0 0 0;">
+                     <p>
+                        Le Portail étudiant de l'UQAM vous permet de
+                        consulter dans un même environnement les différents
+                        éléments de votre dossier étudiant.
+                     </p>
+                     <p>
+                         <strong>Veuillez vous connecter pour accéder à votre dossier.</strong>
+                     </p>
+                     <br><br>
+                     <br><br>
+                     <br><br>
+                  </div>
+
+             </div>
+
+
+
+
+
+     </form>
+
+
+  </div>
+
+
+
+</div>
+
+
+
+<div class="accueil" ng-if="isLoggedIn() && isConsentement()">
+  <p>
+     Le nouveau Portail étudiant de l'UQAM vous permettra de consulter, en un seul clic et dans un même environnement, les différents éléments de votre dossier étudiant.
+  </p>
+
+  <p><strong>Nouvelles fonctionnalités</strong></p>
+  <ul>
+    <li>L’inscription en ligne vous permet de faire votre choix de cours ainsi que toutes les modifications à vos cours (ajout, remplacement, annulation et abandon) en plus de visualiser les cours à votre dossier.</li>
+    <li>Les périodes d'inscription vous indiquent les dates où vous êtes autorisé à faire votre choix et les modifications à vos cours.</li>
+    <li>L'horaire personnel et les locaux sont disponibles sous forme de calendrier et de liste contenant le détail des cours inscrits.</li>
+    <li>À même vos relevés de notes, vous pouvez consulter les résultats des évaluations d'un cours.</li>
+    <li>La facture, plus précise, vous permet de consulter le détail du calcul de vos droits et frais de scolarité.</li>
+    <li>L'attestation carte OPUS pour obtenir le tarif réduit pour le transport en commun est maintenant disponible.</li>
+    <li>L'évaluation de l'enseignement vous permet d'évaluer vos cours.<span class="label label-primary">Nouveau</span></li>
+  </ul>
+  <p>
+    D'autres services s'ajouteront progressivement au Portail étudiant.
+  </p>
+  <p>
+     L'UQAM a ainsi mis fin à l'envoi postal de certains documents comme la facture, les relevés d'impôts et les autorisations d'inscription afin de réduire son empreinte écologique et optimiser ses processus administratifs.
+  </p>
+
+</div>

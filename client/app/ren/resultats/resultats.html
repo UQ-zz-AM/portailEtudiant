@@ -1,0 +1,204 @@
+<!--
+
+/*  @license
+
+    Copyright 2014-2016 Université du Québec à Montréal (UQAM)
+
+    This file is part of Portail Étudiant.
+
+    Portail Étudiant is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Portail Étudiant is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Portail Étudiant. If not, see <http://www.gnu.org/licenses/>.
+
+
+    Ce fichier fait partie de l'application Portail Étudiant.
+
+    Portail Étudiant est un logiciel libre ; vous pouvez le redistribuer ou
+    le modifier suivant les termes de la GNU General Public License telle que
+    publiée par la Free Software Foundation ; soit la version 3 de la licence,
+    soit (à votre gré) toute version ultérieure.
+
+    Portail Étudiant est distribué dans l'espoir qu'il sera utile, mais
+    SANS AUCUNE GARANTIE ; sans même la garantie tacite de QUALITÉ MARCHANDE
+    ou d'ADÉQUATION à UN BUT PARTICULIER. Consultez la GNU General Public
+    License pour plus de détails.
+
+    Vous devez avoir reçu une copie de la GNU General Public License en même
+    temps que Portail Étudiant ; si ce n'est pas le cas,
+    consultez <http://www.gnu.org/licenses>.
+*/
+
+->
+
+<img ng-hide="trimestreCourant || err || avertissements" class="telechargement" src="/assets/images/ajax-loader.gif" alt="Veuillez patienter pendant que la page se télécharge">
+
+<!-- **************************************************************************************************************************************** -->
+<!-- ENTÊTE IMPRESSION -->
+<div class="entete-impression visible-print-block">
+    <div class="table-responsive">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td style="width:63.8554%; padding:0 15px 15px 0;">
+                        <img class="pull-left" src="/assets/images/general/logo/logo_uqam-general-imprimer_noir.svg" alt="UQAM">
+                    </td>
+
+                    <td style="width:36.1445%; padding:0 0 15px 15px;">
+                        <h4 class="text-uppercase">{{utilisateur().prenom}} {{utilisateur().nom}}</h4> {{utilisateur().adresse_l1}}
+                        <br/>{{utilisateur().adresse_l2}}<br/>{{utilisateur.etudiant.adresse_l3}}
+                    </td>
+                </tr>
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <td>
+                        <strong>Date d’impression : </strong>{{dateImpression | dateComplete}}
+                    </td>
+
+                    <td>
+                        <strong>Code permanent : </strong><span class="text-uppercase">{{utilisateur().code_perm}}</span>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<!-- **************************************************************************************************************************************** -->
+<!-- TITRE IMPRESSION -->
+<section class="sous-entete clearfix visible-print-block">
+    <h1 class="text-uppercase">
+        Résultats <span ng-show="trimestreCourant"> – {{trimestreCourant | trimestre}}</span>
+    </h1>
+</section>
+
+<!-- **************************************************************************************************************************************** -->
+<!-- TITRE ÉCRAN -->
+<section class="sous-entete clearfix hidden-print">
+    <h1 class="text-uppercase hidden-print">
+        Résultats <span ng-show="trimestreCourant"> – {{trimestreCourant | trimestre}}</span>
+    </h1>
+
+    <a href="" onClick="window.print();return false" class="pull-right clearfix hidden-print text-uppercase visible-md visible-lg">
+        Imprimer
+        <span class="uqam-icone uqam-icone-sm impression_bleu-etudiant pull-right"></span>
+    </a>
+</section>
+
+<!-- **************************************************************************************************************************************** -->
+<!-- CONTENU DE LA PAGE -->
+<div class="ren" ng-show="trimestreCourant">
+    <div class="resultats">
+        <div ng-hide="err || avertissements || (!strucTrimestreCourant)">
+
+            <div ng-repeat="programme in strucTrimestreCourant.programmes" ng-show="!telephone">
+                <h3 style="text-transform:none;">{{programme.titreProgramme | capitalize}} ({{programme.codeProg}})</h3>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-condensed">
+                        <thead>
+                            <tr>
+                                <th style="width:15%;">Sigle</th>
+                                <th style="width:;">Titre du cours</th>
+                                <th style="width:15%;" class="hidden-print">
+                                    <span class="visible-xs visible-sm visible-md">Rés.&nbsp;&nbsp;
+                                        <button type="button"
+                                            class="btn btn-info hidden-print note"
+                                            popover-title=""
+                                            popover="Un + apparaîtra dans la colonne Résultats dès que votre enseignant publiera au moins un résultat. Il est toutefois possible que votre enseignant n'utilise pas cette fonctionnalité."
+                                            popover-trigger="{{deviceEvent}}"
+                                            popover-append-to-body="true"
+                                            popover-placement="left">
+                                            <span class="uqam-icone uqam-icone-sm interrogation_blanc"></span>
+                                        </button>
+                                    </span>
+                                    <span class="visible-lg">Résultats&nbsp;&nbsp;
+                                        <button type="button"
+                                            class="btn btn-info hidden-print note"
+                                            popover-title=""
+                                            popover="Un + apparaîtra dans la colonne Résultats dès que votre enseignant publiera au moins un résultat. Il est toutefois possible que votre enseignant n'utilise pas cette fonctionnalité."
+                                            popover-trigger="{{deviceEvent}}"
+                                            popover-append-to-body="true"
+                                            popover-placement="left">
+                                            <span class="uqam-icone uqam-icone-sm interrogation_blanc"></span>
+                                        </button>
+                                    </span>
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody ng-repeat="activite in programme.activites">
+                            <tr>
+                                <td>{{activite.sigle}}</td>
+                                <td>{{activite.titreActivite}}</td>
+                                <td class="hidden-print text-center">
+                                    <button ng-show="activite.compteurEvaluation>0 && activite.systemeResultats==='O'"
+                                            ng-click="changeToggle('cours', ''+activite.sigle)"
+                                            type="button" class="btn btn-info hidden-print">
+                                       <span ng-class="toggle.cours[''+activite.sigle] ? 'uqam-icone uqam-icone-sm moins-petit_blanc' : 'uqam-icone uqam-icone-sm plus-petit_blanc'"></span>
+                                    </button>
+                                </td>
+                            </tr>
+
+                            <tr ng-if="toggle.cours[''+activite.sigle]">
+                                <td class="plus-info" colspan="3">
+                                    <div class="moreInfo">
+                                       <!-- SOUS TABLEAU : DÉTAIL -->
+                                       <div afficher-resultats param-resultats="activite" bouton-commentaire="false"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix bg-info" ng-show="strucTrimestreCourant && !telephone">
+            <p style="padding:6px 0 0 0;">
+                Pour toute question sur vos résultats, contactez votre enseignant.<br>
+                Les archives de vos résultats sont disponibles dans votre relevé de notes.
+            </p>
+        </div>
+
+        <div class="bg-info" ng-show="!strucTrimestreCourant && !err">
+            <p style="padding:6px 0 0 0;">Aucun cours inscrit au trimestre d'{{trimestreCourant | trimestre}}.</p>
+        </div>
+
+        <!-- **************************************************************************************************************************************** -->
+        <!-- **************************************************************************************************************************************** -->
+        <!-- ROTATION : APPAREIL MOBILE TÉLÉPHONE EN MODE PORTRAIT -->
+        <div class="releves-de-notes" ng-show="telephone && strucTrimestreCourant && !err">
+            <div class="text-center">
+                <img src="/assets/images/general/icone/uqam/icone_rotation_telephone.svg" width="35%" alt="Tourner votre appareil pour voir l'information complète">
+                <br><br>
+                <h5>Basculez votre appareil pour<br>accéder au contenu complet</h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- **************************************************************************************************************************************** -->
+<!-- MESSAGE ERREUR -->
+<div class="bg-warning" ng-show="avertissements">
+    <h5>Attention</h5>
+    <p ng-repeat="message in avertissements">{{message}}</p>
+</div>
+
+<!-- **************************************************************************************************************************************** -->
+<!-- MESSAGE AVERTISSEMENT -->
+<div class="bg-danger" ng-show="err">
+    <h5>Attention</h5>
+    <p>Attention une erreur est survenue, veuillez essayer plus tard.</p>
+</div>

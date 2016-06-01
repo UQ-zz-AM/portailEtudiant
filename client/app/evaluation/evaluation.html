@@ -1,0 +1,222 @@
+<!--
+
+/*  @license
+
+    Copyright 2014-2016 Université du Québec à Montréal (UQAM)
+
+    This file is part of Portail Étudiant.
+
+    Portail Étudiant is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Portail Étudiant is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Portail Étudiant. If not, see <http://www.gnu.org/licenses/>.
+
+
+    Ce fichier fait partie de l'application Portail Étudiant.
+
+    Portail Étudiant est un logiciel libre ; vous pouvez le redistribuer ou
+    le modifier suivant les termes de la GNU General Public License telle que
+    publiée par la Free Software Foundation ; soit la version 3 de la licence,
+    soit (à votre gré) toute version ultérieure.
+
+    Portail Étudiant est distribué dans l'espoir qu'il sera utile, mais
+    SANS AUCUNE GARANTIE ; sans même la garantie tacite de QUALITÉ MARCHANDE
+    ou d'ADÉQUATION à UN BUT PARTICULIER. Consultez la GNU General Public
+    License pour plus de détails.
+
+    Vous devez avoir reçu une copie de la GNU General Public License en même
+    temps que Portail Étudiant ; si ce n'est pas le cas,
+    consultez <http://www.gnu.org/licenses>.
+*/
+
+-->
+
+<img ng-hide="evaluation || err || avertissements || info" class="telechargement" src="/assets/images/ajax-loader.gif" alt="Veuillez patienter pendant que la page se télécharge">
+
+
+<section class="sous-entete clearfix hidden-print">
+   <h1 class="visible-sm visible-md visible-lg text-uppercase hidden-print">
+      <span>Évaluation de l'enseignement</span>
+   </h1>
+   <h1 class="visible-xs text-uppercase hidden-print">
+      <span style="font-size:0.85em">Évaluation de l'enseignement</span>
+   </h1>
+</section>
+
+
+<!-- **************************************************************************************************************************************** -->
+<!-- CONTENU DE LA PAGE -->
+<div class="evaluation" ng-hide="err || avertissements || !evaluation">
+
+   <!-- Afficher les avertissements -->
+   <div ng-if="coursAevaluer.length <= 0 && coursCompletee.length <= 0" class="bg-info">
+      <h5></h5>
+      <p>Il n'y a aucune évaluation à compléter.</p>
+   </div>
+
+   <!-- ############################################################################################################################# -->
+   <!-- Version bureau -->
+   <div ng-if="coursAevaluer.length > 0 || coursCompletee.length > 0" class="visible-sm visible-md visible-lg imprimable">
+
+
+      <h3 ng-if="coursAevaluer.length > 0" style="text-transform:none">
+         Évaluations à faire
+      </h3>
+
+
+      <!-- Afficher les avertissements -->
+      <div ng-if="coursAevaluer.length <= 0" class="bg-info">
+         <h5></h5>
+         <p>Il n'y a aucune évaluation à compléter.</p>
+      </div>
+
+
+      <div ng-if="coursAevaluer.length > 0" class="table-responsive a-faire">
+         <table class="table table-bordered table-condensed">
+            <thead>
+               <tr class="text-uppercase" style="">
+                  <th>Trimestre</th>
+                  <th>Sigle</th>
+                  <th>Titre du cours</th>
+                  <th>Enseignant</th>
+                  <th>Période d'évaluation&nbsp;&nbsp;
+                     <button style="margin-top:1px;"
+                       popover-title="Périodes d'évaluation"
+                       popover="Vous pouvez évaluer le cours uniquement durant la période d'évaluation indiquée."
+                       popover-trigger="{{deviceEvent}}"
+                       popover-append-to-body="true"
+                       type="button"
+                       class="btn btn-info hidden-print">
+                       <span class="uqam-icone uqam-icone-sm interrogation_blanc"></span>
+                     </button>
+                  </th>
+               </tr>
+            </thead>
+
+            <tbody>
+               <tr ng-repeat="cours in coursAevaluer">
+                  <td width="11%">{{cours.trim_txt}}</td>
+                  <td width="11%">{{cours.sigle}}<br>Groupe {{cours.groupe | trimGroupe}}</td>
+                  <td width="26%">{{cours.titre}}</td>
+                  <td width="14%">{{cours.nom_enseignant}}</td>
+                  <td width="26%">Du {{getDate(cours.dt_deb_eval) }}
+                     <br>au {{getDate(cours.dt_fin_eval)}}</td>
+                  <td width="13%">
+                     <a ng-class="{'disabled desactive': cours.ind_hors_periode === 'O'}" class="btn btn-primary btn-sm hidden-print text-uppercase visible-sm visible-md visible-lg"
+                        ng-click="afficherQuestionnaire(cours)">
+                        Évaluer
+                     </a>
+                  </td>
+               </tr>
+            </tbody>
+
+         </table>
+
+      </div>
+
+      <br>
+
+      <div ng-if="coursCompletee.length > 0">
+         <h3 style="text-transform:none">Dernières évaluations complétées</h3>
+
+         <div class="table-responsive completee">
+            <table class="table table-bordered table-condensed">
+               <thead>
+                  <tr class="text-uppercase" style="">
+                     <th>Trimestre</th>
+                     <th>Sigle</th>
+                     <th>Titre du cours</th>
+                     <th>Enseignant</th>
+                     <th style="border:1px solid white!important;background-color:white;"></th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr ng-repeat="cours in coursCompletee">
+                     <td width="11%" >{{cours.trim_txt}}</td>
+                     <td width="11%">{{cours.sigle}}<br>Groupe {{cours.groupe | trimGroupe}}</td>
+                     <td width="40%">{{cours.titre}}</td>
+                     <td width="25%">{{cours.nom_enseignant}}</td>
+                     <td width="13%" style="border:1px solid white!important;"></td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+
+      </div>
+
+
+   </div>
+
+   <!-- ############################################################################################################################# -->
+   <!-- Version téléphone -->
+   <div ng-if="coursAevaluer.length > 0 || coursCompletee.length > 0" class="visible-xs hidden-print">
+
+      <h3 ng-if="coursAevaluer.length > 0">Évaluations à faire</h3>
+
+      <!-- Afficher les avertissements -->
+      <div ng-if="coursAevaluer.length <= 0 " class="bg-info">
+         <h5></h5>
+         <p>Il n'y a aucune évaluation à compléter.</p>
+      </div>
+
+      <div ng-if="coursAevaluer.length > 0" style="margin-bottpm:15px;" ng-repeat="cours in coursAevaluer" >
+         <div class="a-faire">
+            <span>Trimestre :</span><br>
+            <p>{{cours.trim_txt}}</p>
+            <span>Cours : </span><span style="font-family:'Asap-Regular',arial, sans-serif;">{{cours.sigle}}-{{cours.groupe | trimGroupe}}</span>
+            <p>{{cours.titre}}</p>
+            <span >Enseignant :</span><br>
+            <p>{{cours.nom_enseignant}}</p>
+            <span>Période d'évaluation :</span><br>
+            <p>
+               Du {{getDate(cours.dt_deb_eval) }}
+                  <br>au {{getDate(cours.dt_fin_eval)}}
+            </p>
+            <div>
+               <a ng-class="{'disabled desactive': cours.ind_hors_periode === 'O'}" class="btn btn-primary btn-sm hidden-print text-uppercase"
+                  ng-click="afficherQuestionnaire(cours)">
+                  Évaluer
+               </a>
+            </div>
+         </div>
+         <br ng-if="coursAevaluer.length > 1">
+      </div>
+
+
+      <br><br>
+
+      <div ng-if="coursCompletee.length > 0">
+         <h3>Dernières évaluations complétées</h3>
+
+         <div style="margin-bottom:20px;" ng-repeat="cours in coursCompletee" class="a-completer">
+            <span>Trimestre :</span><br>
+            <p>{{cours.trim_txt}}</p>
+            <span>Cours : </span><span style="font-family:'Asap-Regular',arial, sans-serif;">{{cours.sigle}}-{{cours.groupe | trimGroupe}}</span>
+            <p>{{cours.titre}}</p>
+            <span>Enseignant :</span><br>
+            <p>{{cours.nom_enseignant}}</p>
+         </div>
+      </div>
+
+   </div>
+
+</div>
+
+<!-- Afficher les err -->
+<div class="bg-danger" ng-show="err">
+   <h5>Attention</h5>
+   <p>{{err}}</p>
+</div>
+
+<!-- Afficher les avertissements -->
+<div class="bg-warning" ng-show="avertissements">
+   <p ng-repeat="message in avertissements">{{message}}</p>
+</div>

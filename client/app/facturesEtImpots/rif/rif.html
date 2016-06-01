@@ -1,0 +1,734 @@
+   <!--
+
+   /*  @license
+
+    Copyright 2014-2016 Université du Québec à Montréal (UQAM)
+
+    This file is part of Portail Étudiant.
+
+    Portail Étudiant is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Portail Étudiant is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Portail Étudiant. If not, see <http://www.gnu.org/licenses/>.
+
+
+    Ce fichier fait partie de l'application Portail Étudiant.
+
+    Portail Étudiant est un logiciel libre ; vous pouvez le redistribuer ou
+    le modifier suivant les termes de la GNU General Public License telle que
+    publiée par la Free Software Foundation ; soit la version 3 de la licence,
+    soit (à votre gré) toute version ultérieure.
+
+    Portail Étudiant est distribué dans l'espoir qu'il sera utile, mais
+    SANS AUCUNE GARANTIE ; sans même la garantie tacite de QUALITÉ MARCHANDE
+    ou d'ADÉQUATION à UN BUT PARTICULIER. Consultez la GNU General Public
+    License pour plus de détails.
+
+    Vous devez avoir reçu une copie de la GNU General Public License en même
+    temps que Portail Étudiant ; si ce n'est pas le cas,
+    consultez <http://www.gnu.org/licenses>.
+   */
+
+   -->
+
+
+   <!-- Comme nous allons chercher bien d'autres éléments que le rif via ajax (ex. template HTML),
+        le $rootScope.ajaxEnCours n'est pas vraiment efficace ici. En attendant de trouver
+        mieux, faire apparaître le spinning tant que la facture n'est pas là ou erreur ou avertissement.
+   -->
+   <img ng-hide="rifCourant || err || avertissements" class="telechargement" src="/assets/images/ajax-loader.gif" alt="Veuillez patienter pendant que la page se télécharge">
+
+
+   <!-- ENTÊTE IMPRESSION -->
+   <div class="entete-impression visible-print-block">
+      <div class="table-responsive">
+         <table class="table">
+            <tbody>
+               <tr>
+                  <td style="width:63.8554%; padding:0 15px 15px 0;">
+                     <img class="pull-left" src="/assets/images/general/logo/logo_uqam-imprimer_noir.svg" alt="UQAM">
+                  </td>
+
+                  <td style="width:36.1445%; padding:0 0 15px 15px;">
+                     <h4 class="text-uppercase">{{utilisateur().prenom}} {{utilisateur().nom}}</h4> {{utilisateur().adresse_l1}}
+                     <br/>{{utilisateur().adresse_l2}}<br/>{{utilisateur.etudiant.adresse_l3}}
+                  </td>
+               </tr>
+            </tbody>
+
+            <tfoot>
+               <tr>
+                  <td>
+                     <strong>Date d’impression : &nbsp;</strong>{{rifCourant.generale.en_date_du | dateComplete}}
+                  </td>
+
+                  <td>
+                     <strong>Code permanent : &nbsp;</strong><span class="text-uppercase">{{utilisateur().code_perm}}</span>
+                  </td>
+               </tr>
+            </tfoot>
+         </table>
+      </div>
+   </div>
+
+   <!-- Facture -->
+   <div class="factures-et-impots">
+
+
+      <!-- Tant qu'on a pas la facture on ne montre pas le formulaire vide, mais il faut
+           afficher les erreurs at avertissemnts même s'il n'y a aucune facture.
+      -->
+      <div ng-show="rifCourant">
+
+      <!-- SOUS ENTÊTE -->
+      <section class="sous-entete clearfix hidden-print">
+      <h1 class="text-uppercase hidden-print">
+            {{titreGlobal}}
+            <b ng-show="dateProductionFactHisto"> {{dateProductionFactHisto | dateComplete}}   ({{trimestreFactureHistorique | trimestre}})</b>
+            </h1>
+        <a href="" onClick="window.print();return false" class="pull-right clearfix hidden-print text-uppercase visible-md visible-lg">
+            Imprimer
+            <span class="uqam-icone uqam-icone-sm impression_bleu-etudiant pull-right"></span>
+         </a>
+      </section>
+
+
+      <div ng-hide="err || avertissements">
+
+        <!-- VERSION MOBILE -->
+        <div class="visible-xs visible-sm hidden-print">
+          <div class="soldes-et-operation">
+            <h3 class="text-uppercase">SOLDE ET OPÉRATIONS</h3>
+
+            <p class="text-danger" role="alert">
+              Veuillez prévoir un délai allant jusqu'à 48 heures entre une opération et son affichage dans le tableau.
+            </p>
+
+            <div class="table-responsive">
+              <table class="table table-bordered table-condensed">
+                <thead>
+                  <tr>
+                    <th><h4>Description</h4></th>
+                    <th><h4>Montant</h4></th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <td style="width:66%;">Solde au {{rifCourant.finance.solde_ant_dt | dateComplete}}<br>Trimestres antérieurs
+                      <button popover-title="Trimestres antérieurs"
+                        popover="{{rifCourant.generale.aideFacture.soldeAnterieur}}"
+                        popover-trigger="{{deviceEvent}}"
+                        popover-append-to-body="true"
+                        type="button"
+                        class="pull-right btn btn-info hidden-print">
+                        <span class="uqam-icone uqam-icone-sm interrogation_blanc"></span>
+                      </button>
+                    </td>
+                    <td style="width:34%;" class="info text-right">{{rifCourant.finance.solde_ant_mt | dollar}}</td>
+                  </tr>
+
+                  <tr>
+                    <td style="width:66%;">Ajout de frais<br>Trimestres antérieurs
+                      <button popover-title="Ajout de frais"
+                        popover="{{rifCourant.generale.aideFacture.ajoutFrais}}"
+                        popover-trigger="{{deviceEvent}}"
+                        popover-append-to-body="true"
+                        type="button"
+                        class="pull-right btn btn-info hidden-print">
+                        <span class="uqam-icone uqam-icone-sm interrogation_blanc"></span>
+                      </button>
+                    </td>
+                    <td style="width:34%;" class="info text-right">{{rifCourant.finance.total_ajout_de_frais | dollar}}</td>
+                  </tr>
+
+                  <tr>
+                    <td style="width:66%;">Trimestre {{trimestreCourant | trimestre}}
+                      <button ng-show="rifCourant.finance.total_facture_trimestre != 0"
+                        popover-title="Facture du trimestre"
+                        popover="Voir la version sur votre ordinateur pour plus de détail"
+                        popover-trigger="{{deviceEvent}}"
+                        popover-append-to-body="true"
+                        type="button"
+                        class="pull-right btn btn-info hidden-print">
+                        <span class="uqam-icone uqam-icone-sm interrogation_blanc"></span>
+                      </button>
+
+                    </td>
+                    <td style="width:34%;" class="info text-right">{{rifCourant.finance.total_facture_trimestre | dollar}}</td>
+                  </tr>
+
+                  <tr class="tableau-ligne-important">
+                    <td style="width:66%;">Paiements<br>remboursements<br>ajustements</td>
+                    <td style="width:34%;" class="info text-right">{{rifCourant.finance.total_section_paiement | dollar}}</td>
+                  </tr>
+
+                  <tr>
+                    <td style="width:66%;" class="text-right"><strong>Solde en date du<br>{{rifCourant.generale.en_date_du | dateComplete}}</strong></td>
+                    <td style="width:34%;" class="warning text-right">{{rifCourant.finance.solde_global | dollar}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="table-responsive" ng-show="rifCourant.finance.min_req_exig_mt!=0">
+              <div class="bg-warning">
+                <p><strong>Paiement minimum requis</strong> {{rifCourant.finance.min_req_exig_dt | lowercase}} : {{rifCourant.finance.min_req_exig_mt | dollar}}</p>
+              </div>
+            </div>
+
+            <div>
+              <p class="text-info">Code de paiement :
+                <span class="bg-primary">
+                  <!--<span class="bg-primary text-uppercase">-->M{{utilisateur().code_perm}}<!--</span>-->
+                  <button ng-if="rifCourant.generale.aideFacture.codePaiement.length >0"
+                    popover="{{rifCourant.generale.aideFacture.codePaiement | capitalize}}"
+                    popover-trigger="{{deviceEvent}}"
+                    type="button"
+                    class="badge pull-right btn btn-info hidden-print code-paiement">
+                    <span class="uqam-icone uqam-icone-sm interrogation_blanc"></span>
+                  </button>
+                </span>
+              </p>
+            </div>
+            <br>
+            <div class="clearfix hidden-print">
+              <p><a class="text-uppercase" href="/paiement#haut">Consulter les méthodes de paiement<span class="badge hidden-print">
+                <span class="uqam-icone uqam-icone-sm dollars_blanc"></span></span></a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+            <!-- VERSION BUREAU -->
+            <div class="visible-md visible-lg imprimable">
+
+               <!-- SOLDE ET OPÉRATION -->
+               <h3 class="text-uppercase">Solde et opérations</h3>
+               <div class="soldes-et-operation clearfix">
+                  <p class="text-danger" role="alert">
+                     Veuillez prévoir un délai allant jusqu'à 48 heures entre une opération et son affichage dans le tableau.
+                  </p>
+
+                  <div class="table-responsive">
+                     <table class="table table-bordered table-condensed">
+                        <thead class="text-uppercase">
+                           <tr>
+                              <th style="width:71.9220%;">Description</th>
+                              <th style="width:20.2857%;" class="info text-right">Montant</th>
+                              <th style="width:7.7922%;" class="text-center hidden-print">Détail</th>
+                           </tr>
+                           </thead>
+
+                        <tbody>
+                           <tr>
+                              <!-- solde au -->
+                              <td>Solde au {{rifCourant.finance.solde_ant_dt | dateComplete}} - Trimestres antérieurs
+                                 <button popover-title="Trimestres antérieurs"
+                                       popover="{{rifCourant.generale.aideFacture.soldeAnterieur}}"
+                                       popover-trigger="{{deviceEvent}}"
+                                       popover-append-to-body="true"
+                                       type="button"
+                                       class="pull-right btn btn-info hidden-print">
+                                     <span class="uqam-icone uqam-icone-sm interrogation_blanc"></span>
+                                 </button>
+
+                                 </td>
+                                 <td class="info text-right">{{rifCourant.finance.solde_ant_mt | dollar}}</td>
+                              <td class="text-center hidden-print"></td>
+                              </tr>
+
+                           <tr>
+                              <!-- ajout de frais -->
+                              <td>Ajout de frais - Trimestres antérieurs
+                                 <button popover-title="Ajout de frais"
+                                       popover="{{rifCourant.generale.aideFacture.ajoutFrais}}"
+                                       popover-trigger="{{deviceEvent}}"
+                                       popover-append-to-body="true"
+                                       type="button"
+                                       class="pull-right btn btn-info hidden-print">
+                                     <span class="uqam-icone uqam-icone-sm interrogation_blanc"></span>
+                                     </button>
+                              </td>
+                              <td class="info text-right">{{rifCourant.finance.total_ajout_de_frais | dollar}}</td>
+                              <td class="text-center hidden-print">
+                                 <button type="button" class="btn btn-info hidden-print" ng-click="changeToggle('trimestreAnterieur')" ng-show="rifCourant.finance.total_ajout_de_frais != 0 ">
+                                    <span ng-class="toggle.trimestreAnterieur ? 'uqam-icone uqam-icone-sm moins-petit_blanc' : 'uqam-icone uqam-icone-sm plus-petit_blanc'"></span>
+                                    </button>
+                              </td>
+                           </tr>
+
+                           <!-- détail ajout de frais.-->
+                           <tr class="" ng-show="toggle.trimestreAnterieur">
+                              <td colspan="3" class="tableau-ligne-cacher">
+                              <h4>Ajout de frais - Trimestres antérieurs</h4>
+
+                                 <table class="table table-bordered table-condensed">
+                                    <thead class="text-uppercase">
+                                       <tr>
+                                          <th style="width:16.6666%;">Date</th>
+                                          <th style="width:19.1666%;">Trimestre</th>
+                                          <th style="width:44%;">Description</th>
+                                          <th style="width:20.1666%;" class="info text-right">Montant</th>
+                                          </tr>
+                                          </thead>
+
+                                          <tbody ng-repeat="ajoutFrais in rifCourant.finance.detail_ajout_de_frais">
+                                       <tr>
+                                          <td>{{ajoutFrais.dt_trans | dateCourte}}</td>
+                                          <td>{{ajoutFrais.trim_num | trimestre | capitalize }}</td>
+                                          <td>{{ajoutFrais.desc_trans | capitalize }}
+                                             <button ng-if="ajoutFrais.texteDescriptif.length > 0"
+                                                   popover="{{ajoutFrais.texteDescriptif}}"
+                                                   popover-trigger="{{deviceEvent}}"
+                                                   type="button"
+                                                   class="pull-right btn btn-info hidden-print">
+                                                <span class="uqam-icone uqam-icone-sm interrogation_blanc"></span>
+                                                </button>
+                                          </td>
+                                          <td class="info text-right">{{ajoutFrais.montant | dollar}}</td>
+                                          </tr>
+                                          </tbody>
+
+                                    <tfoot>
+                                       <tr>
+                                          <td colspan="3" class="info text-right">Total (ajout de frais - trimestres antérieurs) :</td>
+                                          <td class="active text-right">{{rifCourant.finance.total_ajout_de_frais | dollar}}</td>
+                                       </tr>
+                                       </tfoot>
+                                 </table>
+                              </td>
+                              </tr>
+
+                           <tr>
+                              <!-- Facture - Trimestre -->
+                              <td>Facture - Trimestre d'{{trimestreCourant | trimestre}}
+                                 <button ng-show="rifCourant.finance.total_facture_trimestre != 0"
+                                       popover-title="Facture du trimestre" popover="{{rifCourant.generale.aideFacture.factureCourante}}"
+                                       popover-trigger="{{deviceEvent}}"
+                                       popover-append-to-body="true"
+                                       type="button"
+                                       class="pull-right btn btn-info hidden-print">
+                                       <span class="uqam-icone uqam-icone-sm interrogation_blanc"></span>
+                                 </button-->
+                                 </td>
+                                 <td class="info text-right">{{rifCourant.finance.total_facture_trimestre | dollar}}</td>
+                              <td class="text-center hidden-print"></td>
+                           </tr>
+
+                           <!-- Paiements, remboursements, ajustements -->
+                           <tr class="tableau-ligne-important">
+                              <td>
+                                 Paiements, remboursements, ajustements
+                                 <button ng-show="rifCourant.finance.total_section_paiement != 0"
+                                       popover-title="Facture du trimestre"
+                                       popover="{{rifCourant.generale.aideFacture.detailPaiement}}"
+                                       popover-trigger="{{deviceEvent}}"
+                                       popover-append-to-body="true"
+                                       type="button"
+                                       class="pull-right btn btn-info hidden-print">
+                                     <span class="uqam-icone uqam-icone-sm interrogation_blanc"></span>
+                                     </button-->
+                                     </td>
+                              <td class="info text-right">{{rifCourant.finance.total_section_paiement | dollar}}</td>
+                              <td class="text-center hidden-print">
+                                 <button type="button" class="btn btn-info hidden-print" ng-show="rifCourant.finance.total_section_paiement != 0" ng-click="changeToggle('paiement')">
+                                    <span ng-class="toggle.paiement ? 'uqam-icone uqam-icone-sm moins-petit_blanc' : 'uqam-icone uqam-icone-sm plus-petit_blanc'">&nbsp;</span>
+                                    </button>
+                                    </td>
+                           </tr>
+
+                           <!-- detail paiement -->
+                           <tr class="" ng-show="toggle.paiement">
+                              <td colspan="3">
+                                 <h4>Paiements, remboursements, ajustements</h4>
+                                 <table class="table table-bordered table-condensed">
+                                    <thead class="text-uppercase">
+                                       <tr>
+                                          <th style="width:16.6666%;">Date</th>
+                                          <th style="width:21.1666%;">Trimestre</th>
+                                          <th style="width:42%;">Description</th>
+                                          <th style="width:20.1666%;" class="info text-right">Montant</th>
+                                       </tr>
+                                       </thead>
+
+                                       <tbody ng-repeat="sectionPaiement in rifCourant.finance.detail_section_paiement">
+                                          <tr>
+                                             <td>{{sectionPaiement.dt_trans | dateCourte}}</td>
+                                             <td>{{sectionPaiement.trim_num | trimestre | capitalize }}</td>
+                                          <td>{{sectionPaiement.desc_trans | capitalize}}
+                                             <button ng-if="sectionPaiement.texteDescriptif.length > 0"
+                                                   popover="{{sectionPaiement.texteDescriptif}}"
+                                                   popover-trigger="{{deviceEvent}}"
+                                                   popover-append-to-body="true"
+                                                   type="button"
+                                                   class="pull-right btn btn-info hidden-print">
+                                                <span class="uqam-icone uqam-icone-sm interrogation_blanc"></span>
+                                                </button>
+                                          </td>
+                                          <td class="info text-right">{{sectionPaiement.montant | dollar}}</td>
+                                          </tr>
+                                    </tbody>
+
+                                    <tfoot>
+                                       <tr>
+                                          <td colspan="3" class="info text-right">Total (paiements, remboursements, ajustements) :</td>
+                                          <td class="active text-right">{{rifCourant.finance.total_section_paiement | dollar}}</td>
+                                          </tr>
+                                    </tfoot>
+                                 </table>
+                                 </td>
+                           </tr>
+                           </tbody>
+
+                        <tfoot>
+                           <tr>
+                              <td class="info text-right">Solde en date du {{rifCourant.generale.en_date_du | dateComplete}}
+                              </td>
+                              <td class="warning text-right">{{rifCourant.finance.solde_global | dollar}}</td>
+                              <td class="info text-center hidden-print"></td>
+                           </tr>
+                           </tfoot>
+                     </table>
+                     </div>
+
+                  <div ng-show="rifCourant.finance.min_req_exig_mt!=0" class="bg-warning">
+                     <p><strong>Paiement minimum requis</strong> {{rifCourant.finance.min_req_exig_dt | lowercase}} : {{rifCourant.finance.min_req_exig_mt | dollar}}</p>
+                     </div>
+
+                  <div class="pull-left hidden-print">
+                     <p><a class="text-uppercase" href="/paiement#haut">Consulter les méthodes de paiement<span class="badge hidden-print">
+                        <span class="uqam-icone uqam-icone-sm dollars_blanc"></span></span></a>
+                        </p>
+                  </div>
+
+                  <div class="pull-right">
+                     <p class="text-info">Code de paiement :
+                        <span class="bg-primary">
+                           <!--<span class="bg-primary text-uppercase">-->M{{utilisateur().code_perm}}<!--</span>-->
+                           <button ng-if="rifCourant.generale.aideFacture.codePaiement.length >0"
+                                          popover="{{rifCourant.generale.aideFacture.codePaiement | capitalize}}"
+                                          popover-trigger="{{deviceEvent}}"
+                                          type="button"
+                                          class="badge pull-right btn btn-info hidden-print code-paiement">
+                                        <span class="uqam-icone uqam-icone-sm interrogation_blanc"></span>
+                                        </button>
+                                        </span>
+                     </p>
+                     </div>
+               </div>
+
+
+               <!-- FACTURE — TRIMESTRE-->
+
+               <!-- Vérifier si on doit afficher la facture (seulement s'il y a des données). -->
+               <div ng-show=" rifCourant.academique.programmes.length > 0">
+                  <h3 class="text-uppercase">Facture — trimestre D'{{trimestreCourant | trimestre }}</h3>
+                  <div class="facture">
+
+                     <!-- DROITS DE SCOLARITÉ ET FRAIS PAR CRÉDIT-->
+                     <h4 class="text-uppercase">Droits de scolarité et frais par crédit</h4>
+                     <p>Cours enregistrés à votre dossier pour le trimestre d'<strong>{{trimestreCourant | trimestre}}</strong> en date du {{rifCourant.generale.en_date_du | dateComplete}}.</p>
+
+                     <div ng-repeat="programme in rifCourant.academique.programmes">
+
+                        <h5>{{programme.titreAbrege}} ({{programme.code}})</h5>
+
+                        <div class="table-responsive">
+                           <table class="table table-bordered table-condensed">
+                              <thead class="text-uppercase">
+                                 <tr>
+                                    <th style="width:11.6883%;">Sigle</th>
+                                    <th style="width:35.5584%;">Titre du cours</th>
+                                    <th style="width:9.0909%;">Crédits</th>
+                                    <th style="width:15.5844%;">Statut</th>
+                                    <th style="width:20.2857%;" class="info text-right">Montant</th>
+                                    <th style="width:7.7922%;" class="text-center hidden-print">Détail</th>
+                                 </tr>
+                                 </thead>
+
+                              <tbody ng-repeat="activite in programme.activitesSuivies">
+                                 <!-- COURS-->
+                                 <tr>
+                                    <td>{{activite.activite}}</td>
+                                    <td>{{activite.titreCours}}</td>
+                                    <td class="text-center">{{activite.nbCredits}}</td>
+
+                                    <td>{{activite.statut}}
+                                       <button
+                                             ng-if="activite.texteDescriptif.length > 0"
+                                            popover="{{activite.texteDescriptif}}"
+                                           popover-trigger="{{deviceEvent}}"
+                                             popover-append-to-body="true"
+                                            type="button"
+                                             class="pull-right btn btn-info hidden-print">
+                                           <span class="uqam-icone uqam-icone-sm interrogation_blanc"></span>
+                                       </button>
+                                       </td>
+
+                                       <td class="info text-right">{{activite.montant | dollar}}</td>
+                                       <td class="text-center hidden-print">
+                                       <button ng-if="activite.montant != 0" ng-click="changeToggle('coursTrimestre', ''+programme.code+activite.activite)" type="button" class="btn btn-info hidden-print">
+                                          <span ng-class="toggle.coursTrimestre[''+programme.code+activite.activite] ? 'uqam-icone uqam-icone-sm moins-petit_blanc' : 'uqam-icone uqam-icone-sm plus-petit_blanc'"></span>
+                                       </button>
+                                    </td>
+                                 </tr>
+
+                                 <!-- Plus/Moins cours détail -->
+                                 <tr ng-if="activite.detailMontant" ng-show="toggle.coursTrimestre[''+programme.code+activite.activite]">
+                                    <td colspan="6">
+                                       <h4>{{activite.activite}} {{activite.titreCours}}</h4>
+                                       <table class="table table-bordered table-condensed">
+                                          <thead class="text-uppercase">
+                                             <tr>
+                                                <th style="width:80%;">Description</th>
+                                                <th style="width:20%;" class="info text-right">Montant</th>
+                                             </tr>
+                                          </thead>
+
+                                          <tbody>
+                                             <tr ng-repeat="detail in activite.detailMontant">
+                                                <td>{{detail.desc_trans | capitalize}}
+                                                   <button ng-if="detail.texteDescriptif.length >0"
+                                                         popover="{{detail.texteDescriptif}}"
+                                                        popover-trigger="{{deviceEvent}}"
+                                                         popover-append-to-body="true"
+                                                         type="button"
+                                                        class="pull-right btn btn-info hidden-print">
+                                                        <span class="uqam-icone uqam-icone-sm interrogation_blanc"></span>
+                                                        </button>
+                                                </td>
+                                                <td class="info text-right">{{detail.montant | dollar}}</td>
+                                             </tr>
+                                             </tbody>
+
+                                             <tfoot>
+                                             <tr>
+                                                <td class="info text-right">Total (cours {{activite.activite}}) :</td>
+                                                <td class="active text-right">{{activite.montant | dollar}}</td>
+                                             </tr>
+                                             </tfoot>
+                                       </table>
+                                       </td>
+                                 </tr>
+                                 </tbody>
+
+                              <!-- SOUS TOTAL DROIT DE SCOLARITÉ -->
+                              <tfoot>
+                                 <tr>
+                                    <!-- Attention comme on est pas dans tfoot ajout des attributs de texte -->
+                                    <td style="font-size:112.5%; font-weight:bold; border-top:#004e68 3px solid;" class="info text-right" colspan="4">Sous-total (droits de scolarité et frais par crédit) :
+                                       </td>
+                                    <td style="font-size:112.5%; font-weight:bold; border-top:#004e68 3px solid;" class="active text-right">
+                                       {{programme.montant | dollar }}
+                                    </td>
+                                    <td style="font-size:112.5%; font-weight:bold; border-top:#004e68 3px solid;" class="info text-center hidden-print">
+                                       <button type="button" class="btn btn-info hidden-print" ng-click="changeToggle('droitScolarite', $index)" ng-if="programme.detailMontantProg.length != 0">
+                                          <span ng-class="toggle.droitScolarite[$index] ? 'uqam-icone uqam-icone-sm moins-petit_blanc' : 'uqam-icone uqam-icone-sm plus-petit_blanc'"></span>
+                                       </button>
+                                       </td>
+                                 </tr>
+
+                                 <!-- Sommaire programme détail -->
+                                 <tr class="">
+                                    <td colspan="6" style="padding:0">
+                                       <table style='width:80%' class="table table-condensed table-bordered" ng-show="toggle.droitScolarite[$index]">
+
+                                          <thead class="text-uppercase">
+                                             <tr>
+                                                <th style="width:80%;">Sommaire - programme</th>
+                                                <th style="width:20%;" class="info text-right">Montant</th>
+                                                </tr>
+                                          </thead>
+
+                                          <tbody ng-repeat="cout in programme.detailMontantProg">
+                                             <tr>
+                                                <td>{{cout.desc_trans | capitalize }}
+                                                   <button ng-if="cout.texteDescriptif.length > 0"
+                                                         popover="{{cout.texteDescriptif}}"
+                                                         popover-trigger="{{deviceEvent}}"
+                                                         popover-append-to-body="true"
+                                                         type="button"
+                                                         class="pull-right btn btn-info hidden-print">
+                                                      <span class="uqam-icone uqam-icone-sm interrogation_blanc"></span>
+                                                      </button>
+                                                </td>
+                                                <td class="info text-right">{{cout.montant | dollar}}</td>
+                                             </tr>
+                                          </tbody>
+
+                                          <tfoot>
+                                             <tr>
+                                                <td class="info text-right">Sous-total :</td>
+                                                <td class="active text-right">{{programme.montant | dollar }}</td>
+                                                </tr>
+                                          </tfoot>
+                                       </table>
+                                       </td>
+                                       </tr>
+                                       </tfoot>
+                           </table>
+                           </div>
+                           </div>
+                     <!-- fin ng-repeat="programme -->
+
+
+                     <!-- AUTRES - FRAIS. Ça va dans le même tableau que les trimestres.-->
+                     <div ng-if="rifCourant.finance.detail_section_autres_frais.length != 0">
+                        <h5>Autres frais</h5>
+                        <div class="autres-frais">
+                           <div class="table-responsive">
+                              <table class="table table-bordered table-condensed">
+                                 <thead class="text-uppercase">
+                                    <tr>
+                                       <th style="width:71.9220%;">Description</th>
+                                       <th style="width:20.2857%;" class="info text-right">Montant</th>
+                                       <th style="width:7.7922%;" class="text-center hidden-print">Détail</th>
+                                       </tr>
+                                 </thead>
+
+                                 <tbody>
+                                    <tr ng-repeat="transaction in rifCourant.finance.detail_section_autres_frais | filter : {trim_num : trimestreCourant} | orderBy:'rang_affichage'">
+                                       <td>{{transaction.desc_trans | capitalize}}
+
+
+                                          <button ng-if="transaction.texteDescriptif.length > 0"
+                                                popover="{{transaction.texteDescriptif}}"
+                                               popover-trigger="{{deviceEvent}}"
+                                                popover-append-to-body="true"
+                                               type="button"
+                                                class="pull-right btn btn-info hidden-print">
+                                                <span class="uqam-icone uqam-icone-sm interrogation_blanc"></span>
+                                          </button>
+
+                                          </td>
+                                          <td class="info text-right">{{transaction.montant | dollar}}</td>
+                                       <td class="text-center hidden-print"></td>
+                                       </tr>
+                                       </tbody>
+
+                                       <tfoot>
+                                    <tr>
+                                       <td class="info text-right">Sous-total (autre frais) :</td>
+                                       <td class="active text-right">{{rifCourant.finance.total_section_autres_frais | dollar}}
+                                       </td>
+                                       <td class="info text-center hidden-print"></td>
+                                       </tr>
+                                       </tfoot>
+                              </table>
+                              </div>
+                              <!-- Autres frais -->
+
+                           <!-- Total par trimestre-->
+                           <div class="table-responsive">
+                              <table class="table table-bordered table-condensed tableau-total">
+                                 <tbody>
+                                    <tr>
+                                       <td style="width:71.9220%;" class="info text-right">Total :</td>
+                                       <td style="width:20.2857%;" class="warning text-right">
+                                          {{rifCourant.finance.total_facture_trimestre | dollar}}
+                                          </td>
+                                       <td style="width:7.7922%;" class="info text-center hidden-print"></td>
+                                       </tr>
+                                 </tbody>
+                              </table>
+                              </div>
+                        </div>
+                        </div>
+
+
+
+
+                        </div>
+               </div>
+               <!-- fin de la section FACTURE — TRIMESTRE... -->
+
+
+               <!-- 3. COORDONNÉES DES SERVICES FINANCIERS -->
+               <h2 class="hidden-print">Coordonnées des Services financiers (comptes étudiants)</h2>
+               <div class="coordonnees hidden-print">
+                  <div class="col-lg-4">
+                     <h6>Adresse géographique :</h6>
+
+                     <p ng-repeat="geo in rifCourant.generale.coordonnees.adresseGeographique">
+                        {{geo}}
+                        <br>
+                     </p>
+                     <hr class="visible-lg">
+                     </div>
+
+                  <div class="col-lg-4">
+                     <h6>Adresse postale :</h6>
+
+                     <p ng-repeat="postale in rifCourant.generale.coordonnees.adressePostale">
+                        {{postale}}
+                        <br>
+                     </p>
+                     <hr class="visible-lg">
+                  </div>
+
+                  <div class="col-lg-4">
+                     <p>
+                        <span>
+                       <strong>Téléphone :</strong>
+                        <br> {{rifCourant.generale.coordonnees.telephone}}
+                       </span>
+                     </p>
+
+                     <p>
+                        <span>
+                          <strong>Télécopieur :</strong>
+                         <br> {{rifCourant.generale.coordonnees.telecopieur}}
+                       </span>
+                       </p>
+
+                     <p>
+                        <span>
+                       <strong>Courriel :</strong>
+                        <br>
+                        <a href="mailto:{{rifCourant.generale.coordonnees.courriel}}">{{rifCourant.generale.coordonnees.courriel}}</a>
+                       </span>
+                       </p>
+
+                     <p>
+                        <span>
+                          <strong>Site web :</strong>
+                         <br>
+                        <a href="http://{{rifCourant.generale.coordonnees.siteWeb}}" target="_blank">{{rifCourant.generale.coordonnees.siteWeb}}</a>
+                       </span>
+                     </p>
+                     </div>
+               </div>
+
+               <!-- <div VERSION BUREAU -->
+               </div>
+
+         </div>
+         <!-- <div ng-hide="err"> -->
+
+      </div>
+
+      <!-- Afficher les err -->
+      <div class="bg-danger" ng-show="err">
+         <h5>Attention</h5>
+         <p>Attention une erreur est survenue, veuillez essayer plus tard.</p>
+      </div>
+
+      <!-- Afficher les avertissements -->
+      <div class="bg-warning" ng-show="avertissements">
+         <h5>Attention</h5>
+         <p ng-repeat="message in avertissements">{{message}}</p>
+      </div>
+
+
+
+
+   </div>

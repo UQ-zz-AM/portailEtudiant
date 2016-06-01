@@ -1,0 +1,35 @@
+{
+  "name": "pel",
+  "version": "01.07.01",
+  "dependencies": {
+    "angular": "~1.2.*",
+    "json3": "~3.3.1",
+    "es5-shim": "~3.0.1",
+    "jquery": "~1.10.2",
+    "bootstrap-sass-official": "~3.1.1",
+    "bootstrap": "~3.1.1",
+    "angular-resource": "~1.2.*",
+    "angular-cookies": "~1.2.*",
+    "angular-sanitize": "~1.2.*",
+    "angular-route": "~1.2.*",
+    "angular-bootstrap": "~0.12.*",
+    "font-awesome": "~4.1.0",
+    "lodash": "~2.4.1",
+    "angular-svg-png": "*",
+    "angular-ui-calendar": "~0.8.*",
+    "angular-moment": "~0.9.*",
+    "fullcalendar": "~2.3.*",
+    "angular-i18n": "~1.4.*",
+    "modernizr": "2.6.2",
+    "moment": "~2.9.0",
+    "FileSaver": "*"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.2.*",
+    "angular-scenario": "~1.2.*"
+  },
+  "resolutions": {
+    "jquery": "~1.10.2",
+    "fullcalendar": "~2.3.*"
+  }
+}

@@ -1,0 +1,347 @@
+<!-- PROFIL -->
+<div ng-show="isLoggedIn()" class="profil visible-md visible-lg">
+   <div>
+      <p>
+         <img class="pull-left img-thumbnail" src="/assets/images/general/portrait/sans-avatar.jpg" alt="">
+         <span>
+            <strong>
+               {{utilisateur().prenom + ' ' +  utilisateur().nom}}
+            </strong>
+         </span>
+         <br/>
+         {{utilisateur().code_perm}}
+      </p>
+      <p>
+         <button type="button" class="btn btn-link" ng-click="logout()">Se déconnecter</button>
+      </p>
+   </div>
+</div>
+
+<!-- NAVIGATION -->
+<nav class="navbar navbar-default" role="navigation" ng-show="isLoggedIn() && isConsentement()">
+
+   <div class="container-fluid">
+
+      <div class="navbar-header visible-xs visible-sm">
+         <hr>
+         <button class="navbar-toggle collapsed" type="button" ng-click="isCollapsed = !isCollapsed">
+            <span class="sr-only pull-right">Menu</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+         </button>
+      </div>
+
+      <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
+         <ul>
+
+
+            <!-- Menu acceuil -->
+            <li class="profil-mobile visible-xs visible-sm">
+               <div class="clearfix">
+                  <p class="clearfix">
+                     <img class="pull-left" src="/assets/images/general/portrait/sans-avatar.jpg" alt="Photo de profil">
+                     <span class="pull-left">
+                        <strong>
+                           {{utilisateur().prenom + ' ' +  utilisateur().nom}}
+                        </strong>
+                        <br/>
+                        {{utilisateur().code_perm}}
+                     </span>
+                  </p>
+               </div>
+            </li>
+
+            <li ng-class="{ouvert:isActive('/')}">
+               <div class="visible-md visible-lg">
+                  <a class="list-group-item" href="/" ng-click="majMenuRetractable('accueil');">
+                     <span>Accueil</span>
+                  </a>
+               </div>
+               <div class="visible-xs visible-sm">
+                  <a class="list-group-item" href="/" ng-click="majMenuRetractable('accueil'); isCollapsed = !isCollapsed;">
+                     <span>accueil</span>
+                  </a>
+               </div>
+            </li>
+
+
+            <!-- INSCRIPTION -->
+            <li class="parent" ng-model="menuRetractable.inscription" ng-class="{ouvert:autori, ouvert:!menuRetractable.inscription}" >
+               <a href="" class="collapsed" ng-click="majMenuRetractable('inscription')">
+                  <span>Inscription aux cours</span>
+               </a>
+
+               <!-- Menu périodes d'inscription -->
+               <ul collapse="menuRetractable.inscription" class="collapse">
+                  <li ng-class="{ouvert: isActive('/inscription/preparation')}">
+
+                     <!-- Préparation de mon inscription -->
+                     <div class="visible-md visible-lg imprimable">
+                        <a href="/inscription/preparation"><span>Préparation à l'inscription</span></a>
+                     </div>
+                     
+                     <div class="visible-xs visible-sm hidden-print">
+                        <a href="/inscription/preparation" ng-click="isCollapsed = !isCollapsed"><span>Préparation à l'inscription</span></a>
+                     </div>
+                  </li>
+
+                  <!-- Autorisation d'inscription -->
+                  <li ng-class="{ouvert: isActive('/inscription/autori')}">
+
+                     <div class="visible-md visible-lg imprimable">
+                        <a href="/inscription/autori"><span>Mes périodes d'inscription</span></a>
+                     </div>
+                     
+                     <div class="visible-xs visible-sm hidden-print">
+                        <a href="/inscription/autori" ng-click="isCollapsed = !isCollapsed"><span>Mes périodes d'inscription</span></a>
+                     </div>
+                  </li>
+               
+                  <!-- Faire mon inscription -->
+                  <li ng-class="{ouvert: isActive('/inscription/autori/landing')}">
+
+                     <div class="visible-md visible-lg imprimable">
+                        <a href="/inscription/autori/landing">
+                           <span>Faire mon inscription</span>
+                           <span>(ajout de cours, modification, annulation et abandon)</span>
+                        </a>
+                     </div>
+
+                     <div class="visible-xs visible-sm hidden-print">
+                        <a href="/inscription/autori/landing" ng-click="isCollapsed = !isCollapsed">
+                           <span>Faire mon inscription</span>
+                           <span>(ajout de cours, modification, annulation et abandon)</span>
+                        </a>
+                     </div>
+                  </li>
+                  
+                  
+               </ul>
+               
+            </li>
+            
+            
+            <!-- Menu horaire et calendrier -->
+            <li class="parent" ng-model="menuRetractable.calHor" ng-class="{ouvert:calHor, ouvert:!menuRetractable.calHor}" >
+               <a href="" class="collapsed" ng-click="majMenuRetractable('calHor')">
+                  <span>Horaire personnel et locaux</span>
+               </a>
+
+               <ul collapse="menuRetractable.calHor" class="collapse">
+
+                  <li ng-class="{ouvert: isActive('/calendrier')}">
+
+                     <div class="visible-md visible-lg imprimable">
+                        <a href="/calendrier">
+                          <span>Calendrier</span>
+                        </a>
+                     </div>
+
+                     <div class="visible-xs visible-sm hidden-print">
+                        <a href="/calendrier" ng-click="isCollapsed = !isCollapsed">
+                          <span>Calendrier</span>
+                        </a>
+                     </div>
+
+                  </li>
+
+                  <li ng-class="{ouvert: isActive('/horaire/{{unTrimestre.trim_num}}')}" ng-repeat="unTrimestre in utilisateur().trimestresCourants | orderBy : '-trim_num' ">
+
+                     <div class="visible-md visible-lg imprimable">
+                        <a href="/horaire/{{unTrimestre.trim_num}}">
+                          <span>Horaire - {{unTrimestre.trim_num | trimestre }}</span>
+                        </a>
+                     </div>
+
+                     <div class="visible-xs visible-sm hidden-print">
+                        <a href="/horaire/{{unTrimestre.trim_num}}" ng-click="$parent.isCollapsed = !$parent.isCollapsed">
+                          <span>Horaire - {{unTrimestre.trim_num | trimestre }}</span>
+                        </a>
+                     </div>
+
+                  </li>
+                  
+               </ul>
+            </li>
+
+            <!-- Menu résultats et notes -->
+            <li class="parent" ng-model="menuRetractable.ren" ng-class="{ouvert:ren, ouvert:!menuRetractable.ren}" >
+               <a href="" class="collapsed" ng-click="majMenuRetractable('ren')">
+                  <span>Notes et résultats</span>
+               </a>
+
+               <ul collapse="menuRetractable.ren" class="collapse">
+
+                  <li ng-class="{ouvert: isActive('/releve')}">
+
+                     <div class="visible-md visible-lg imprimable">
+                        <a href="/releve"><span>Relevés de notes</span></a>
+                     </div>
+
+                     <div class="visible-xs visible-sm hidden-print">
+                        <a href="/releve" ng-click="isCollapsed = !isCollapsed"><span>Relevés de notes</span></a>
+                     </div>
+
+                  </li>
+
+                  <li ng-class="{ouvert: isActive('/resultats/' + utilisateur().trimestresCourants[2].trim_num)}">
+
+                     <div class="visible-md visible-lg imprimable">
+                        <a href="/resultats/{{utilisateur().trimestresCourants[2].trim_num}}">
+                          <span>Résultats - {{utilisateur().trimestresCourants[2].trim_num | trimestre}}</span>
+                        </a>
+                     </div>
+
+                     <div class="visible-xs visible-sm hidden-print">
+                        <a href="/resultats/{{utilisateur().trimestresCourants[2].trim_num}}" ng-click="isCollapsed = !isCollapsed">
+                          <span>Résultats - {{utilisateur().trimestresCourants[2].trim_num | trimestre}}</span>
+                        </a>
+                     </div>
+
+                  </li>
+
+                  <li ng-class="{ouvert: isActive('/resultats/' + utilisateur().trimestresCourants[1].trim_num)}">
+
+                     <div class="visible-md visible-lg imprimable">
+                        <a href="/resultats/{{utilisateur().trimestresCourants[1].trim_num}}">
+                          <span>Résultats - {{utilisateur().trimestresCourants[1].trim_num | trimestre}}</span>
+                        </a>
+                     </div>
+
+                     <div class="visible-xs visible-sm hidden-print">
+                        <a href="/resultats/{{utilisateur().trimestresCourants[1].trim_num}}" ng-click="isCollapsed = !isCollapsed">
+                          <span>Résultats - {{utilisateur().trimestresCourants[1].trim_num | trimestre}}</span>
+                        </a>
+                     </div>
+
+                  </li>
+
+                  <li ng-class="{ouvert: isActive('/resultats/' + utilisateur().trimestresCourants[0].trim_num)}">
+
+                     <div class="visible-md visible-lg imprimable">
+                        <a href="/resultats/{{utilisateur().trimestresCourants[0].trim_num}}">
+                          <span>Résultats - {{utilisateur().trimestresCourants[0].trim_num | trimestre}}</span>
+                        </a>
+                     </div>
+
+                     <div class="visible-xs visible-sm hidden-print">
+                        <a href="/resultats/{{utilisateur().trimestresCourants[0].trim_num}}" ng-click="isCollapsed = !isCollapsed">
+                          <span>Résultats - {{utilisateur().trimestresCourants[0].trim_num | trimestre}}</span>
+                        </a>
+                     </div>
+
+                  </li>
+
+               </ul>
+            </li>
+
+
+            <!-- Évaluation de l'enseignement -->
+            <!--li class="parent" ng-model="menuRetractable.evaluation" ng-class="{ ouvert:evaluation, ouvert:!menuRetractable.evaluation}" >
+               <a href="/evaluation" class="collapsed" ng-click="majMenuRetractable('evaluation')">
+                  <span>Évaluation de l’enseignement</span>
+               </a>
+            </li-->
+
+            <li ng-class="{ouvert:(isActive('/evaluation') || isActivePartiel('/faireeval'))}">
+               <div class="visible-md visible-lg">
+                  <a class="list-group-item" href="/evaluation" ng-click="majMenuRetractable('evaluation');">
+                     <span>Évaluation de l'enseignement</span>
+                  </a>
+               </div>
+               <div class="visible-xs visible-sm">
+                  <a class="list-group-item" href="/evaluation" ng-click="majMenuRetractable('evaluation'); isCollapsed = !isCollapsed;">
+                     <span>Évaluation de l'enseignement</span>
+                  </a>
+               </div>
+            </li>
+
+
+            <!-- Menu factures et impôts -->
+            <li class="parent" ng-model="menuRetractable.facture" ng-class="{ouvert:facture, ouvert:!menuRetractable.facture}" >
+               <a href="" class="collapsed" ng-click="majMenuRetractable('facture')">
+                  <span>Factures et impôts</span>
+               </a>
+
+               <ul collapse="menuRetractable.facture" class="collapse">
+
+                  <li ng-class="{ouvert: isActive('/rif')}">
+
+                     <div class="visible-md visible-lg imprimable">
+                        <a href="/rif"><span>Facture courante et solde</span></a>
+                     </div>
+
+                     <div class="visible-xs visible-sm hidden-print">
+                        <a href="/rif" ng-click="isCollapsed = !isCollapsed"><span>Facture courante et solde</span></a>
+                     </div>
+
+                  </li>
+
+                  <li ng-class="{ouvert: isActive('/factHisto')}">
+
+                     <div class="visible-md visible-lg imprimable">
+                        <a href="/factHisto"><span>Factures antérieures</span></a>
+                     </div>
+
+                     <div class="visible-xs visible-sm hidden-print">
+                        <a href="/factHisto" ng-click="isCollapsed = !isCollapsed"><span>Factures antérieures</span></a>
+                     </div>
+
+                  </li>
+
+                  <li ng-class="{ouvert: isActive('/paiement')}">
+
+                     <div class="visible-md visible-lg imprimable">
+                        <a href="/paiement"><span>Méthodes de paiement</span></a>
+                     </div>
+
+                     <div class="visible-xs visible-sm hidden-print">
+                        <a href="/paiement" ng-click="isCollapsed = !isCollapsed"><span>Méthodes de paiement</span></a>
+                     </div>
+
+                  </li>
+
+                  <li ng-class="{ouvert: isActive('/recu')}">
+
+                     <div class="visible-md visible-lg imprimable">
+                        <a href="/recu"><span>Relevés d'impôts</span></a>
+                     </div>
+
+                     <div class="visible-xs visible-sm hidden-print">
+                        <a href="/recu" ng-click="isCollapsed = !isCollapsed"><span>Relevés d'impôts</span></a>
+                     </div>
+                  </li>
+                  
+               </ul>
+            </li>
+
+
+            <!-- Menu documents Opus -->
+            <li class="parent" ng-model="menuRetractable.docu" ng-class="{ouvert:docu, ouvert:!menuRetractable.docu}" >
+               <a href="" class="collapsed" ng-click="majMenuRetractable('docu')">
+                  <span>Attestation carte OPUS</span>
+               </a>
+               <ul collapse="menuRetractable.docu" class="collapse">
+                  <li ng-class="{ouvert: isActive('/opus/{{unTrimestre.trim_num}}')}" ng-repeat="unTrimestre in utilisateur().trimestresCourants | orderBy : '-trim_num' ">
+                     <div class="visible-md visible-lg imprimable">
+                        <a href="/opus/{{unTrimestre.trim_num}}">
+                          <span>OPUS - {{unTrimestre.trim_num | trimestre }}</span>
+                        </a>
+                     </div>
+                     <div class="visible-xs visible-sm hidden-print">
+                        <a href="/opus/{{unTrimestre.trim_num}}" ng-click="$parent.isCollapsed = !$parent.isCollapsed">
+                          <span>OPUS - {{unTrimestre.trim_num | trimestre }}</span>
+                        </a>
+                     </div>
+                  </li>
+               </ul>
+            </li>
+
+
+         </ul>
+
+
+      </div>
+   </div>
+</nav>

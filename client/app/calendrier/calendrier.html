@@ -1,0 +1,264 @@
+
+<!--
+/*  @license
+
+    Copyright 2014-2016 Université du Québec à Montréal (UQAM)
+
+    This file is part of Portail Étudiant.
+
+    Portail Étudiant is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Portail Étudiant is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Portail Étudiant. If not, see <http://www.gnu.org/licenses/>.
+
+
+    Ce fichier fait partie de l'application Portail Étudiant.
+
+    Portail Étudiant est un logiciel libre ; vous pouvez le redistribuer ou
+    le modifier suivant les termes de la GNU General Public License telle que
+    publiée par la Free Software Foundation ; soit la version 3 de la licence,
+    soit (à votre gré) toute version ultérieure.
+
+    Portail Étudiant est distribué dans l'espoir qu'il sera utile, mais
+    SANS AUCUNE GARANTIE ; sans même la garantie tacite de QUALITÉ MARCHANDE
+    ou d'ADÉQUATION à UN BUT PARTICULIER. Consultez la GNU General Public
+    License pour plus de détails.
+
+    Vous devez avoir reçu une copie de la GNU General Public License en même
+    temps que Portail Étudiant ; si ce n'est pas le cas,
+    consultez <http://www.gnu.org/licenses>.
+*/
+-->
+
+<section class="sous-entete clearfix hidden-print">
+   <h1 ng-hide="coursCourant" class="text-uppercase hidden-print">
+      Calendrier
+   </h1>
+
+   <h1 ng-show="coursCourant" class="text-uppercase hidden-print">
+      Horaire du cours
+   </h1>
+
+   <a ng-hide="coursCourant" href="" onclick="window.print();return false" class="pull-right clearfix hidden-print text-uppercase visible-md visible-lg">
+    Imprimer
+    <span class="uqam-icone uqam-icone-sm impression_bleu-etudiant pull-right"></span>
+  </a>
+
+  <div ng-show="coursCourant">
+     <br/>
+     <button ng-click="removeCoursCourant()" type="button" class="btn btn-info text-uppercase pull-left hidden-print">Retour au calendrier</button>
+  </div>
+</section>
+
+<div class="bg-info" ng-show="aucunHoraire">
+   <h5>À noter</h5>
+   <p>Il n'y a aucun horaire au dossier.</p>
+</div>
+
+
+<div ng-hide="err || avertissements">
+
+  <!-- ************************************************************************************************************* -->
+  <!-- VERSION MOBILE | COURS -->
+  <div ng-show="coursCourant" class="cours-container visible-xs">
+    <div class="text-right">
+      <table class="text-left">
+        <tbody>
+          <tr>
+            <td style="vertical-align:top;" class="text-left">
+              <h2>{{coursCourant.sigle}}</h2>
+              <h2>{{coursCourant.titre}}</h2>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div afficher-cours param-cours="coursCourant"></div>
+  </div>
+
+  <!-- ************************************************************************************************************* -->
+  <!-- VERSION BUREAU | COURS -->
+  <div ng-show="coursCourant" class="cours-container visible-sm visible-md visible-lg">
+    <div class="clearfix">
+      <table style="width:100%;">
+        <tr>
+          <td style="width:17.5%; vertical-align:top;"><h2 class="pull-left">{{coursCourant.sigle}}</h2></td>
+          <td style="width:82.5%; vertical-align:top;"><h2 class="pull-left">{{coursCourant.titre}}</h2></td>
+        </tr>
+      </table>
+    </div>
+    <div afficher-cours param-cours="coursCourant"></div>
+  </div>
+
+  <!-- ************************************************************************************************************* -->
+  <!-- CALENDRIER -->
+   <div ng-hide="coursCourant" class="calendrier">
+      <!-- ENTÊTE IMPRESSION -->
+      <div class="entete-impression visible-print-block">
+        <div class="table-responsive">
+           <table class="table">
+              <tbody>
+                 <tr>
+                    <td style="width:63.8554%; padding:0 15px 15px 0;">
+                       <img class="pull-left" src="/assets/images/general/logo/logo_uqam-general-imprimer_noir.svg" alt="UQAM">
+                    </td>
+
+                    <td style="width:36.1445%; padding:0 0 15px 15px;">
+                       <h4 class="text-uppercase">{{utilisateur().prenom}} {{utilisateur().nom}}</h4> {{utilisateur().adresse_l1}}
+                       <br/>{{utilisateur().adresse_l2}}<br/>{{utilisateur.etudiant.adresse_l3}}
+                    </td>
+                 </tr>
+              </tbody>
+
+              <tfoot>
+                 <tr>
+                    <td>
+                       <strong>Date d’impression : </strong>{{dateImpression | dateComplete}}
+                    </td>
+
+                    <td>
+                       <strong>Code permanent : </strong><span class="text-uppercase">{{utilisateur().code_perm}}</span>
+                    </td>
+                 </tr>
+              </tfoot>
+           </table>
+        </div>
+      </div>
+
+      <section class="sous-entete clearfix visible-print-block">
+        <h1 class="text-uppercase">
+          Calendrier - semaine du {{startDate}} au {{endDate}}
+        </h1>
+      </section>
+
+      <div class="entete-calendrier hidden-print">
+         <table class="table col-lg-12">
+            <tr>
+               <th>
+                  <div class="pull-left" ng-show="!telephone">
+                     <div><!--col-lg-5 col-xs-12-->
+                       <label class="text-uppercase">Choisir un mois</label><!--col-lg-5 col-xs-12-->
+                       <div class="visible-xs clearfix"></div>
+                       <div><!--class="col-lg-7 col-xs-12"-->
+                          <div class="select-form-control">
+                             <!-- Menu dynamique pour naviguer par mois -->
+                             <select class="form-control" ng-change="changeMenu()" ng-options="(menu.libel | capitalize) for menu in menus" ng-model="menuSelectionne">
+                             </select>
+                          </div>
+                       </div>
+                    </div>
+                  </div>
+
+                  <div class="pull-left" ng-show="telephone">
+                    <label class="pull-left text-uppercase">Choisir un jour</label>
+                    <div class="visible-xs clearfix"></div>
+                    <div class="select-date-control">
+                      <input
+                      ng-model="dateTelephone"
+                      type="date"
+                      ng-change="changeDate()">
+                    </div>
+                  </div>
+
+                  <div class="pull-left"><!--col-lg-1 visible-lg-->
+                    <hr>
+                  </div>
+
+                  <div class="pull-left"><!--col-lg-6 col-xs-12-->
+                    <button ng-click="calAction('today')" type="button" class="fc-today-button btn btn-info text-uppercase">Aujourd'hui</button>
+                  </div>
+
+               </th>
+            </tr>
+
+            <tr>
+               <td>
+                  <div class="ddt col-lg-12 text-center">
+                     <h5 class = "hidden-print">
+                       <span ng-show="!telephone">Semaine du {{startDate}} au {{endDate}}</span>
+                       <span ng-show="telephone">{{endDate}}</span>
+                     </h5>
+                  </div>
+
+                  <div class="col-xs-12 hidden-print">
+
+                     <a ng-click="calAction('prev')" class="pull-left text-uppercase" ng-show="!telephone" title="Semaine précédente"></a>
+
+                     <a ng-click="calAction('next')" class="pull-right text-uppercase" ng-show="!telephone" title="Semaine suivante"></a>
+
+                     <a ng-click="calAction('prev')" class="pull-left text-uppercase" ng-show="telephone" title="Jour précédent"></a>
+
+                     <a ng-click="calAction('next')" class="pull-right text-uppercase" ng-show="telephone" title="Jour suivant"></a>
+                  </div>
+               </td>
+            </tr>
+         </table>
+      </div>
+
+      <!-- Est-ce qu'on affiche le calendrier s'il n'y a aucun événement -->
+      <div ui-calendar="uiConfig.calendar" ng-model="eventsSource" calendar="myCalendar"></div>
+
+
+      <div class="calendrierLiensSupplementaires hidden-print" ng-show="cal.programmes.length == 0">
+         <div class="col-lg-12">
+            <hr class="visible-lg">
+            <p>
+              <a href="http://www.etudier.uqam.ca/calendrier" target="_blank">Calendrier universitaire <span class="uqam-icone uqam-icone-sm fleche-horizontal_bleu"></span></a>
+              <br>
+              <a href="http://www.evenements.uqam.ca/" target="_blank">Calendrier des événements UQAM <span class="uqam-icone uqam-icone-sm fleche-horizontal_bleu"></span></a>
+            </p>
+            <hr>
+         </div>
+      </div>
+
+      <div class="calendrierLiensSupplementaires hidden-print" ng-show="cal.programmes.length > 0">
+         <div class="col-lg-6">
+            <div>
+               <hr>
+               <h4>Légende</h4>
+               <ul>
+                  <li ng-repeat="prog in cal.programmes">{{prog.titre_prog + ' ('+ prog.code_prog +')'| capitalize}}</li>
+                  <li ng-show="examenPresent">Examen</li>
+               </ul>
+
+               <hr style="margin-top:-7px;">
+            </div>
+         </div>
+
+         <div class="col-lg-1"></div>
+
+         <div class="col-lg-5">
+            <hr class="visible-lg">
+            <h4>Liens connexes</h4>
+            <p>
+              <a href="http://www.etudier.uqam.ca/calendrier" target="_blank">Calendrier universitaire <span class="uqam-icone uqam-icone-sm fleche-horizontal_bleu"></span></a>
+              <br>
+              <a href="http://www.evenements.uqam.ca/" target="_blank">Calendrier des événements UQAM <span class="uqam-icone uqam-icone-sm fleche-horizontal_bleu"></span></a>
+            </p>
+            <hr>
+         </div>
+      </div>
+   </div>
+
+</div>
+
+
+<!-- Afficher les err -->
+<div class="bg-danger" ng-show="err">
+   <h5>Attention</h5>
+   <p>Attention une erreur est survenue, veuillez essayer plus tard.</p>
+</div>
+
+<!-- Afficher les avertissements -->
+<div class="bg-warning" ng-show="avertissements">
+   <p ng-repeat="message in avertissements">{{message}}</p>
+</div>

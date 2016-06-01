@@ -1,0 +1,500 @@
+/* INSCRIPTION - FAIRE MON INSCRIPTION */
+/* ---------------------------------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------------------------------- */
+
+.contenu-droite hr.section-style{background:#7fa7b3; display:block; width:100%; height:10px; margin:30px 0 0 0; padding:0; border:none; clear:both;}
+.contenu-droite hr.section-style-last{margin:0 0 30px 0;}
+.contenu-droite h2.section-style{background:#004e68; margin:5px 0 5px 0; padding:15px; color:#fff; text-align:center;}
+
+
+/* TODO A DEPLACER */
+
+/* Martin */
+
+.inscription ul.dropdown-menu {
+  height: 200px;
+  overflow-y: auto;
+}
+.inscription ul.dropdown-menu li{
+   list-style-type: none !important;
+   margin-left:-30px;
+   padding-bottom:0; /* Ajout multiple. */
+}
+
+div#messageOverlay {
+   overflow:scroll;
+   background-color:black;
+   background:rgba(0, 0, 0, 0.80);
+   display: block;
+   position: fixed;
+   padding:0px;
+   left: 0px;
+   top: 0px;
+   width:100%;
+   height:100%;
+   z-index: 9999;
+}
+
+div#messageOverlay > div {
+   max-width:800px;
+   position: static;
+   overflow: hidden;
+   background-color: white;
+   width:90%;
+   margin: 100px auto;
+   border:1px solid #000;
+   padding:15px;
+}
+
+.inscription .btn-warning{font-size:85%; font-family:'Conv_Dosis-Bold',arial,sans-serif;}
+
+/* Grosseur du bouton dans les boîtes de confirmation */
+.inscription .confirmation {font-size:100%;}
+
+/* Positionnement du X dans le bouton confirmer des boîtes de confirmation. */
+.inscription .confirmation img{margin-top:3px;}
+
+/* liens sans soulignement. */
+.inscription .bg-uqam a {text-decoration:none; text-transform:none;}
+
+
+.fraisGeneraux{
+	/* Box */
+	background-color: rgb(229, 237, 240);
+   border-top: 1px solid rgb(120, 185, 203);
+	margin: 0;
+	padding: 10px 20px;   
+   float:left;
+   width:100%;
+}
+
+.inscription .changerProgramme {
+   color:white;
+   margin-top:-15px;
+   margin-bottom:10px;
+}
+
+/* Liste dans les boites */
+.inscription .faire-inscription .tabs div .tab-content .tab-pane .list-message .bg-uqam ul {
+   padding:0;
+   text-align: left;
+}
+.inscription .faire-inscription .list-message .bg-uqam ul li {
+   padding-bottom:0;
+}
+.inscription .faire-inscription .list-message ul li:before {
+   background:white;
+}
+
+/* Alignement de la boîte succes*/
+.inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(2) div.bg-success {margin-left: 0}
+.inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(2) div.bg-danger {margin-left: 0}
+
+
+.inscription .faire-inscription .select-form-control select {font-weight: bold;}
+
+
+/* ------------------------------------------------------------------------- */
+/* Ajout multiple */
+.greenPop .popover{
+   background-color:green;
+   border:1px solid green;
+   -webkit-box-shadow: 3px 3px 5px 0 rgba(0, 128, 0, 1);
+   -moz-box-shadow:    3px 3px 5px 0 rgba(0, 128, 0, 1);
+   box-shadow:         3px 3px 5px 0 rgba(0, 128, 0, 1);
+}
+.greenPop .popover > .arrow:after{
+    background:green;
+}
+.greenPop  .popover.top > .arrow:after{
+   border:none;
+}
+.greenPop  .popover.left > .arrow:after{
+   border:none;
+}
+
+.redPop .popover{
+   background-color:#a71700;
+   border:1px solid #a71700;
+   -webkit-box-shadow: 3px 3px 5px 0 rgba(167, 23, 0, 1);
+   -moz-box-shadow:    3px 3px 5px 0 rgba(167, 23, 0, 1);
+   box-shadow:         3px 3px 5px 0 rgba(167, 23, 0, 1);
+}
+.redPop .popover > .arrow:after{
+    background:#a71700;
+}
+.redPop  .popover.top > .arrow:after{
+   border:none;
+}
+.redPop  .popover.left > .arrow:after{
+   border:none;
+}
+
+
+/* ------------------------------------------------------------------------- */
+
+
+
+/* FIN DE A DEPLACER */
+
+
+
+
+
+.inscription{}
+    .inscription .faire-inscription{}
+
+    
+        /* GÉNÉRAL */
+        .inscription .faire-inscription .disabled{pointer-events:none;}
+        
+        /* Uniformiser les titres des programmes dans l'incription*/
+        .inscription .faire-inscription h2 {text-transform:none;}
+
+        /* BG-UQAM GROUP 3 - PAGE 1 */
+        .inscription .faire-inscription .bg-group-3{display:table; width:100%; padding:0 0 15px 0;}
+            .inscription .faire-inscription .bg-group-3 .bg-uqam{display:table-cell; width:33.3333%; height:100%; margin:0; padding:0; border:0; vertical-align:top;}
+            .inscription .faire-inscription .bg-group-3 .bg-uqam:last-child{margin:0;}
+            .inscription .faire-inscription .bg-group-3 .bg-uqam:nth-child(1){border-right:15px solid #fff;}
+            .inscription .faire-inscription .bg-group-3 .bg-uqam:nth-child(2){border-right:8px solid #fff;}
+            .inscription .faire-inscription .bg-group-3 .bg-uqam:nth-child(3){border-left:7px solid #fff;}
+                
+                .inscription .faire-inscription .bg-group-3 .bg-uqam div{padding:22px; border:#78b9cb 1px solid;}
+                  
+                
+                    .inscription .faire-inscription .bg-group-3 .bg-uqam h3{display:block; margin:0; padding:0;}
+                        .inscription .faire-inscription .bg-group-3 .bg-uqam h3 a,
+                        .inscription .faire-inscription .bg-group-3 .bg-uqam h3 a:link{display:block;}
+                        .inscription .faire-inscription .bg-group-3 .bg-uqam h3 a:hover{text-decoration:none;}
+                            
+                            .inscription .faire-inscription .bg-group-3 .bg-uqam h3 a span{}
+                            .inscription .faire-inscription .bg-group-3 .bg-uqam h3 a .uqam-icone{}
+                            .inscription .faire-inscription .bg-group-3 .bg-uqam h3 a .uqam-icone-md{background:#00ade6; margin:-2px 0 0 0; border-radius:50%;}
+                            .inscription .faire-inscription .bg-group-3 .bg-uqam h3 a:hover .uqam-icone-md{background:#0079a0;}
+
+                                .inscription .faire-inscription .bg-group-3 .bg-uqam h3 a span span{}
+                                .inscription .faire-inscription .bg-group-3 .bg-uqam h3 a span .uqam-icone{}
+                                .inscription .faire-inscription .bg-group-3 .bg-uqam h3 a span .icone_fleche-titre_blanc{margin:8px 7px 0 0;}
+
+        /* BLOC TRIMESTRE - PAGE 1 */
+        .inscription .faire-inscription .bloc-trimestre{position:relative;float:left;display:block; width:33.33%; padding:0 0 15px 0;}
+            .inscription .faire-inscription .bloc-trimestre .bg-uqam{display:table-cell; width:33.3333%; height:100%; margin:0; padding:0; border:0; vertical-align:top;}
+            .inscription .faire-inscription .bloc-trimestre .bg-uqam:last-child{margin:0;}
+            .inscription .faire-inscription .bloc-trimestre .bg-uqam:nth-child(1){border-right:15px solid #fff;}
+            .inscription .faire-inscription .bloc-trimestre .bg-uqam:nth-child(2){border-right:8px solid #fff;}
+            .inscription .faire-inscription .bloc-trimestre .bg-uqam:nth-child(3){border-left:7px solid #fff;}
+                
+                .inscription .faire-inscription .bloc-trimestre .bg-uqam div{padding:22px; border:#78b9cb 1px solid;}
+                    .inscription .faire-inscription .bloc-trimestre .bg-uqam h3{display:block; margin:0; padding:0;}
+                        .inscription .faire-inscription .bloc-trimestre .bg-uqam h3 a,
+                        .inscription .faire-inscription .bloc-trimestre .bg-uqam h3 a:link{display:block;}
+                        .inscription .faire-inscription .bloc-trimestre .bg-uqam h3 a:hover{text-decoration:none;}
+                            
+                            .inscription .faire-inscription .bloc-trimestre .bg-uqam h3 a span{}
+                            .inscription .faire-inscription .bloc-trimestre .bg-uqam h3 a .uqam-icone{}
+                            .inscription .faire-inscription .bloc-trimestre .bg-uqam h3 a .uqam-icone-md{background:#00ade6; margin:-2px 0 0 0; border-radius:50%;}
+                            .inscription .faire-inscription .bloc-trimestre .bg-uqam h3 a:hover .uqam-icone-md{background:#0079a0;}
+
+                                .inscription .faire-inscription .bloc-trimestre .bg-uqam h3 a span span{}
+                                .inscription .faire-inscription .bloc-trimestre .bg-uqam h3 a span .uqam-icone{}
+                                .inscription .faire-inscription .bloc-trimestre .bg-uqam h3 a span .icone_fleche-titre_blanc{margin:8px 7px 0 0;}
+
+        
+        /* FORM - PAGE 2 & 3 */
+        .inscription .faire-inscription .form{margin:0 0 45px 0;}
+
+        /*
+        .inscription .faire-inscription .bg-group-4a{display:table; width:100%; border-bottom:4px solid #fff;}
+            .inscription .faire-inscription .bg-group-4a .bg-uqam{display:table-cell; background:#014e68; width:25%; height:100%; margin:0; border:0; vertical-align:top;}
+                .inscription .faire-inscription .bg-group-4a .bg-uqam:nth-child(1){width:33.33%; padding-left:0;}
+                .inscription .faire-inscription .bg-group-4a .bg-uqam:nth-child(2){width:33.33%; padding-left:0;}
+                .inscription .faire-inscription .bg-group-4a .bg-uqam:nth-child(3){width:33.33%; border-left:4px solid #fff;}
+                .inscription .faire-inscription .bg-group-4a .success{background:#33801a;}
+                .inscription .faire-inscription .bg-group-4a .danger{background:#a71700;}
+                    
+                    .inscription .faire-inscription .bg-group-4a .bg-uqam hr{background:rgba(255, 255, 255, .25); width:1px; height:60px; margin:0 20px 0 0; padding:0; border:0;}
+                    .inscription .faire-inscription .bg-group-4a .bg-uqam p{margin:0 0 5px 0; color:#fff;}
+                    .inscription .faire-inscription .bg-group-4a .bg-uqam h5{margin:0; color:#fff;}
+                    .inscription .faire-inscription .bg-group-4a .bg-uqam img{margin:-3px 0 0 0; width:16px; height:16px;}
+
+                    .inscription .faire-inscription .bg-group-4a .bg-uqam:nth-child(4) .icon{}
+        */
+
+
+        /* BG-UQAM GROUP 4 - PAGE 2 & 3 */
+        .inscription .faire-inscription .bg-group-4{display:table; width:100%; border-bottom:4px solid #fff;}
+            .inscription .faire-inscription .bg-group-4 .bg-uqam{display:table-cell; background:#014e68; width:25%; height:100%; margin:0; border:0; vertical-align:top;}
+                .inscription .faire-inscription .bg-group-4 .bg-uqam:nth-child(1){width:20%;}
+                .inscription .faire-inscription .bg-group-4 .bg-uqam:nth-child(2){width:27.5%; padding-left:0;}
+                .inscription .faire-inscription .bg-group-4 .bg-uqam:nth-child(3){width:27.5%; padding-left:0;}
+                .inscription .faire-inscription .bg-group-4 .bg-uqam:nth-child(4){width:25%; border-left:4px solid #fff;}
+                .inscription .faire-inscription .bg-group-4 .success{background:#33801a;}
+                .inscription .faire-inscription .bg-group-4 .danger{background:#a71700;}
+                    
+                    .inscription .faire-inscription .bg-group-4 .bg-uqam hr{background:rgba(255, 255, 255, .25); width:1px; height:60px; margin:0 20px 0 0; padding:0; border:0;}
+                    .inscription .faire-inscription .bg-group-4 .bg-uqam p{margin:0 0 5px 0; color:#fff;}
+                    .inscription .faire-inscription .bg-group-4 .bg-uqam h5{margin:0; color:#fff;}
+                    .inscription .faire-inscription .bg-group-4 .bg-uqam img{margin:-3px 0 0 0; width:16px; height:16px;}
+
+                    .inscription .faire-inscription .bg-group-4 .bg-uqam:nth-child(4) .icon{}
+        
+        /* BG DANGER CUSTOM */
+        .inscription .faire-inscription .bg-danger{margin:0 0 45px 0;}
+            .inscription .faire-inscription .bg-danger button .uqam-icone.pull-right{margin:1px 0 0 0;}
+        
+        /* BG DANGER CUSTOM */
+        .inscription .faire-inscription .bg-warning{margin:0 0 45px 0;}
+        
+        /* BG-UQAM GROUP 2 - PAGE 2 */
+        .inscription .faire-inscription .bg-group-2{display:table; width:100%; margin:0 0 45px 0;}
+            .inscription .faire-inscription .bg-group-2 .bg-uqam{display:table-cell; width:25%; height:100%; margin:0; vertical-align:top;}
+                .inscription .faire-inscription .bg-group-2 .bg-uqam:nth-child(1){border-right:0; width:75%;}
+                .inscription .faire-inscription .bg-group-2 .bg-uqam:nth-child(2){background:#014e68; width:25%; border:0; vertical-align:middle;}
+                .inscription .faire-inscription .bg-group-2 .bg-uqam.autorisee{background:#e5edf0; border:#78b9cb 1px solid; border-left:0; vertical-align:top;}
+                     .inscription .faire-inscription .bg-group-2 .bg-uqam h5{}
+                     .inscription .faire-inscription .bg-group-2 .bg-uqam h6{color:#fff; margin:0; padding:0;}
+                     .inscription .faire-inscription .bg-group-2 .bg-uqam p{}
+                     .inscription .faire-inscription .bg-group-2 .bg-uqam hr{}
+                        /*.inscription .faire-inscription .bg-group-2 .bg-uqam.autorisee .btn{display:block; width:100%; margin:0 0 5px 0; padding:4px 15px 4px 15px; text-align:left;}*/
+                        .inscription .faire-inscription .bg-group-2 .bg-uqam.autorisee .btn{display:block; width:100%; margin:0 0 5px 0; padding:4px 15px 4px 15px;}
+        
+        /* BG-UQAM - PAGE 3 */
+        .inscription .faire-inscription .bg-uqam{border:#78b9cb 1px solid;}
+            .inscription .faire-inscription .bg-uqam h5{margin:0; color:#000; text-decoration:none;}
+            .inscription .faire-inscription .bg-uqam p{}
+            .inscription .faire-inscription .bg-uqam hr{margin:15px 0 15px 0;}
+        
+        /* BG-UQAM GROUP 2 - PAGE 3 */
+        .inscription .faire-inscription .bg-group-2.modification{margin:0;}
+            .inscription .faire-inscription .bg-group-2.modification .bg-uqam{border-bottom:0;}
+        
+        /* BG-UQAM GROUP 3 - PAGE 3 */
+        .inscription .faire-inscription .bg-group-3.modification{display:block; width:99.8%; border:#78b9cb 1px solid; border-top:0; margin:0 40 0 1px;}
+            .inscription .faire-inscription .bg-group-3.modification .bg-uqam{background:#fff; display:block; float:left; width:33.3333%; height:100%; margin:0; padding:22px; border:0; vertical-align:top;}
+            .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(1){width:100%; float:none; padding-bottom:0; clear:both; border:0;}
+                .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(1) h4{padding:0 0 25px 0;}
+                .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(1) button{font-size:85%;}
+            .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(2){/*border-right:15px solid #fff;*/}
+            .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(3){/*border-right:8px solid #fff;*/ padding-left:0;}
+            .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(4){/*border-left:7px solid #fff;*/ padding-left:0;}
+                /* Martin Marge de gauche à 0. */
+                .inscription .faire-inscription .bg-group-3.modification .bg-uqam input{font-weight: bold;float:left; width:80px; margin:0; padding:0 5px 0 5px; color:#0079a0; border:1px solid #0079a0; border-radius:4px;}
+                .inscription .faire-inscription .bg-group-3.modification .bg-uqam button{margin:0 0 0 35px;}
+                    .inscription .faire-inscription .bg-group-3.modification .bg-uqam button img{width:auto; height:auto;}
+                    
+                /* Martin largeur du popup à paufiner pour les autres break point. 
+                .inscription .faire-inscription .bg-group-3.modification .bg-uqam .form{float:left; width:120px; margin:0 0 0 40px;}*/
+                .inscription .faire-inscription .bg-group-3.modification .bg-uqam .form{float:left;margin:0 0 0 40px;}
+                
+                /* Martin correcif pour le height hérité des autori de 20px pour .select-form-control */
+                .inscription .faire-inscription .bg-group-3.modification .bg-uqam .form .select-form-control{height:auto;border:1px solid #0079a0; border-right:0; border-radius:4px;}
+                
+                /* Martin Corrige un problème d'affichage danas firefox PC. On voyait le vieux control select. */
+                .inscription .faire-inscription .bg-group-3.modification .bg-uqam .form .select-form-control select{width:200%;}
+                
+                .inscription .faire-inscription .bg-group-3.modification .bg-uqam p{}
+                .inscription .faire-inscription .bg-group-3.modification .bg-uqam div{padding:0; border:0;}
+                
+                /* Martin Centrer le input */
+                .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(2) div {margin-left: 32%;text-align: left;}
+                
+                 /* Martin Font size pour les titres de l'éditeur. */
+                .inscription .faire-inscription .bg-group-3.modification .bg-uqam h5{font-size:100%; position:relative; padding:0 0 20px 55px; color:#0b5b74;}
+                .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(2) h5{padding-left:35px;}
+                
+               /* .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(2) h5 {padding-left:35px;}
+                .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(3) h5 {padding-bottom:35px;}*/
+                    .inscription .faire-inscription .bg-group-3.modification .bg-uqam h5:before{background:#0b5b74; content:""; position:absolute; top:0; left:20px; display:block; width:24px; height:24px; color:#fff; line-height:150%; text-align:center;}
+                    .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(2) h5:before{content:"1"; left:0; }
+                    .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(3) h5:before{content:"2";}
+                    .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(4) h5:before{content:"3";}
+                    
+                    /* MESSAGE */
+                    .inscription .faire-inscription .bg-group-3.modification .bg-uqam .bg-success{position:relative; margin:25px 0 0 0; padding:20px;}
+                    .inscription .faire-inscription .bg-group-3.modification .bg-uqam .bg-success:before{background:#33801a; position:absolute; top:-10px; left:50%; width:20px; height:20px; margin:0 0 0 -10px;
+                        transform-origin: center center;
+                        transform: rotate(-45deg);
+
+                        -webkit-transform: rotate(-45deg);/* Safari */
+                        -moz-transform: rotate(-45deg);/* Firefox */
+                        -ms-transform: rotate(-45deg);/* IE */
+                        -o-transform: rotate(-45deg);/* Opera */
+                        filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1.5);/* Internet Explorer */
+                    }
+                    .inscription .faire-inscription .bg-group-3.modification .bg-uqam .bg-danger{position:relative; margin:25px 0 0 0; padding:20px;}
+                    .inscription .faire-inscription .bg-group-3.modification .bg-uqam .bg-danger:before{background:#a71700; position:absolute; top:-10px; left:50%; width:20px; height:20px; margin:0 0 0 -10px;
+                        transform-origin: center center;
+                        transform: rotate(-45deg);
+
+                        -webkit-transform: rotate(-45deg);/* Safari */
+                        -moz-transform: rotate(-45deg);/* Firefox */
+                        -ms-transform: rotate(-45deg);/* IE */
+                        -o-transform: rotate(-45deg);/* Opera */
+                        filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1.5);/* Internet Explorer */
+                    }
+                    .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(3) .bg-success,
+                    .inscription .faire-inscription .bg-group-3.modification .bg-uqam:nth-child(3) .bg-danger{margin-left:20px;text-align: left;}
+
+                .inscription .faire-inscription .bg-group-3.modification>.bg-uqam img{width:20px; height:20px;}
+
+                .inscription .faire-inscription .bg-group-3.modification .bg-uqam.disabled{}
+                .inscription .faire-inscription .bg-group-3.modification h4{}
+                    .inscription .faire-inscription .bg-group-3.modification h4 button{}
+                        .inscription .faire-inscription .bg-group-3.modification h4 button img{margin:6px 0 0 0;}
+                .inscription .faire-inscription .bg-group-3.modification .bg-uqam.disabled>*{opacity:0.25;}
+                .inscription .faire-inscription .bg-group-3.modification .bg-uqam>hr{background:#0b5b74; width:1px; height:220px; margin:0 20px 0 0; padding:0; border:0; opacity:1;}
+            
+        
+        
+        
+        
+        
+                .inscription .faire-inscription .bg-confirmation {display:block; width:100%; border:#78b9cb 1px solid; border-top:0; margin-bottom:45px;}
+                .inscription .faire-inscription .bg-confirmation .bg-uqam{background:#fff; display:block; float:left; width:98%; height:100%; margin:0; padding:22px; border:0; vertical-align:top;}
+
+        
+        
+        
+        
+        
+        /* TAB - PAGE 3 */
+        .inscription .faire-inscription .tabs{margin:0 0 45px 0;}
+            .inscription .faire-inscription .tabs div{}
+                .inscription .faire-inscription .tabs div ul,
+                .inscription .faire-inscription .tabs div ul.nav,
+                .inscription .faire-inscription .tabs div ul.nav-tabs{margin:0; border:0; z-index:3;}
+                .inscription .faire-inscription .tabs div ul:before{}
+                .inscription .faire-inscription .tabs div ul:after{}
+                    .inscription .faire-inscription .tabs div ul.nav-tabs li{margin:0 0 0 10px; padding:0; border-bottom:1px solid #004e68;}
+                    .inscription .faire-inscription .tabs div ul.nav-tabs li:first-child{margin:0 0 0 20px;}
+                    .inscription .faire-inscription .tabs div ul.nav-tabs li.active{border-bottom:1px #fff solid;}
+                    .inscription .faire-inscription .tabs div ul.nav-tabs li:before{display:none;}
+                        .inscription .faire-inscription .tabs div ul.nav-tabs li a,
+                        .inscription .faire-inscription .tabs div ul.nav-tabs li a:link{background:#0082ac; margin:0; border:1px solid #0082ac; border-bottom:0; border-radius:10px 10px 0 0; color:#fff; font-size:105%; text-transform:uppercase;}
+                        .inscription .faire-inscription .tabs div ul.nav-tabs li.active a{background:#fff; border:1px solid #004e68; border-bottom:0; color:#004e68;}
+                
+                .inscription .faire-inscription .tabs div .tab-content{margin:-1px 0 0 0; padding:0; border:1px solid #004e68; z-index:2;}
+                    .inscription .faire-inscription .tabs div .tab-content .tab-pane{}
+
+                        /* TAB 1 : BUREAU */
+                        .inscription .faire-inscription .tabs div .tab-content .tab-pane .bg-group-3{margin:0; padding:20px 20px 0 20px; border:0;}
+                            .inscription .faire-inscription .tabs div .tab-content .tab-pane .bg-group-3 .bg-uqam{border:0;text-align: center;}
+                            .inscription .faire-inscription .tabs div .tab-content .tab-pane .bg-group-3 .bg-uqam:nth-child(1){padding:0;}
+                            .inscription .faire-inscription .tabs div .tab-content .tab-pane .bg-group-3 .bg-uqam:nth-child(2){padding-left:0;}
+                                .inscription .faire-inscription .tabs div .tab-content .tab-pane .bg-group-3 .bg-uqam button{padding:4px 15px 4px 15px;}
+                                .inscription .faire-inscription .tabs div .tab-content .tab-pane .bg-group-3 .bg-uqam hr{background:none; height:215px; margin:0; padding:0 20px 0 0; border-left:#0b5b74 1px solid;}
+                                .inscription .faire-inscription .tabs div .tab-content .tab-pane .bg-group-3 .bg-uqam img{width:16px; height:16px;}
+                                .inscription .faire-inscription .tabs div .tab-content .tab-pane .bg-group-3 .bg-uqam .bg-success{position:relative; margin:25px 0 0 0; padding:20px;text-align: left;}
+                                .inscription .faire-inscription .tabs div .tab-content .tab-pane .bg-group-3 .bg-uqam .bg-success:before{background:#33801a; position:absolute; top:-10px; left:50%; width:20px; height:20px; margin:0 0 0 -10px;
+                                    transform-origin: center center;
+                                    transform: rotate(-45deg);
+
+                                    -webkit-transform: rotate(-45deg);/* Safari */
+                                    -moz-transform: rotate(-45deg);/* Firefox */
+                                    -ms-transform: rotate(-45deg);/* IE */
+                                    -o-transform: rotate(-45deg);/* Opera */
+                                    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1.5);/* Internet Explorer */
+                                }
+                                .inscription .faire-inscription .tabs div .tab-content .tab-pane .bg-group-3 .bg-uqam .bg-danger{position:relative; margin:25px 0 0 0; padding:20px;}
+                                .inscription .faire-inscription .tabs div .tab-content .tab-pane .bg-group-3 .bg-uqam .bg-danger:before{background:#a71700; position:absolute; top:-10px; left:50%; width:20px; height:20px; margin:0 0 0 -10px;
+                                    transform-origin: center center;
+                                    transform: rotate(-45deg);
+
+                                    -webkit-transform: rotate(-45deg);/* Safari */
+                                    -moz-transform: rotate(-45deg);/* Firefox */
+                                    -ms-transform: rotate(-45deg);/* IE */
+                                    -o-transform: rotate(-45deg);/* Opera */
+                                    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1.5);/* Internet Explorer */
+                                }
+                                .inscription .faire-inscription .tabs div .tab-content .tab-pane .bg-group-3 .bg-uqam:nth-child(3) .bg-success,
+                                .inscription .faire-inscription .tabs div .tab-content .tab-pane .bg-group-3 .bg-uqam:nth-child(3) .bg-danger,
+                                .inscription .faire-inscription .tabs div .tab-content .tab-pane .bg-group-3 .bg-uqam:nth-child(4) .bg-success,
+                                .inscription .faire-inscription .tabs div .tab-content .tab-pane .bg-group-3 .bg-uqam:nth-child(4) .bg-danger{margin-left:20px;}
+
+                        .inscription .faire-inscription .tabs div .tab-content .tab-pane>.bg-uqam{margin:0; padding:10px 20px; border:0; border-top:1px solid #004e68;}
+                            .inscription .faire-inscription .tabs div .tab-content .tab-pane>.bg-uqam img{width:20px; height:20px;}
+                            .inscription .faire-inscription .tabs div .tab-content .tab-pane>.bg-uqam p{margin:0;}
+
+                        /* TAB 2 : BUREAU */
+                        .inscription .faire-inscription .tabs div .tab-content .tab-pane ul{padding:20px;}
+                            .inscription .faire-inscription .tabs div .tab-content .tab-pane ul li{}
+
+                        .inscription .faire-inscription .tabs div .tab-content .tab-pane div.table-responsive{margin:0 20px 20px 20px;}
+                            .inscription .faire-inscription .tabs div .tab-content .tab-pane div table{margin:0; border:0;}
+                            .inscription .faire-inscription .tabs div .tab-content .tab-pane div table.table{border:#004e68 3px solid;}
+                                .inscription .faire-inscription .tabs div .tab-content .tab-pane div table thead{}
+                                    .inscription .faire-inscription .tabs div .tab-content .tab-pane div table thead tr{}
+                                        .inscription .faire-inscription .tabs div .tab-content .tab-pane table thead tr th{border:#004e68 3px solid; text-transform:uppercase; vertical-align:middle;}
+                                        .inscription .faire-inscription .tabs div .tab-content .tab-pane table thead tr th:last-child{text-align:left;}
+                                        .inscription .faire-inscription .tabs div .tab-content .tab-pane table thead tr th.caseVideBleu{background: url('/assets/images/general/fond/fond_contenu-gauche.jpg') repeat top left;}
+                                        .inscription .faire-inscription .tabs div .tab-content .tab-pane table thead tr th.info{color:#004e68;}
+                                            .inscription .faire-inscription .tabs div .tab-content .tab-pane table thead tr th .btn{}
+                                        .inscription .faire-inscription .tabs div .tab-content .tab-pane table thead tr td{}
+                                        .inscription .faire-inscription .tabs div .tab-content .tab-pane table thead tr td.info{}
+
+                                .inscription .faire-inscription .tabs div .tab-content .tab-pane table tbody{}
+                                    .inscription .faire-inscription .tabs div .tab-content .tab-pane div table tbody tr{}
+                                        .inscription .faire-inscription .tabs div .tab-content .tab-pane div table tbody tr th{height:40px; color:#004e68; font-family:'Conv_Dosis-Bold',arial,sans-serif; line-height:110%; text-transform:uppercase; border-bottom:#004e68 3px solid; vertical-align:middle;}
+                                        .inscription .faire-inscription .tabs div .tab-content .tab-pane div table tbody tr th.info{}
+                                        .inscription .faire-inscription .tabs div .tab-content .tab-pane div table tbody tr th:first-child{border-right:#004e68 3px solid;}
+                                        .inscription .faire-inscription .tabs div .tab-content .tab-pane div table tbody tr td{}
+                                        .inscription .faire-inscription .tabs div .tab-content .tab-pane div table tbody tr td.info{color:#004e68;}
+                                        .inscription .faire-inscription .tabs div .tab-content .tab-pane div table tbody tr td:first-child{border-right:#004e68 3px solid;}
+                                            .inscription .faire-inscription .tabs div .tab-content .tab-pane div table tbody tr td div{}
+                                            .inscription .faire-inscription .tabs div .tab-content .tab-pane div table tbody tr td div.disabled{opacity:0.25;}
+                                                .inscription .faire-inscription .tabs div .tab-content .tab-pane div table tbody tr td div img{width:16px; height:16px;}
+                                                .inscription .faire-inscription .tabs div .tab-content .tab-pane div table tbody tr td div input{font-weight: bold;width:70px; padding:0 5px 0 5px; color:#0079a0; border:1px solid #0079a0; border-radius:4px;}
+                                                .inscription .faire-inscription .tabs div .tab-content .tab-pane div table tbody tr td div .form{width:70px; margin:0;}
+                                                    .inscription .faire-inscription .tabs div .tab-content .tab-pane div table tbody tr td div .form div{}
+                                                        .inscription .faire-inscription .tabs div .tab-content .tab-pane div table tbody tr td div .form div .select-form-control{float:left; width:100%;}
+                                                            .inscription .faire-inscription .tabs div .tab-content .tab-pane div table tbody tr td div .form div .select-form-control .form-control{}
+                              
+                                .inscription .faire-inscription .tabs div .tab-content .tab-pane div table tfoot{font-size:95%;}
+                                    .inscription .faire-inscription .tabs div .tab-content .tab-pane div table tfoot tr{border:#004e68 3px solid;}
+                                        .inscription .faire-inscription .tabs div .tab-content .tab-pane div table tfoot tr th{}
+                                        .inscription .faire-inscription .tabs div .tab-content .tab-pane div table tfoot tr td{vertical-align:middle;}
+                                        .inscription .faire-inscription .tabs div .tab-content .tab-pane div table tfoot tr td.info{color:#004e68; font-weight:bold;}
+                        
+                        .inscription .faire-inscription .tabs div .tab-content .tab-pane .text-danger{padding:0 20px 20px 20px;}
+                        .inscription .faire-inscription .tabs div .tab-content .tab-pane .text-danger:before{background:url('/assets/images/general/icone/uqam/icone_danger.svg'); background-size:cover; top:5px;}
+                            .inscription .faire-inscription .tabs div .tab-content .tab-pane .text-danger button{padding:4px 15px 4px 15px;}
+                            .inscription .faire-inscription .tabs div .tab-content .tab-pane .text-danger .disabled{opacity:0.25;}
+                        
+                        /* TAB MOBILE */
+                        .inscription .faire-inscription .tabs div .tab-content .tab-pane .bg-group-3{margin:0; padding:20px 20px 0 20px; border:0;}
+                            .inscription .faire-inscription .tabs div .tab-content .tab-pane .bg-group-3 .bg-uqam{border:0;}
+                            .inscription .faire-inscription .tabs div .tab-content .tab-pane .bg-group-3 .bg-uqam:nth-child(1){padding:0;}
+                            .inscription .faire-inscription .tabs div .tab-content .tab-pane .bg-group-3 .bg-uqam:nth-child(2){padding-left:0;}
+                                .inscription .faire-inscription .tabs div .tab-content .tab-pane .bg-group-3 .bg-uqam button{padding:4px 15px 4px 15px;}
+                                .inscription .faire-inscription .tabs div .tab-content .tab-pane .bg-group-3 .bg-uqam hr{background:none; height:215px; margin:0; padding:0 20px 0 0; border-left:#0b5b74 1px solid;}
+                                .inscription .faire-inscription .tabs div .tab-content .tab-pane .bg-group-3 .bg-uqam img{width:20px; height:20px;}
+                                .inscription .faire-inscription .tabs div .tab-content .tab-pane .bg-group-3 .bg-uqam .bg-success{position:relative; margin:25px 0 0 0; padding:20px;text-align: left;}
+                                .inscription .faire-inscription .tabs div .tab-content .tab-pane .bg-group-3 .bg-uqam .bg-success:before{background:#33801a; position:absolute; top:-10px; left:50%; width:20px; height:20px; margin:0 0 0 -10px;
+                                    transform-origin: center center;
+                                    transform: rotate(-45deg);
+
+                                    -webkit-transform: rotate(-45deg);/* Safari */
+                                    -moz-transform: rotate(-45deg);/* Firefox */
+                                    -ms-transform: rotate(-45deg);/* IE */
+                                    -o-transform: rotate(-45deg);/* Opera */
+                                    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1.5);/* Internet Explorer */
+                                }
+                                .inscription .faire-inscription .tabs div .tab-content .tab-pane .bg-group-3 .bg-uqam .bg-danger{position:relative; margin:25px 0 0 0; padding:20px;}
+                                .inscription .faire-inscription .tabs div .tab-content .tab-pane .bg-group-3 .bg-uqam .bg-danger:before{background:#a71700; position:absolute; top:-10px; left:50%; width:20px; height:20px; margin:0 0 0 -10px;
+                                    transform-origin: center center;
+                                    transform: rotate(-45deg);
+
+                                    -webkit-transform: rotate(-45deg);/* Safari */
+                                    -moz-transform: rotate(-45deg);/* Firefox */
+                                    -ms-transform: rotate(-45deg);/* IE */
+                                    -o-transform: rotate(-45deg);/* Opera */
+                                    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1.5);/* Internet Explorer */
+                                }
+                                .inscription .faire-inscription .tabs div .tab-content .tab-pane .bg-group-3 .bg-uqam:nth-child(3) .bg-success,
+                                .inscription .faire-inscription .tabs div .tab-content .tab-pane .bg-group-3 .bg-uqam:nth-child(3) .bg-danger,
+                                .inscription .faire-inscription .tabs div .tab-content .tab-pane .bg-group-3 .bg-uqam:nth-child(4) .bg-success,
+                                .inscription .faire-inscription .tabs div .tab-content .tab-pane .bg-group-3 .bg-uqam:nth-child(4) .bg-danger{margin-left:20px;}
+
+                        .inscription .faire-inscription .tabs div .tab-content .tab-pane>.bg-uqam{margin:0; padding:10px 20px; border:0; border-top:1px solid #004e68;}
+                            .inscription .faire-inscription .tabs div .tab-content .tab-pane>.bg-uqam img{width:20px; height:20px;}
+                            .inscription .faire-inscription .tabs div .tab-content .tab-pane>.bg-uqam p{margin:0;}

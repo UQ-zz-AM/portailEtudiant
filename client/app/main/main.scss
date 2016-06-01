@@ -1,0 +1,114 @@
+
+#banner {
+    border-bottom: none;
+    margin-top: -20px;
+}
+
+#banner h1 {
+    font-size: 60px;
+    line-height: 1;
+    letter-spacing: -1px;
+}
+
+.hero-unit {
+    position: relative;
+    padding: 30px 15px;
+    color: #F5F5F5;
+    text-align: center;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+    background: #4393B9;
+}
+
+.footer {
+    text-align: center;
+    padding: 30px 0;
+    margin-top: 70px;
+    border-top: 1px solid #E5E5E5;
+}
+
+input.ng-valid {border: 1px solid green !important;}
+input.ng-invalid {border: 1px solid red;}
+
+
+
+:focus ~ .input-error{
+    display:none;
+}
+
+
+
+
+
+.boite-main input:focus {
+   border: 0px !important;
+}
+.boite-main{}
+
+.boite-main{margin:0 0 25px 0;}
+
+.boite-main form {font-family:'Conv_Dosis',arial,sans-serif; font-size:120%;}
+.boite-main form input{background:#fff;  border:1px solid #899fac; border-radius:5px; color:#14405a;}
+.boite-main form input{width:260px;}
+
+.boite-main form input{padding:5px 4px}
+.boite-main form input.ng-dirty{border-color:#a71700;}
+.boite-main form input:hover{text-decoration:none; cursor:text;}
+
+.contenu-droite .accueil ul{margin:0 0 15px 0;}
+
+.mainOverlay {
+   overflow:scroll;
+   background-image: url("/assets/images/general/fond.jpg");
+   background-color: #cccccc;
+   background-repeat: no-repeat;
+   background-size:cover;
+   background-position: center center;
+   display: block;
+   position: fixed;
+   padding:0px;
+   left: 0px;
+   bottom:10px;
+   top: 67px;
+   width:100%;
+   height:100%;
+}
+
+.mainOverlay .rectangle-noir { 
+      position:relative;
+      background:rgba(0, 0, 0, 0.70);
+      top:30%;
+      color:white;
+}
+
+/* Nouvelles boîtes d'erreurs */
+.mainOverlay .rectangle-noir .zone-err {
+   margin:-25px 0 10px auto;
+   width:260px;
+   text-align:left;
+   padding:8px;
+   padding-left:4px;
+   background-color:#A91400;
+} 
+.mainOverlay .rectangle-noir .zone-err span{
+   font-size:87.5%;
+   display:block;
+   padding-left:24px;
+}
+
+.mainOverlay .rectangle-noir .zone-err img{
+   margin-left:-24px;
+   width:20px;
+}
+
+.mainOverlay .rectangle-noir  .zone-err-mobi {
+   width:100%; 
+   margin:-3px 0 0 0;
+   padding-left:4px;
+}
+
+
+
+/* Seulement la version bureau le premier td aligne à droite*/
+.mainOverlay .rectangle-noir td:nth-of-type(1) {
+      text-align:right;
+}

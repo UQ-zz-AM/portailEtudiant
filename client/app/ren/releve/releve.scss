@@ -1,0 +1,205 @@
+/* RÉSULTATS - RELEVÉS DE NOTES */
+/* ---------------------------------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------------------------------- */
+
+.ren{}
+   .ren .releves-de-notes{}
+      .ren .releves-de-notes .bg-warning{margin:0 0 45px 0;}
+      .ren .releves-de-notes h2{text-transform:none;}
+      .ren .releves-de-notes h4{padding:0 0 10px 0;}
+      .ren .releves-de-notes span.note{background:#00aee3; display:inline-block; margin:0 0 3px 0; padding:0 4px 0 4px; color:#e6f1f3; font-weight:bold; cursor:pointer;}
+         .ren .releves-de-notes span.note:hover{background:#014e68; cursor:pointer;}
+      .ren .releves-de-notes .bg-uqam{background:#e5edf0; padding:22px; margin:0 0 45px 0;}
+         .ren .releves-de-notes .bg-uqam h2{position:relative; color:#1a2e35; font-size:500%; padding:0; text-align:center;}
+            .ren .releves-de-notes .bg-uqam h2 span{position:absolute; top:12px; right:0; display:inline-block; margin:0 0 25px 0; font-size:25%;}
+         .ren .releves-de-notes .bg-uqam h5{font-size:93.75%; margin:0 0 15px 0;}
+         .ren .releves-de-notes .bg-uqam hr{background:#739dad; width:100%; height:3px; margin:10px 0 10px 0;}
+         .ren .releves-de-notes .bg-uqam .btn{margin:-4px 0 0 0;}
+         .ren .releves-de-notes .bg-uqam ul{margin:0; padding:0;}
+
+      /* BOOTSTRAP */
+      /*.ren .releves-de-notes .popover{min-width:150px; max-width:150px;}*/
+
+      /* ENTÊTE */
+      
+      /* FORMLAIRE */
+      .ren .releves-de-notes div.form{margin:0 0 30px 0;}
+         .ren .releves-de-notes .form label{margin:0; padding:1px 0 0 0; color:#004e68; font-family:Asap-Regular,arial,sans-serif; font-size:114.3%; line-height:normal;}
+
+         .ren .releves-de-notes .form div.select-form-control{background:url('/assets/images/general/formulaire/formulaire_select-bouton.jpg') no-repeat right -1px; width:auto; height:22px; overflow:hidden; border:1px solid #0079a0; border-right:0; border-radius:4px;}
+            .ren .releves-de-notes .form div.select-form-control select.form-control{background:transparent; position:relative; width:100%; height:20px; padding:0 25px 0 5px; color:#0079a0; border:0;
+               -moz-appearance: none;
+               -webkit-appearance: none;
+            }
+            .ren .releves-de-notes .form div.select-form-control select.form-control::-ms-expand{display:none;}
+
+      /* MESSAGE */
+      .ren .releves-de-notes .bg-warning-custom{min-height:initial; padding:10px 15px 10px 15px;}
+      .ren .releves-de-notes .bg-warning-custom:before{display:none;}
+         .ren .releves-de-notes .bg-warning-custom a{color:#fff; font-weight:normal;}
+         .ren .releves-de-notes .bg-warning-custom a:hover{color:#fff;}
+            .ren .releves-de-notes .bg-warning-custom a span{display:inline-block;}
+
+      /* GRAPHIQUES */
+      .ren .releves-de-notes .bg-group-3{display:table; width:100%; padding:0 0 15px 0;}
+         .ren .releves-de-notes .bg-group-3 .bg-uqam{display:table-cell; height:100%; margin:0; vertical-align:top;}
+         .ren .releves-de-notes .bg-group-3 .bg-uqam:nth-child(1){width:50%; border-right:15px solid #fff;}
+         .ren .releves-de-notes .bg-group-3 .bg-uqam:nth-child(2){width:22.5%; border-right:8px solid #fff;}
+         .ren .releves-de-notes .bg-group-3 .bg-uqam:nth-child(3){width:27.5%; border-left:7px solid #fff;}
+
+            .ren .releves-de-notes .bg-group-3 .bg-uqam h5{display:block; position:relative; padding:0 15px 0 0;}
+            .ren .releves-de-notes .bg-group-3 .bg-uqam h5.text-left{padding:0 0 15px 0;}
+               .ren .releves-de-notes .bg-group-3 .bg-uqam h5>span{/*float:left;*/}
+               .ren .releves-de-notes .bg-group-3 .bg-uqam h5 button{position:absolute; top:2px; right:0;}
+               .ren .releves-de-notes .bg-group-3 .bg-uqam h5 button.pull-left{position:static; margin:-2px 0 0 0;}
+
+            /* GRAPHIQUE 1 */
+            .progression{position:relative; display:table; width:95%;}
+            /*.progression:before{background:#fff; content:""; position:absolute; width:100%; height:10px; border:1px solid #004f66; border-bottom:transparent; z-index:4;}*/
+               .progression:before,
+               .progression:after{position:absolute; content:"10"; top:2px; display:inline-block; width:40px; color:#034e6b; font-weight:bold; font-size:87.5%; text-align:center;}
+               .progression:before{width:23px;}
+               .progression:before{left:-22px;}
+               .progression:after{right:-40px;}
+
+               .progression>div{display:table-cell; position:relative;}
+                  .progression div div:nth-child(1){background:#fff; position:absolute; width:100%; height:21px; top:0; left:0; border:1px solid #004f66; z-index:2;}
+                  .progression div div:nth-child(1):before{background:#fff; content:""; position:absolute; top:0; width:100%; height:10px; opacity:0.1;}
+                  .progression div div:nth-child(2){width:100%; padding:26px 0 0 0; text-align:center;}
+                  .progression div div:nth-child(2):before{background:#fff; position:absolute; top:16px; left:50%; display:block; content:""; width:8px; height:8px; margin:0 0 0 -3px; z-index:3;
+                     transform: rotate(45deg) ;
+                     -webkit-transform:rotate(45deg);
+                     -moz-transform:rotate(45deg);
+                     -o-transform:rotate(45deg);
+                     -ms-transform:rotate(45deg);
+                  }
+                  .progression div div:nth-child(2):after{background:#004d67; position:absolute; top:15px; left:50%; display:block; content:""; width:10px; height:10px; margin:0 0 0 -4px; z-index:1;
+                     transform: rotate(45deg) ;
+                     -webkit-transform:rotate(45deg);
+                     -moz-transform:rotate(45deg);
+                     -o-transform:rotate(45deg);
+                     -ms-transform:rotate(45deg);
+                  }
+                  .progression div.reussis div:nth-child(1){background:#33801a; border-right:transparent;}
+                  .progression div.enCours div:nth-child(1){background:#f15a23; border-left:transparent; border-right:transparent;}
+                  .progression div.restants div:nth-child(1){border-left:transparent;}
+                  .progression div.reussis div:nth-child(2):before{background:#33801a;}
+                  .progression div.enCours div:nth-child(2):before{background:#f15a23;}
+               /*
+               .progression div.noCredits{width:1px;}
+                  .progression div.noCredits div:nth-child(1){width:3px;}
+                  .progression div.noCredits div:nth-child(2){width:3px;}
+                  .progression div.noCredits div:nth-child(2):before{display:none;}
+                  .progression div.noCredits div:nth-child(2):after{display:none;}*/
+
+               .progression .creditsVide{display:none;}
+               .progression div.reussis.reussisDroite div:nth-child(1){border-right:1px solid #004f66;}
+               .progression div.enCours.enCoursGauche div:nth-child(1){border-left:1px solid #004f66;}
+               .progression div.enCours.enCoursDroite div:nth-child(1){border-right:1px solid #004f66;}
+               .progression div.restants.restantsGauche div:nth-child(1){border-left:1px solid #004f66;}
+
+            .legende{}
+               .legende p{}
+                  .legende span{position:relative; display:block;  padding:0 0 0 15px;}
+                  .legende span:before{background:#fff; content:""; position:absolute; top:5px; left:0; width:11px; height:11px; border:1px solid #004d67;}
+                  .legende p:nth-child(1) span:nth-child(1):before{background:#33801a; border-color:#004d67;}
+                  .legende p:nth-child(1) span:nth-child(2):before{background:#f05b23; border-color:#004d67;}
+                  .legende p:nth-child(2) span:nth-child(1):before{}
+
+            /* GRAPHIQUE 2 */
+            
+            /* GRAPHIQUE 3 */
+      
+      /* GRADE OBTENU */
+      .ren .releves-de-notes>div>.bg-group-2{display:table; width:100%; padding:0 0 15px 0;}
+         .ren .releves-de-notes>div>.bg-group-2 .bg-uqam{display:table-cell; height:100%; float:none; margin:0; vertical-align:top;}
+         .ren .releves-de-notes>div>.bg-group-2 .bg-uqam:nth-child(1){width:72.5%;}
+         .ren .releves-de-notes>div>.bg-group-2 .bg-uqam:nth-child(2){width:27.5%; padding-left:0;}
+            .ren .releves-de-notes>div>.bg-group-2 .bg-uqam h5{margin-top:32px;}
+            .ren .releves-de-notes>div>.bg-group-2 .bg-uqam h3{margin:0; font-size:140%; text-transform:none;}
+            .ren .releves-de-notes>div>.bg-group-2 .bg-uqam hr.verticale{display:block; width:1px; min-height:125px; margin:0 21px 0 0;}
+
+      /* TABLEAU */
+      .ren .releves-de-notes div.table-responsive{margin:0 0 60px 0;}
+         .ren .releves-de-notes div table{margin:0; border:#80a6b3 1px solid; border-top:#004e68 3px solid;}
+         .ren .releves-de-notes div table.table{}
+            .ren .releves-de-notes div table thead{}
+               .ren .releves-de-notes div table thead tr{}
+                  .ren .releves-de-notes div table thead tr th{height:40px; padding:5px; color:#004e68; font-family:'Conv_Dosis-Bold',arial,sans-serif; line-height:110%; text-transform:uppercase; border-color:#b3cad0; border-bottom:#004e68 3px solid; vertical-align:middle;}
+                  .ren .releves-de-notes div table thead tr th.info,
+                  .ren .releves-de-notes div table thead tr>th:last-child{}
+                     .ren .releves-de-notes div table thead tr th .btn{margin:0;}
+                  .ren .releves-de-notes div table thead tr td{padding:5px; border-bottom:#004e68 3px solid; vertical-align:middle;}
+                  .ren .releves-de-notes div table thead tr td.info,
+                  .ren .releves-de-notes div table thead tr>td:last-child{text-align:center;}
+
+            .ren .releves-de-notes div table tbody{}
+               .ren .releves-de-notes div table tbody tr{}
+               /*.ren .releves-de-notes div table tbody tr:focus{outline:0;}*/
+                  .ren .releves-de-notes div table tbody tr th{padding:5px; border-color:#b3cad0; vertical-align:top;}
+                  .ren .releves-de-notes div table tbody tr th.info,
+                  .ren .releves-de-notes div table tbody tr th:last-child{text-align:center;}
+                  .ren .releves-de-notes div table tbody tr td{padding:5px; border-color:#b3cad0; vertical-align:top;}
+                  .ren .releves-de-notes div table tbody tr td.info,
+                  .ren .releves-de-notes div table tbody tr>td:last-child{}
+                  .ren .releves-de-notes div table tbody tr td.plus-info{padding-bottom:25px;}
+                     .ren .releves-de-notes div table tbody tr td sub{color:#000; bottom:0;}
+
+            .ren .releves-de-notes div table tfoot{}
+               .ren .releves-de-notes div table tfoot tr{}
+                  .ren .releves-de-notes div table tfoot tr th{padding:5px; border-color:#b3cad0;}
+                  .ren .releves-de-notes div table tfoot tr td{padding:5px; border-color:#b3cad0;}
+
+                     /* SOUS TABLEAU - DIRECTIVES */
+                     .ren .releves-de-notes div table tbody tr td div.moreInfo{text-align:left; margin:35px;}
+                        .ren .releves-de-notes div table tbody tr td div.moreInfo span{margin:0;}
+                        .ren .releves-de-notes div table tbody tr td div.moreInfo p{}
+                        .ren .releves-de-notes div table tbody tr td div.moreInfo h4{padding:0;}
+                        .ren .releves-de-notes div table tbody tr td div.moreInfo h5{margin:0;}
+                        .ren .releves-de-notes div table tbody tr td div.moreInfo hr{margin:15px 0 15px 0;}
+                        .ren .releves-de-notes div table tbody tr td div.moreInfo .col-md-10{padding:5px 0 0 10px;}
+                        .ren .releves-de-notes div table tbody tr td div.moreInfo .bg-uqam{margin:0 0 15px 0;} 
+
+                        .ren .releves-de-notes div table tbody tr td div.moreInfo .bg-group-2 .bg-uqam:first-child sub{bottom:0; font-size:50%; color:#fff;}
+
+                        .ren .releves-de-notes div table tbody tr td .bg-group-2{display:table; float:none; margin:0 0 15px 0;}
+                           .ren .releves-de-notes div table tbody tr td .bg-group-2 .bg-uqam{display:table-cell; float:none;}
+                           .ren .releves-de-notes div table tbody tr td .bg-group-2 .bg-uqam:nth-child(1){background:#014e68; margin:0; border:0; vertical-align:middle;}
+                           .ren .releves-de-notes div table tbody tr td .bg-group-2 .bg-uqam:nth-child(2){margin:0; border:0;}
+                              .ren .releves-de-notes div table tbody tr td .bg-group-2 .bg-uqam h4{color:#fff; font-size:200%;}
+                              .ren .releves-de-notes div table tbody tr td .bg-group-2 .bg-uqam h5{color:#fff; font-family:'Conv_Dosis-Bold',arial,sans-serif; margin:0 0 10px 0;}
+                              .ren .releves-de-notes div table tbody tr td .bg-uqam h5{margin:0 0 5px 0;}
+                              .ren .releves-de-notes div table tbody tr td .bg-group-2 .bg-uqam p{margin:0; color:#000;}
+
+                        .ren .releves-de-notes div table tbody tr td div div.table-responsive{}
+                           .ren .releves-de-notes div table tbody tr td div table{border:0;}
+                           .ren .releves-de-notes div table tbody tr td div table.table{border:#004e68 3px solid;}
+                              .ren .releves-de-notes div table tbody tr td div table thead{}
+                                 .ren .releves-de-notes div table tbody tr td div table thead tr{}
+                                    .ren .releves-de-notes div table tbody tr td div table thead tr th{border:#004e68 3px solid; vertical-align:middle;}
+                                    .ren .releves-de-notes div table tbody tr td div table thead tr th:last-child{text-align:left;}
+                                    .ren .releves-de-notes div table tbody tr td div table thead tr th.caseVideBleu{background: url('/assets/images/general/fond/fond_contenu-gauche.jpg') repeat top left;}
+                                    .ren .releves-de-notes div table tbody tr td div table thead tr th.info{}
+                                       .ren .releves-de-notes div table tbody tr td div table thead tr th .btn{}
+                                    .ren .releves-de-notes div table tbody tr td div table thead tr td{}
+                                    .ren .releves-de-notes div table tbody tr td div table thead tr td.info{}
+
+                              .ren .releves-de-notes div table tbody tr td div table tbody{}
+                                 .ren .releves-de-notes div table tbody tr td div table tbody tr{}
+                                    .ren .releves-de-notes div table tbody tr td div table tbody tr th{height:40px; color:#004e68; font-family:'Conv_Dosis-Bold',arial,sans-serif; line-height:110%; text-transform:uppercase; border-bottom:#004e68 3px solid; vertical-align:middle;}
+                                    .ren .releves-de-notes div table tbody tr td div table tbody tr th.info{}
+                                    .ren .releves-de-notes div table tbody tr td div table tbody tr th:first-child{border-right:#004e68 3px solid;}
+                                    .ren .releves-de-notes div table tbody tr td div table tbody tr td{}
+                                    .ren .releves-de-notes div table tbody tr td div table tbody tr td.info{}
+                                    .ren .releves-de-notes div table tbody tr td div table tbody tr td:first-child{border-right:#004e68 3px solid;}
+                              
+                              .ren .releves-de-notes div table tbody tr td div table tfoot{font-size:95%;}
+                                 .ren .releves-de-notes div table tbody tr td div table tfoot tr{border:#004e68 3px solid;}
+                                    .ren .releves-de-notes div table tbody tr td div table tfoot tr th{}
+                                    .ren .releves-de-notes div table tbody tr td div table tfoot tr td{vertical-align:middle;}
+                                    .ren .releves-de-notes div table tbody tr td div table tfoot tr td.info{color:#004e68; font-weight:bold;}
+
+         .ren .releves-de-notes div table.table-striped{}
+         .ren .releves-de-notes div table.table-bordered{}
+         .ren .releves-de-notes div table.table-hover{}
+         .ren .releves-de-notes div table.table-condensed{}

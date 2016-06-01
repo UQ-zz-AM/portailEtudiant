@@ -1,0 +1,504 @@
+/* CALENDRIER */
+/* ---------------------------------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------------------------------- */
+.fc-slats td.fc-axis span:after {
+  content: " H";
+}
+
+.fc-time-grid-event .fc-time{white-space:normal;}
+
+/* ---------------------------------------------------------------------------------------------------- */
+/* CALENDAR CSS */
+.calendrierLiensSupplementaires{padding:0 0 0 39px;}
+  .calendrierLiensSupplementaires p{line-height:200%;}
+    .calendrierLiensSupplementaires p a,
+    .calendrierLiensSupplementaires p a:link{font-weight:bold;}
+    .calendrierLiensSupplementaires p a:hover{}
+      .calendrierLiensSupplementaires p a img{margin:-1px 0 0 0;}
+
+  .calendrierLiensSupplementaires ul{color:#014e68; font-weight:bold;}
+    .contenu-droite .calendrierLiensSupplementaires ul li:before{top:5px; width:10px; height:10px;}
+    .calendrierLiensSupplementaires ul li:first-child:before{background:#33801a;}
+    .calendrierLiensSupplementaires ul li:nth-child(2):before{background:#d3025e;}
+    .calendrierLiensSupplementaires ul li:nth-child(3):before{background:#6e5b3f;}
+    .calendrierLiensSupplementaires ul li:nth-child(4):before{background:#6e5b3f;}
+    .calendrierLiensSupplementaires ul li:last-child:before{background:#a71700;}
+
+    .calendrierLiensSupplementaires .uqam-icone{display:inline-block;}
+
+.calendrierLiensSupplementaires hr{margin:25px 0 25px 0;}
+
+/* ---------------------------------------------------------------------------------------------------- */
+/* CALENDAR - CONTROLLER - HEADER */
+.entete-calendrier{position:relative; display:block; padding:0 0 0 39px; z-index:9990; font-size:114.3%;}
+  .entete-calendrier table{margin:0 0 15px 0;}
+  	.entete-calendrier table tbody{}
+      .entete-calendrier table tbody tr{}
+        .entete-calendrier table tbody tr th{padding:10px 0 10px 0; border:none; border-bottom:1px solid #b2cbd0; vertical-align:middle;}
+          .entete-calendrier table tbody tr th label{padding:6px 10px 0 0; color:#004e68; font-family:Conv_Dosis-Regular,arial,sans-serif;  line-height:normal;}
+            .entete-calendrier table tbody tr th div{}
+            .entete-calendrier table tbody tr th>div:nth-child(1){width:260px;}
+            .entete-calendrier table tbody tr th>div:nth-child(2){}
+            .entete-calendrier table tbody tr th>div:nth-child(3){width:1px; padding:0 15px 0 15px;}
+
+
+            .entete-calendrier table tbody tr th div div.select-form-control{width:110%; height:22px; margin:6px 0 0 0;}
+              .entete-calendrier table tbody tr th div div.select-form-control select{cursor:pointer;}
+              .entete-calendrier table tbody tr th div div.select-form-control select.form-control{width:120%;}
+            .entete-calendrier table tbody tr th hr{background:#afcbcf; width:1px; height:35px; margin:0 auto; border:none;}
+            .entete-calendrier table tbody tr th button{}
+
+          .entete-calendrier table tbody tr th .btn{position:relative; margin:6px 0 0 0; padding:1px 10px 1px 10px; border:0; border-radius:4px; font-family:Conv_Dosis-Bold,arial,sans-serif; letter-spacing:0.75px;}
+          /*.entete-calendrier table tbody tr th .btn:after{background:#fff; content:''; position:absolute; top:0; left:0; display:none; width:100%; height:100%; opacity:0.25;}
+          .entete-calendrier table tbody tr th .btn:hover:after{display:block;}*/
+            .entete-calendrier table tbody tr th .btn.btn-info{background:#01aee8; width:auto; height:auto;}
+            .entete-calendrier table tbody tr th .btn.btn-info:hover{background:#0079a0; width:auto; height:auto;}
+
+          .entete-calendrier table tbody tr th div.select-form-control{background:url('/assets/images/general/formulaire/formulaire_select-bouton.jpg') no-repeat right -1px; width:auto; height:22px; overflow:hidden; border:1px solid #0079a0; border-right:0; border-radius:4px;}
+            .entete-calendrier table tbody tr th select.form-control{background:transparent; position:relative; width:auto; height:20px; padding:0; color:#0079a0; border:0;}
+
+          .entete-calendrier table tbody tr th div.select-date-control{background:url('/assets/images/general/formulaire/formulaire_select-bouton.jpg') no-repeat right -1px; width:auto; height:22px; margin:6px 0 0 0; overflow:hidden; border:1px solid #0079a0; border-right:0; border-radius:4px;}
+            .entete-calendrier table tbody tr th input[type=date],
+            .entete-calendrier table tbody tr th input[type=time],
+            .entete-calendrier table tbody tr th input[type=datetime-local],
+            .entete-calendrier table tbody tr th input[type=month]{background:transparent; position:relative; width:120%; height:18px; padding:2px; color:#0079a0; font-size:87.5%; line-height:normal; border:0 !important;}
+
+        .entete-calendrier table tbody tr td{position:relative; padding:10px 0 10px 0; border:none; border-bottom:1px solid #b2cbd0;}
+          .entete-calendrier table tbody tr td div{height:22px;}
+          .entete-calendrier table tbody tr td div:last-child{position:absolute; top:0; height:22px; padding:6px 0 10px 0;}
+          	.entete-calendrier table tbody tr td div h5{padding:2px 0 0 0; color:#004e68; font-family:Conv_Dosis-Bold,arial,sans-serif; font-size:87.5%; line-height:normal; text-transform:uppercase;}
+            .entete-calendrier table tbody tr td div a,
+            .entete-calendrier table tbody tr td div a:link{position:relative; font-family:Conv_Dosis-Bold,arial,sans-serif; font-size:87.5%; letter-spacing:0.75px; line-height:normal;
+              -webkit-touch-callout: none;
+              -webkit-user-select: none;
+              -khtml-user-select: none;
+              -moz-user-select: none;
+              -ms-user-select: none;
+              user-select: none;
+            }
+              .entete-calendrier table tbody tr td div a:before{background:#00ade7; content:''; position:absolute; top:1px; width:24px; height:24px; border-radius:50%;}
+              .entete-calendrier table tbody tr td div a:hover:before{background:#0079a0;}
+              .entete-calendrier table tbody tr td div a:after{background:url('/assets/images/general/icone/uqam/icone_fleche-horizontale_blanc.svg') no-repeat center center; content:''; position:absolute; top:1px; width:24px; height:24px;}
+
+            .entete-calendrier table tbody tr td div:last-child a:nth-child(1),
+            .entete-calendrier table tbody tr td div:last-child a:nth-child(3){padding:2px 0 0 20px;}
+              .entete-calendrier table tbody tr td div:last-child a:nth-child(1):before,
+              .entete-calendrier table tbody tr td div:last-child a:nth-child(3):before{top:3px; left:0;}
+              .entete-calendrier table tbody tr td div:last-child a:nth-child(1):after,
+              .entete-calendrier table tbody tr td div:last-child a:nth-child(3):after{top:3px; left:0;
+                transform: rotate(180deg) scale(1);
+                -webkit-transform: rotate(180deg);
+                -moz-transform: rotate(180deg);
+                -o-transform: rotate(180deg);
+                -ms-transform: rotate(180deg);
+              }
+
+            .entete-calendrier table tbody tr td div:last-child a:nth-child(2),
+            .entete-calendrier table tbody tr td div:last-child a:nth-child(4){margin:2px 0 0 0; padding:0 20px 0 0;}
+              .entete-calendrier table tbody tr td div:last-child a:nth-child(2):before,
+              .entete-calendrier table tbody tr td div:last-child a:nth-child(4):before{top:1px; right:0;}
+              .entete-calendrier table tbody tr td div:last-child a:nth-child(2):after,
+              .entete-calendrier table tbody tr td div:last-child a:nth-child(4):after{top:1px; right:0;}
+
+            .entete-calendrier table tr td div h5{width:100%; margin:2px 0 0 0; padding:0; margin:0 auto;}
+
+/* ---------------------------------------------------------------------------------------------------- */
+/* CALENDAR */
+.calendrier{}
+
+div{}
+.ng-pristine,
+.ng-untouched,
+.ng-valid,
+.ng-isolate-scope,
+body .fc,
+.fc-ltr,
+.fc-unthemed{font-size:inherit;}
+
+  /* ---------------------------------------------------------------------------------------------------- */
+  /* TOOLBAR */
+  .fc-toolbar{margin:0; padding:0;}
+
+  /* ---------------------------------------------------------------------------------------------------- */
+  /* CONTENT */
+  .fc-view-container{}
+    .fc-view,
+    .fc-agendaWeek-view,
+    .fc-agenda-view{}
+      .fc-view-container table{border:0;}
+
+        /* HEADING */
+        .fc-view-container table thead,
+        .fc-view-container table .fc-head{}
+          .fc-view-container table thead tr{}
+            .fc-view-container table thead tr td,
+            .fc-view-container table thead tr .fc-widget-header{margin:0 0 3px 0; border:0;}
+              .fc-view-container table thead tr td div,
+              .fc-view-container table thead tr td .fc-row,
+              .fc-view-container table thead tr td .fc-widget-header{}
+                .fc-view-container table thead tr td div table
+                  .fc-view-container table thead tr td div table thead{}
+                    .fc-view-container table thead tr td div table thead tr{}
+                      .fc-view-container table thead tr td div table thead tr td,
+                      .fc-view-container table thead tr td div table thead tr .fc-widget-header{background:#014e68; padding:5px 0 5px 0; border:0; color:#fff; font-family:'Conv_Dosis-Bold',arial,sans-serif; font-size:87.5%; font-weight:normal; text-transform:uppercase; border:0; border-left:1px solid #fff;}
+                      .fc-view-container table thead tr td div table thead tr .fc-widget-header:first-child{border-left:0;}
+                      .fc-view-container table thead tr td div table thead tr .fc-axis{background:none; width:39px !important;}
+                      .fc-view-container table thead tr td div table thead tr .fc-sat{background:#0079a0;}
+                      .fc-view-container table thead tr td div table thead tr .fc-sun{background:#0079a0;}
+                      .fc-view-container table thead tr td div table thead tr .aujourdhui{background:#ff9c00;}
+
+        /* BODY */
+        .fc-view-container table tbody,
+        .fc-view-container table .fc-body{}
+          .fc-view-container table tbody tr{}
+            .fc-view-container table tbody td:first-child,
+            .fc-view-container table tbody .fc-widget-content:first-child{border:0;}
+
+              /* CONTAINER */
+              div{}
+              .fc-day-grid{}
+                .fc-agenda-view .fc-day-grid .fc-row{min-height:initial;}
+                .fc-day-grid .fc-week{}
+                .fc-day-grid .fc-widget-content{}
+
+                  /* SPECIAL EVENTS GRID */
+                  .fc-day-grid .fc-bg{background:#fff;}
+                    .fc-day-grid .fc-bg table{border:0; border-top:1px #fff solid; border-bottom:1px #fff solid;}
+                      .fc-day-grid .fc-bg table tbody{}
+                        .fc-day-grid .fc-bg table tbody tr{}
+                          .fc-day-grid .fc-bg table tbody tr td{background:#f2f6f7; border:0; border-left:1px #fff solid;}
+                          .fc-day-grid .fc-bg table tbody tr .fc-widget-content{}
+                          .fc-day-grid .fc-bg table tbody tr .fc-day{}
+                          .fc-day-grid .fc-bg table tbody tr .fc-axis{background:none; width:39px !important; padding:0;}
+                            .fc-day-grid .fc-bg table tbody tr .fc-axis span{display:none;}
+                          .fc-day-grid .fc-bg table tbody tr .fc-past{}
+                          .fc-day-grid .fc-bg table tbody tr .fc-future{}
+
+                  /* SPECIAL EVENTS BOX */
+                  .fc-time-grid-container .fc-time-grid .fc-content-skeleton{padding:0 0 1px 0;}
+                    .fc-time-grid-container .fc-time-grid .fc-content-skeleton table{}
+                      .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody{}
+                        .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr{}
+                          .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td{border:0; border-left:1px #fff solid;}
+
+                          .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr .fc-axis{width:39px !important; padding:0; border:0;}
+
+                            .fc-day-grid .fc-content-skeleton,
+                            .fc-agenda-view .fc-day-grid .fc-row .fc-content-skeleton{padding:0 0 1px 0;}
+                              .fc-day-grid .fc-content-skeleton table{}
+                                .fc-day-grid .fc-content-skeleton table tbody{}
+                                  .fc-day-grid .fc-content-skeleton table tbody tr{}
+                                    .fc-day-grid .fc-content-skeleton table tbody tr td{border:0; border-left:1px #fff solid;}
+
+                                    .fc-day-grid .fc-content-skeleton table tbody tr .fc-axis{width:39px !important; padding:0; border:0;}
+
+                                    .fc-day-grid .fc-content-skeleton table tbody tr .fc-event-container{height:100%;}
+                                      .fc-day-grid .fc-content-skeleton table tbody tr td a,
+                                      .fc-day-grid .fc-content-skeleton table tbody tr td a:link{background:#f6e6e6; position:relative; margin:1px 0 0 0; padding:10px 5px 10px 5px; color:#a61900; font-size:87.5%; font-weight:normal; border:1px solid #e6bdb7; border-radius:0; cursor:default;}
+                                      .fc-day-grid .fc-content-skeleton table tbody tr td a.periode-ins,
+                                      .fc-day-grid .fc-content-skeleton table tbody tr td a.periode-ins:link,
+                                      .fc-day-grid .fc-content-skeleton table tbody tr td a.periode-aba,
+                                      .fc-day-grid .fc-content-skeleton table tbody tr td a.periode-aba:link,
+                                      .fc-day-grid .fc-content-skeleton table tbody tr td a.periode-mod,
+                                      .fc-day-grid .fc-content-skeleton table tbody tr td a.periode-mod:link{/*display:inline-block;*/ background:#e5edf0; /*width:100%; height:100%;*/ padding-left:35px; border-color:#cfd6d8; color:#014e68; font-weight:normal; /*box-sizing:border-box;*/}
+                                        .fc-day-grid .fc-content-skeleton table tbody tr td a.periode-ins:before,
+                                        .fc-day-grid .fc-content-skeleton table tbody tr td a.periode-mod:before,
+                                        .fc-day-grid .fc-content-skeleton table tbody tr td a.periode-aba:before{background:#004d67; content:''; position:absolute; top:9px; left:10px; width:16px; height:16px; border-radius:50%;}
+                                        .fc-day-grid .fc-content-skeleton table tbody tr td a.periode-ins:after,
+                                        .fc-day-grid .fc-content-skeleton table tbody tr td a.periode-mod:after,
+                                        .fc-day-grid .fc-content-skeleton table tbody tr td a.periode-aba:after{background:url("/assets/images/general/icone/uqam/icone_fleche-horizontale_blanc.svg") no-repeat center center; content:''; position:absolute; top:9px; left:10px; width:16px; height:16px;}
+                                        .fc-day-grid .fc-content-skeleton table tbody tr td a.periode-ins span.fc-title,
+                                        .fc-day-grid .fc-content-skeleton table tbody tr td a.periode-aba span.fc-title,
+                                        .fc-day-grid .fc-content-skeleton table tbody tr td a.periode-mod span.fc-title{color:#014e68;}
+                                        .fc-day-grid .fc-content-skeleton table tbody tr td a.periode-mod div{}
+                                      .fc-day-grid .fc-content-skeleton table tbody tr td .fc-day-grid-event,
+                                      .fc-day-grid .fc-content-skeleton table tbody tr td .fc-h-event,
+                                      .fc-day-grid .fc-content-skeleton table tbody tr td .fc-event,
+                                      .fc-day-grid .fc-content-skeleton table tbody tr td .fc-start,
+                                      .fc-day-grid .fc-content-skeleton table tbody tr td .fc-end,
+                                      .fc-day-grid .fc-content-skeleton table tbody tr td .dateImportante{/*cursor:pointer;*/}
+                                      .fc-day-grid .fc-content-skeleton table tbody tr td .examen{background:#a71700; cursor:pointer;}
+                                        .fc-day-grid .fc-content-skeleton table tbody tr td .examen p{margin:0; color:#fff; font-weight:normal;}
+                                        .fc-day-grid .fc-content-skeleton table tbody tr td .examen .fc-title{color:#fff; font-size:125%;}
+                                        .fc-day-grid .fc-content-skeleton table tbody tr td .examen:before{content:""; position:absolute; right:0; bottom:0; border-style:solid; border-width:0 0 26px 26px; border-color:transparent transparent rgba(0,0,0,0.50) transparent; z-index:9998;}
+                                        .fc-day-grid .fc-content-skeleton table tbody tr td .examen:after{background:url('/assets/images/general/icone/uqam/icone_plus-calendrier_blanc.svg') no-repeat 12px 12px; content:""; position:absolute; right:0; bottom:0; width:23px; height:23px; z-index:9998;}
+
+
+
+
+                                      /*.fc-day-grid .fc-content-skeleton table tbody tr td .date-importante-type-F{background:#fff url('/assets/images/general/fond/fond_calendrier_conger-ferier.gif') repeat 0 0; padding:3px 3px 15px 3px; color:#014e68; border:none;}*/
+                                      .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .fc-event-container .date-importante-type-F{background:#fff url('/assets/images/general/fond/fond_calendrier_conger-ferier.gif') repeat 0 0; padding:3px 3px 15px 3px; color:#014e68; border:none; cursor:default;}
+
+                                        .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .fc-event-container .date-importante-type-F:before{display:none;}
+                                        .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .fc-event-container .date-importante-type-F:after{display:none;}
+
+                                        .fc-day-grid .fc-content-skeleton table tbody tr td a div{}
+                                        .fc-day-grid .fc-content-skeleton table tbody tr td a .fc-content,
+                                        .fc-day-grid .fc-content-skeleton table tbody tr td .fc-day-grid-event .fc-content{white-space:normal;}
+                                        .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .date-importante-type-F .fc-content{background:#fff; padding:5px;}
+                                        .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .fc-event-container .date-importante-type-F:hover .fc-bg{display:none;}
+                                          .fc-day-grid .fc-content-skeleton table tbody tr td a div .fc-title{color:#a61802;}
+                                          .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .date-importante-type-F div .fc-time{display:none;}
+                                          .fc-day-grid .fc-content-skeleton table tbody tr td a div .coursType{}
+                                          .fc-day-grid .fc-content-skeleton table tbody tr td a div .coursLocal{}
+
+                  /* MIDDLE SEPARATOR */
+                  hr{}
+                  .fc-divider{display:none;}
+                  .fc-widget-header{}
+
+                  /* SUB CONTAINER */
+                  div{}
+                  .fc-time-grid-container{height:auto !important; margin:3px 0 0 0;}
+                    div{}
+                    .fc-time-grid-container .fc-time-grid{}
+
+                      /* VERTICAL GRID */
+                      div{}
+                      .fc-time-grid-container .fc-time-grid .fc-bg{}
+                        .fc-time-grid-container .fc-time-grid .fc-bg table{}
+                          .fc-time-grid-container .fc-time-grid .fc-bg table tbody{}
+                            .fc-time-grid-container .fc-time-grid .fc-bg table tbody tr{}
+                              .fc-time-grid-container .fc-time-grid .fc-bg table tbody tr td{}
+                              .fc-time-grid-container .fc-time-grid .fc-bg table tbody tr .fc-widget-content{border:1px solid #dae5e9;}
+                              .fc-time-grid-container .fc-time-grid .fc-bg table tbody tr .fc-axis{width:39px !important; padding:0; border:0; border-left:1px solid #fff;}
+                              .fc-time-grid-container .fc-time-grid .fc-bg table tbody tr .fc-day{}
+                              .fc-time-grid-container .fc-time-grid .fc-bg table tbody tr .fc-future{}
+                              .fc-time-grid-container .fc-time-grid .fc-bg table tbody tr .fc-mon{border-left:0;}
+                              .fc-time-grid-container .fc-time-grid .fc-bg table tbody tr .fc-sat{background:#f3f8fb;}
+                              .fc-time-grid-container .fc-time-grid .fc-bg table tbody tr .fc-sun{background:#f3f8fb; border-right:0;}
+                              .fc-time-grid-container .fc-time-grid .fc-bg table tbody tr .fc-state-highlight{background:#fef5e4;}
+
+                      /* HORIZONTAL GRID */
+                      div{}
+                      .fc-time-grid-container .fc-time-grid .fc-slats{}
+                        .fc-time-grid-container .fc-time-grid .fc-slats table{}
+                          .fc-time-grid-container .fc-time-grid .fc-slats table tbody{}
+                            .fc-time-grid-container .fc-time-grid .fc-slats table tbody tr{}
+                            .fc-time-grid-container .fc-time-grid .fc-slats table tbody .fc-minor{}
+                              .fc-time-grid-container .fc-time-grid .fc-slats table tbody tr td{}
+                              .fc-time-grid-container .fc-time-grid .fc-slats table tbody tr .fc-time{}
+                              .fc-time-grid-container .fc-time-grid .fc-slats table tbody tr .fc-widget-content{height:15px; border-bottom:1px solid #e4eef0; border-right:0; border-left:0;}
+                              .fc-time-grid-container .fc-time-grid .fc-slats table tbody .fc-minor .fc-widget-content{border-bottom:1px solid #b3cad0;}
+                              .fc-time-grid-container .fc-time-grid .fc-slats table tbody tr .fc-axis,
+                              .fc-time-grid-container .fc-time-grid .fc-slats table tbody .fc-minor .fc-axis{position:relative; width:39px !important; padding:0; color:#014e68; font-family:'Conv_Dosis-Bold',arial,sans-serif; font-size:100%; border:0; border-left:1px solid #fff;}
+                                .fc-time-grid-container .fc-time-grid .fc-slats table tbody tr .fc-axis span{position:absolute; top:0; right:5px; display:block; margin:-10px 0 0 0;}
+
+                      /* BOTTOM SEPARATOR */
+                      hr{}
+                      .fc-time-grid-container .fc-time-grid .fc-divider{display:none !important;}
+                      .fc-time-grid-container .fc-time-grid .fc-widget-header{}
+
+                      /* EVENTS BOX */
+                      div{}
+                      .fc-time-grid-container .fc-time-grid .fc-content-skeleton{}
+                        .fc-time-grid-container .fc-time-grid .fc-content-skeleton table{}
+                          .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody{}
+                            .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr{}
+                              .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td{height:15px; border:0;}
+                              .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr .fc-axis{width:39px !important; padding:0; border:0; border-left:1px solid #fff;}
+                              .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td div{}
+                              .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .fc-event-container{margin:0 1px 0 2px;}
+                                .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .fc-event-container a,
+                                .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .fc-event-container a:link{width:auto; margin:3px 1px 2px 1px; border:0; border-radius:0; color:#fff; cursor:pointer;}
+                                .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .fc-event-container .fc-time-grid-event{}
+                                .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .fc-event-container .fc-v-event{}
+                                .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .fc-event-container .fc-event{}
+                                .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .fc-event-container .fc-start{}
+                                .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .fc-event-container .fc-end{}
+                                .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .fc-event-container .programme-1{background:#1f4d0f;}
+                                .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .fc-event-container .programme-2{background:#7e0139;}
+                                .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .fc-event-container .programme-3{background:#6e5b3f;}
+                                .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .fc-event-container .programme-4{background:#6e5b3f;}
+                                .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .fc-event-container .programme-1.cours-magistral{background:#33801a;}
+                                .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .fc-event-container .programme-2.cours-magistral{background:#d3025e;}
+                                .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .fc-event-container .programme-3.cours-magistral{background:#322207;}
+                                .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .fc-event-container .programme-4.cours-magistral{background:#322207;}
+                                .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .fc-event-container .examen{background:#a71700;}
+
+                                .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .fc-event-container a:before{content:""; position:absolute; right:0; bottom:0; border-style:solid; border-width:0 0 26px 26px; border-color:transparent transparent rgba(0,0,0,0.50) transparent; z-index:9998;}
+                                .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .fc-event-container a:after{background:url('/assets/images/general/icone/uqam/icone_plus-calendrier_blanc.svg') no-repeat 12px 12px; content:""; position:absolute; right:0; bottom:0; width:23px; height:23px; z-index:9998;}
+
+                                  .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .fc-event-container a .fc-content{padding:5px;}
+                                    .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .fc-event-container a .fc-content>span{font-size:75%; color:#fff;}
+                                    .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .fc-event-container a .fc-content p{margin:0; padding:0;}
+                                    .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .fc-event-container a .fc-content .fc-title{padding:0; font-size:125%; font-weight:bold;}
+                                    .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .fc-event-container a .fc-content .fc-time{padding:0; font-size:100%; font-weight:bold;}
+                                      .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .fc-event-container a .fc-content .fc-time span{color:#fff;}
+                                    .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .fc-event-container a .fc-content .coursType{font-size:100%; font-weight:normal;}
+                                    .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .fc-event-container a .fc-content .coursLocal{font-size:100%; font-weight:normal;}
+
+                                  .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .fc-event-container a .fc-bg{background:#000; display:none; opacity:0.15; z-index:9999;}
+                                  .fc-time-grid-container .fc-time-grid .fc-content-skeleton table tbody tr td .fc-event-container a:hover .fc-bg{display:block;}
+
+  /* ---------------------------------------------------------------------------------------------------- */
+  /* COURS */
+  .cours-container{}
+    .cours-container h2{padding:0 0 15px 0; text-transform:none;}
+    .cours-container h4{width:20%; padding:10px 0 0 0;}
+
+    .cours-container .btn{position:relative; margin:10px 0 0 0; padding:7px 14px 7px 14px; border:0; border-radius:4px; font-family:Conv_Dosis-Bold,arial,sans-serif; letter-spacing:0.75px;}
+    /*.cours-container .btn:after{background:#fff; content:''; position:absolute; top:0; left:0; display:none; width:100%; height:100%; opacity:0.25;}
+    .cours-container .btn:hover:after{display:block;}*/
+      .cours-container .btn.btn-info{background:#01aee8; width:auto; height:auto;}
+      .cours-container .btn.btn-info:hover{background:#0079a0; width:auto; height:auto;}
+
+    .cours{font-size:100%;}
+
+      .cours .uqam-icone{display:inline-block;}
+
+      /* TABLEAU */
+      .cours div,
+      .cours .table-responsive{}
+
+        .cours table,
+        .cours .table,
+        .cours .table-condensed{}
+          .cours table thead{}
+            .cours table thead tr{}
+              .cours table thead tr th{vertical-align:bottom; padding:10px 0 25px 0; border-bottom:1px solid #b2cbd0;}
+              .cours table thead tr td{padding:5px 0 15px 0; border-bottom:1px solid #b2cbd0;}
+                .cours table thead tr th h2{margin:0; padding:0;}
+                .cours table thead tr th h3{margin:0; padding:0;}
+          .cours table tbody{}
+            .cours table tbody tr{}
+              .cours table tbody tr th{padding:10px 0 10px 0; border-bottom:1px solid #b2cbd0;}
+              .cours table tbody tr td{padding:10px 0 10px 0; border-bottom:1px solid #b2cbd0;}
+                .cours table tbody tr th span{color: #004e68; font-family:'Conv_Dosis-Bold',arial,sans-serif; font-size:112.5%; font-weight:bold; text-transform:uppercase;}
+                .cours table tbody tr th h5{margin:0; padding:0;}
+                .cours table tbody tr td h5{margin:0; padding:0;}
+
+                .cours table tbody tr td a.moodle,
+                .cours table tbody tr td a.moodle:link{position:relative; display:block; padding:0 0 0 32px;}
+                .cours table tbody tr td a.moodle:active{}
+                .cours table tbody tr td a.moodle:focus{}
+                .cours table tbody tr td a.moodle:hover{}
+                .cours table tbody tr td a.moodle:visited{}
+                  .cours table tbody tr td a.moodle img{position:absolute; top:-7px; left:0;}
+
+                .cours table tbody tr td ul{margin:0; padding:0;}
+
+              .cours table tbody tr .separation{width:100%; height:4px; padding:0; border:0;}
+
+                /* SOUS TABLEAU */
+                .cours table tbody tr td div,
+                .cours table tbody tr td .table-responsive{}
+
+                  .cours table tbody tr td table,
+                  .cours table tbody tr td .table,
+                  .cours table tbody tr td .table-condensed{width:100%; margin:10px 0 10px 0; border:1px solid #fff; border-top:1px solid #014e68;}
+                    .cours table tbody tr td table thead{border:0;}
+                      .cours table tbody tr td table thead tr{border:0;}
+                        .cours table tbody tr td table thead tr th{background:#014e68; padding:10px; border:1px solid #014e68;}
+                        .cours table tbody tr td table thead tr td{padding:10px;}
+                          .cours table tbody tr td table thead tr th span{color:#fff;}
+                          .cours table tbody tr td table thead tr th h5{color:#fff;}
+
+                  .cours table tbody tr td table tbody{border:0;}
+                      .cours table tbody tr td table tbody tr{border:0;}
+                        .cours table tbody tr td table tbody tr th{background:#e5edf0; padding:10px; border:1px solid #c2d5dc;}
+                        .cours table tbody tr td table tbody tr td{padding:10px; border:1px solid #c2d5dc;}
+                        .cours table tbody tr td table tbody tr .separation{border:0;}
+                          .cours table tbody tr td table tbody tr td p{margin:0; padding:0;}
+
+
+/* ---------------------------------------------------------------------------------------------------- */
+/* HORAIRE */
+
+/* voir le css horaire.scss - pas utilise */
+
+.horaire{}
+  div{}
+    .horaire p{}
+      .horaire>div>p a,
+      .horaire>div>p a:link{font-family:'Conv_Dosis-Bold',arial,sans-serif;}
+      .horaire>div>p a:active{}
+      .horaire>div>p a:focus{}
+      .horaire>div>p a:hover{}
+      .horaire>div>p a:visited{}
+        .horaire>div>p a img{margin:-5px 0 0 0;}
+    .horaire hr{margin:20px 0 20px 0;}
+    .horaire>div>div:nth-child(2) hr{display:none;}
+
+  div{}
+    div,
+    .ng-scope{}
+      h3{}
+      accordion{}
+        accordion div{}
+        accordion .panel-group{}
+          accordion .panel-group div{}
+          accordion .panel-group .panel{background:none; margin:0 0 9px 0; padding:0; font-size:100%; border:0; border-radius:0; box-shadow:none;}
+          accordion .panel-group .panel-default{}
+          accordion .panel-group .ng-isolate-scope{}
+
+            /* HEADING */
+            accordion .panel-group .panel div{}
+            accordion .panel-group .panel .panel-heading{background:#00ade7; padding:0; border-radius:0; cursor:pointer;}
+              accordion .panel-group .panel .panel-heading h4{font-family:'Asap-Regular',arial,sans-serif; margin:0; padding:0; color:#fff; text-transform:none;}
+              accordion .panel-group .panel .panel-heading .panel-title{}
+                accordion .panel-group .panel .panel-heading h4 a,
+                accordion .panel-group .panel .panel-heading h4 a:link{display:block; position:relative; color:#fff;}
+                accordion .panel-group .panel .panel-heading h4 a:active{}
+                accordion .panel-group .panel .panel-heading h4 a:focus{}
+                accordion .panel-group .panel .panel-heading h4 a:hover{color:#fff; text-decoration:none;}
+                accordion .panel-group .panel .panel-heading h4 a:visited{}
+                accordion .panel-group .panel .panel-heading h4 .accordion-toggle{}
+                /*accordion .panel-group .panel .panel-heading h4 a:after{background:url('/assets/images/general/icone/uqam/icone_plus_blanc.svg') no-repeat 0 0; content:""; position:absolute; top:13px; right:20px; display:block; width:10px; height:10px;}*/
+
+                  accordion .panel-group .panel .panel-heading h4 a span{display:block; position:relative; padding:10px 40px 10px 20px; color:#fff;}
+                  accordion .panel-group .panel .panel-heading h4 a .ng-binding{}
+                  accordion .panel-group .panel .panel-heading h4 a span:before{background:url('/assets/images/general/icone/uqam/icone_plus_blanc.svg') no-repeat 0 0; content:""; position:absolute; top:13px; right:20px; display:block; width:10px; height:10px;}
+                  accordion .panel-group .panel .panel-heading h4 a:focus>span,
+                  accordion .panel-group .panel .panel-heading h4 a:active>span{background:#00ade7;}
+                  accordion .panel-group .panel .panel-heading h4 a:focus>.ouvert,
+                  accordion .panel-group .panel .panel-heading h4 a:active>.ouvert{background:#014e68;}
+                  accordion .panel-group .panel .panel-heading h4 a:hover>span{background:#014e68;}
+                  accordion .panel-group .panel .panel-heading h4 a .ouvert{background:#014e68;}
+                  accordion .panel-group .panel .panel-heading h4 a .ouvert:before{background:url('/assets/images/general/icone/uqam/icone_moins_blanc.svg') no-repeat 0 0; top:10px; right:17px; width:16px; height:16px;}
+                    accordion .panel-group .panel .panel-heading h4 a span span{background:none; padding:0;}
+                     accordion .panel-group .panel .panel-heading h4 a span span:first-child{width:85px;}
+                    accordion .panel-group .panel .panel-heading h4 a span span:before,
+                    accordion .panel-group .panel .panel-heading h4 a .ouvert span:before{background:none; display:none;}
+                    accordion .panel-group .panel .panel-heading h4 a:hover span span{background:none;}
+
+            /* BODY */
+            accordion .panel-group .panel div{}
+            accordion .panel-group .panel .panel-collapse,
+            accordion .panel-group .panel .panel-collapse{padding:20px; color:inherit; font-size:100%; border:1px solid #014e68;}
+              accordion .panel-group .panel .panel-collapse div{}
+              accordion .panel-group .panel .panel-collapse .panel-body{border:0 !important; color:#000;}
+              accordion .panel-group .panel .panel-collapse .panel-body:before{display:none;}
+                accordion .panel-group .panel .panel-collapse .panel-body accordion-heading{display:none;}
+                accordion .panel-group .panel .panel-collapse .panel-body div{}
+                accordion .panel-group .panel .panel-collapse .panel-body .ng-scope{}
+                accordion .panel-group .panel .panel-collapse .panel-body .ng-isolate-scope{font-size:100%;}
+                  accordion .panel-group .panel .panel-collapse .panel-body div div{}
+                  accordion .panel-group .panel .panel-collapse .panel-body div .cours{}
+                    .horaire accordion .panel-group .panel .panel-collapse .panel-body div div div{}
+                    .horaire accordion .panel-group .panel .panel-collapse .panel-body div div .table-repsonsive{}
+
+                      .horaire accordion .cours table{}
+                        .horaire accordion .cours table thead{}
+                          .horaire accordion .cours table thead tr{}
+                            .horaire accordion .cours table thead tr th{}
+                            .horaire accordion .cours table thead tr td{}
+                        .horaire accordion .cours table tbody{}
+                          .horaire accordion .cours table tbody tr{}
+                            .horaire accordion .cours table tbody tr th{}
+                            .horaire accordion .cours table tbody tr td{}
+
+                              .horaire accordion .cours table tbody tr td div
+                                .horaire accordion .cours table tbody tr td div{}
+                                .horaire accordion .cours table tbody tr td .table-responsive{}
+                                  .horaire accordion .cours table tbody tr td table{border-top:0;}
+                                    .horaire accordion .cours table tbody tr td table thead{}
+                                      .horaire accordion .cours table tbody tr td table thead tr{}
+                                        .horaire accordion .cours table tbody tr td table thead tr th{background:none; padding-left:0; padding-right:0; color:#014e68; border:0;}
+                                          .horaire accordion .cours table tbody tr td table thead tr th span{color:#014e68;}
+                                          .horaire accordion .cours table tbody tr td table thead tr th h5{color:#014e68;}
+                                        .horaire accordion .cours table tbody tr td table thead tr td{}
+                                    .horaire accordion .cours table tbody tr td tbody{}
+                                      .horaire accordion .cours table tbody tr td tbody tr{}
+                                        .horaire accordion .cours table tbody tr td tbody tr th{}
+                                        .horaire accordion .cours table tbody tr td tbody tr td{}

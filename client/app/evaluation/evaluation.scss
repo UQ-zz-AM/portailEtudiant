@@ -1,0 +1,209 @@
+/* EVALUATION DE L'ENSEIGNEMENT */
+/* ---------------------------------------------------------------------------------------------------- */
+
+/* Variables */
+
+/* Fonts sizes */
+$ft-size-base:20px;
+$ft-size-titre:24px;
+$ft-size-titre2:29px;
+
+$ft-size-buton-etape:18px;
+$ft-size-buton-etape-sp:16px;
+$ft-warning:14px;
+
+
+/* Couleurs */
+$turquoise:#0681AE;
+$bleu-fonce:#014e68;
+$bleu-ciel:#E7F2F6;
+$autre-bleu:#01aee8;
+
+/* Fonts */
+$Asap:'Asap-Regular',arial, sans-serif;
+$Asap-b:'Asap-Bold',arial, sans-serif;
+$Dosis:'Conv_Dosis-Regular',arial,sans-serif;
+$Dosis-b:'Conv_Dosis-Bold',arial,sans-serif;
+
+/* ---------------------------------------------------------------------------------------------------- */
+
+/******************** Les évaluations disponibles Desktop  ********************/
+
+.evaluation .visible-lg h3{
+   font-size:$ft-size-titre2;
+   font-family:$Asap-b;
+   font-weight: lighter;
+}
+.evaluation .table-responsive table.table-bordered {border-color:$bleu-fonce}
+.evaluation .table-responsive table.table-bordered tr td {border-width:1px;border-color:$bleu-fonce!important;}
+.evaluation .table-responsive table.table-bordered tr th {border-width:1px;border-color:$bleu-fonce!important;}
+
+/* Première rangée des tableaux. */
+.evaluation .table-responsive table.table-bordered thead tr:nth-of-type(1) {
+   background-color:$bleu-ciel;
+   font-family:$Dosis-b ;
+   color: $bleu-fonce;   
+}
+
+/* En-têtes des tableaux. m*/
+.evaluation .table-responsive table.table-bordered thead tr:nth-of-type(1) th {
+   padding-top:8px;
+   padding-bottom:10px;
+}
+
+/* Les boutons dans le tableau */
+.evaluation .table-responsive table.table-bordered td a {
+   background-color:$autre-bleu;
+   font-family:$Asap;
+   font-size:14px;
+   color:white;
+}
+.evaluation .table-responsive table.table-bordered td a:hover {
+   background-color:$bleu-fonce;
+}
+
+.evaluation .table-responsive table.table-bordered td a.disabled {
+   background-color:$autre-bleu;
+   opacity:0.25;
+}
+  
+
+
+/******************** Les évaluations disponibles mobiles  ********************/
+
+/* Titre */
+.evaluation div.visible-xs h3 {text-transform:none; font-size:$ft-size-titre;}
+
+/* Évaluation à faire */
+.evaluation div.visible-xs div.a-completer,
+.evaluation div.visible-xs div.a-faire {
+   left:10px;   /* :98%;  iphone4  */
+   right:10px;
+   background-color: $bleu-ciel;
+   color:$bleu-fonce;
+   
+   /* Police de base */
+   font-family:$Asap-b;
+   font-size:$ft-size-base;
+   border:1px solid $turquoise;
+
+   padding-top:25px;
+   padding-bottom:25px;
+   padding-left:25px;
+   padding-right:15px;
+}
+
+/* Contenu d'un cours */
+.evaluation div.visible-xs div.a-completer p,
+ .evaluation div.visible-xs div.a-faire p {
+ font-family:$Asap;
+ color:black;
+ line-height:1.1em;
+}
+
+/* Div pour le bouton évaluer */
+.evaluation div.visible-xs div.a-completer div,
+.evaluation div.visible-xs div.a-faire div{
+   margin-top:28px;
+   text-align:center;
+}
+
+/* Bouton évaluer */
+
+.evaluation div.visible-xs div.a-faire div a {
+   background-color:$autre-bleu;
+   color:white;
+
+   padding-left:32px;
+   padding-right:32px;
+   
+   font-family:$Asap;
+   font-size:$ft-size-buton-etape;
+}
+
+.evaluation div.visible-xs div.a-faire div a.desactive {
+   background-color:$autre-bleu;
+   opacity:0.25;
+}
+
+/*************************** Le Wizard mobile **************************/
+/* Remonter la section de description du cours. */
+
+faireeval div.table-responsive.visible-xs {width:98%;}
+
+/* Titre du cours etc. */
+.faireeval div.table-responsive.visible-xs span.titre  {
+   font-size:$ft-size-titre; font-family:$Asap-b;color:$bleu-fonce;
+}
+.faireeval div.table-responsive.visible-xs span.titre span {
+   font-size:$ft-size-titre; font-family:$Asap;color:$bleu-fonce;
+}
+
+/* La page de début d'évaluation doite être centrée. */
+.faireeval .table-responsive.visible-xs .presentation {text-align:center;}
+.faireeval .table-responsive.visible-xs .presentation a {background-color:$autre-bleu;}
+.faireeval .table-responsive.visible-xs .presentation a span {color:white;font-size:$ft-size-buton-etape;font-family:$Asap-b;}
+.faireeval .table-responsive.visible-xs .presentation p {text-align:left;font-size:$ft-size-base;}
+
+/* Le numéro de la question. */
+.faireeval .table-responsive.visible-xs .wizard div p:nth-of-type(1) {margin-left:12px;text-align:left;font-size:$ft-size-base;font-weight:bold;}
+/* Le paragraphe de la question */
+.faireeval .table-responsive.visible-xs .wizard div p:nth-of-type(2) {margin-left:46px;margin-top:-42px;text-align:left;font-size:$ft-size-base;}
+
+/* Les warnings du mobile */
+.faireeval .table-responsive.visible-xs .wizard div:nth-of-type(3) p{font-size:$ft-warning;font-weight:normal;}
+
+/* Les boutons suivant/précédent du wizard. */
+.faireeval .table-responsive.visible-xs .wizard div:nth-of-type(4) table tr {border:0;}
+.faireeval .table-responsive.visible-xs .wizard div:nth-of-type(4) table tr td {border:0; width:33%;}
+.faireeval .table-responsive.visible-xs .wizard div:nth-of-type(4) table tr td a {
+   background-color:$autre-bleu;
+   font-size:$ft-size-buton-etape-sp;
+   font-family:$Asap-b;
+}
+.faireeval .table-responsive.visible-xs .wizard div:nth-of-type(4) table tr td a[disabled] {
+   background-color:$autre-bleu;
+   opacity:0.25;
+}
+.faireeval .table-responsive.visible-xs .wizard div:nth-of-type(4) table tr td a span{color:white;}
+
+/* Texte entre les boutons: 2/20 */
+.faireeval .table-responsive.visible-xs .wizard div:nth-of-type(4) table tr td:nth-of-type(2) span {color:$bleu-fonce;font-size:$ft-size-base;font-family:$Asap-b;}
+
+/* character < et > des boutons mobiles */
+.faireeval .table-responsive.visible-xs .wizard div:nth-of-type(4) table tr td:nth-of-type(1) span span{position:relative;top:-2px;}
+.faireeval .table-responsive.visible-xs .wizard div:nth-of-type(4) table tr td:nth-of-type(3) span span{position:relative;top:-2px;}
+
+
+/* Contrôles pour mobile !*/
+.faireeval .mobile-button-container {
+   background-color:$bleu-ciel;
+   padding-top:30px;
+   padding-left:46px;
+   padding-bottom:30px;
+   margin-bottom:40px;
+}
+.faireeval .mobile-button div {
+   cursor:pointer;
+   display: inline-block;
+   width:44px;
+   height:44px;
+   padding:12px;   
+   background-color:$turquoise;
+   color:white;
+   text-align: center;
+   font-weight: bold;
+   font-size:$ft-size-base;
+   line-height:1.2em;
+   margin-bottom: 1px;
+}
+.faireeval .mobile-button div:nth-child(1) {border-top-left-radius:11px;border-top-right-radius:11px;}
+
+/* Attention les spans comptent lorsque display: inline-block; */
+.faireeval .mobile-button div:nth-child(13) {border-bottom-left-radius:11px;border-bottom-right-radius:11px;}
+
+/* Hover */
+.faireeval .mobile-button div:hover {background-color:$bleu-fonce !important;border-color:$bleu-fonce;}
+
+/* Libellés textes qui accompagnent les boutons. */
+.faireeval .mobile-button .libel {color:$turquoise;font-size:($ft-size-buton-etape - 1);margin-left:8px;}
