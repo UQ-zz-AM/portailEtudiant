@@ -809,11 +809,8 @@ module.exports = function(grunt) {
          'replace:configClient',
          'injector:sass',
          'concurrent:dist',
-         'injector',         // injector:sass injecte tous les scss
-                             // des répertoires standards + assets
-                             // que nous avons ajouté pour header et footer.
-         'wiredep',          // inject Bower components dans index.html
-
+         'injector',
+         'wiredep',
          'useminPrepare',
          'autoprefixer',
          'ngtemplates',
