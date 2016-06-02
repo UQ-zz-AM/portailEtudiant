@@ -1,6 +1,6 @@
 # Portail Étudiant UQAM
 
-La documentation pour l'installation fera partie du refactoring en cours.
+La documentation de l'installation fera partie du refactoring en cours.
 
 Voici un aperçu des fonctionnalités du Portail Étudiant:
 
