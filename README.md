@@ -4,4 +4,4 @@ Nous déposons progressivement une version préliminaire du Portail Étudiant UQ
 
 ![Le Portail Étudiant](./portail-etudiant.png?raw=true")
 
-Consulter les présentations sur notre [écosystème de développement](https://docs.google.com/presentation/d/1LNCdUgwupjEPO-gb_KqIsgu1xVaivm3ReqhxEijZcL4/edit?usp=sharing) et sur [l'UX](https://docs.google.com/presentation/d/1gS6wAdBAX5LBqyZeeOYBcAQfz68ZbH6N4JDaPZilgbQ/edit?usp=sharing).
+Consulter les présentations sur notre [écosystème de développement](https://drive.google.com/open?id=1jwWy77ZsypxBVUaoGYIRKdvOSqe4JsBUbaFk7EQ8kTc) et sur [l'UX](https://drive.google.com/open?id=1ywg0NhcZOW9CT-jXr3GmNAHkhpcq22jfocfD0iAjl-g).
